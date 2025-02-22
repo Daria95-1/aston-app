@@ -1,7 +1,12 @@
-const tailwindConfig = {
-    content: ['./src/**/*.{js,jsx,ts,tsx}'],
-    theme: { extend: { colors: { mainBlue: '#2B8AFF' } } },
+module.exports = {
+    content: ['./src/**/*.{html,js,jsx,ts,tsx}'],
+    theme: {
+        extend: {},
+    },
     plugins: [],
+    corePlugins: {
+        gap: true, 
+        margin: true,
+        padding: true,
+    },
 }
-
-export default tailwindConfig
