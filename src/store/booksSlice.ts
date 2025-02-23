@@ -19,7 +19,7 @@ interface State {
 
 export const fetchBooks = createAsyncThunk("books/fetchBooks", async function (_, { rejectWithValue }) {
     try {
-        const response = await fetch("https://hopenlibrary.org/search.json?q=the+lord+of+the+rings");
+        const response = await fetch("https://openlibrary.org/search.json?q=the+lord+of+the+rings");
 
         if (!response.ok) {
             throw new Error("Error!");
