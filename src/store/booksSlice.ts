@@ -1,4 +1,10 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import type { RootState } from "./store";
+
+const URL_START = "https://openlibrary.org/search.json?q=the+lord+of+the+rings";
+const STATUS_LOADING = "loading";
+const STATUS_RESOLVED = "resolved";
+const STATUS_REJECTED = "rejected";
 
 interface Book {
     author_key: string[];
@@ -13,13 +19,13 @@ interface Book {
 
 interface State {
     bookList: Book[];
-    status: null | string;
+    status?: string;
     error: null | string;
 }
 
-export const fetchBooks = createAsyncThunk("books/fetchBooks", async function (_, { rejectWithValue }) {
+export const fetchBooks = createAsyncThunk("@books/fetchBooks", async function (_, { rejectWithValue }) {
     try {
-        const response = await fetch("https://openlibrary.org/search.json?q=the+lord+of+the+rings");
+        const response = await fetch(URL_START);
 
         if (!response.ok) {
             throw new Error("Error!");
@@ -36,7 +42,7 @@ export const fetchBooks = createAsyncThunk("books/fetchBooks", async function (_
 
 const initialState: State = {
     bookList: [],
-    status: null,
+    status: "",
     error: null,
 };
 
@@ -50,15 +56,15 @@ export const booksSlice = createSlice({
     },
     extraReducers: (builder) => {
         builder.addCase(fetchBooks.pending, (state) => {
-            state.status = "loading";
+            state.status = STATUS_LOADING;
             state.error = null;
         });
         builder.addCase(fetchBooks.fulfilled, (state, action) => {
-            state.status = "resolved";
+            state.status = STATUS_RESOLVED;
             state.bookList = action.payload.docs;
         });
         builder.addCase(fetchBooks.rejected, (state, action) => {
-            state.status = "rejected";
+            state.status = STATUS_REJECTED;
             if (typeof action.payload === "string") {
                 state.error = action.payload;
             }
@@ -69,3 +75,7 @@ export const booksSlice = createSlice({
 export const { firstLoading } = booksSlice.actions;
 
 export default booksSlice.reducer;
+
+export const selectAllBooks = (state: RootState) => state.books.bookList;
+export const selectStatus = (state: RootState) => state.books.status;
+export const selectError = (state: RootState) => state.books.error;
