@@ -1,7 +1,10 @@
 import { useForm } from 'react-hook-form'
+import { useState } from 'react'
 import * as yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { Button, Input } from '@components'
+import { Link } from 'react-router-dom'
+import { server } from '../../bff'
+import { Button, Input, Icon } from '@components'
 
 const authFormSchema = yup.object().shape({
     login: yup
@@ -37,51 +40,60 @@ export const Authorization = () => {
         resolver: yupResolver(authFormSchema)
      })
     
-    const onSubmit = () => { }
-    // время 14:03
+    const [serverError, setServerError] = useState(null)
+    
+    const onSubmit = ({ login, password }) => {
+        server.authorize(login, password).then(({ error, res }) => {
+            if (error) {
+                setServerError(`Ошибка запроса: ${error}`)
+            }
+
+
+        })
+    }
+
+    const formError = errors?.login?.message || errors?.password?.message
+
+    const errorMessage = formError || serverError
     
     return (
-        <div className="flex flex-col items-center justify-center mt-[150px]">
-            <div className="flex flex-col items-center text-center p-12 gap-3 shadow rounded-xl">
-                <h2 className="text-xl font-semibold">Авторизация</h2>
+        <div className="flex flex-col items-center justify-center mt-[200px]">
+            <div className="flex flex-col items-center text-center rounded-[4px] form-shadow">
                 <form
-                    className="flex flex-col w-full mobile:w-80 gap-3"
+                    className="flex flex-col w-[350px] items-center justify-center bg-[white] gap-[15px] px-[30px] pt-[40px] pb-[60px] rounded-[10px]"
                     onSubmit={handleSubmit(onSubmit)}
                 >
+                    <h2 className="font-semibold">Вход</h2>
                     <Input
                         type="text"
                         placeholder="Введите логин..."
-                        {...register('login')}
+                        {...register('login', {
+                            onChange: () => setServerError(null),
+                        })}
                     />
 
-                    <div className="relative w-full">
-                        <Input
-                            type=""
-                            placeholder="Введите пароль"
-                            {...register('login')}
-                        />
-                        <Button
-                            type="submit"
-                            className="absolute inset-y-1 right-0 px-3 flex items-center focus:outline-none text-gray-400"
-                        >
-                            <Icon
-                                className={`${showPassword ? 'bi-eye-slash' : 'bi-eye'}`}
-                            />
-                        </Button>
-                    </div>
+                    <Input
+                        type="password"
+                        placeholder="Введите пароль"
+                        {...register('password', {
+                            onChange: () => setServerError(null),
+                        })}
+                        showIcon={true}
+                    />
 
                     <Button
-                        className="button h-12"
                         type="submit"
+                        className="text-[18px] font-[500] w-full h-[45px] text-[white] bg-[#2B8AFF] border-0 rounded-[4px]"
                         disabled={!!formError}
                     >
                         Войти
                     </Button>
+                    {errorMessage && <div>{errorMessage}</div>}
                 </form>
             </div>
 
-            <Link className="font-normal mt-6 text-lg" to="/register">
-                Регистрация
+            <Link className="font-normal mt-[30px] text-lg" to="/register">
+                Зарегистрироваться
             </Link>
         </div>
     )
