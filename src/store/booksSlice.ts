@@ -2,10 +2,17 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import type { RootState } from "./store";
 
 const URL_BASE = "https://openlibrary.org/search.json?q=";
-const STATUS_LOADING = {
-    loading: "loading",
-    resolved: "resolved",
-    rejected: "rejected",
+
+interface Status {
+    LOADING: "loading";
+    RESOLVED: "resolved";
+    REJECTED: "rejected";
+}
+
+const STATUS_LOADING: Status = {
+    LOADING: "loading",
+    RESOLVED: "resolved",
+    REJECTED: "rejected",
 };
 
 interface Book {
@@ -58,15 +65,15 @@ export const booksSlice = createSlice({
     },
     extraReducers: (builder) => {
         builder.addCase(fetchBooks.pending, (state) => {
-            state.status = STATUS_LOADING.loading;
+            state.status = STATUS_LOADING.LOADING;
             state.error = "";
         });
         builder.addCase(fetchBooks.fulfilled, (state, action) => {
-            state.status = STATUS_LOADING.resolved;
+            state.status = STATUS_LOADING.RESOLVED;
             state.bookList = action.payload.docs;
         });
         builder.addCase(fetchBooks.rejected, (state, action) => {
-            state.status = STATUS_LOADING.rejected;
+            state.status = STATUS_LOADING.REJECTED;
             if (typeof action.payload === "string") {
                 state.error = action.payload;
             }
@@ -81,4 +88,4 @@ export default booksSlice.reducer;
 export const selectAllBooks = (state: RootState) => state.books.bookList;
 export const selectStatus = (state: RootState) => state.books.status;
 export const selectError = (state: RootState) => state.books.error;
-export const isBooksLoadingSelector = (state: RootState) => state.books.status === STATUS_LOADING.loading;
+export const isBooksLoadingSelector = (state: RootState) => state.books.status === STATUS_LOADING.LOADING;
