@@ -9,12 +9,6 @@ interface Status {
     REJECTED: "rejected";
 }
 
-const STATUS_LOADING: Status = {
-    LOADING: "loading",
-    RESOLVED: "resolved",
-    REJECTED: "rejected",
-};
-
 interface Book {
     author_key: string[];
     author_name: string[];
@@ -31,6 +25,12 @@ interface State {
     status?: string;
     error?: string;
 }
+
+const STATUS_LOADING: Status = {
+    LOADING: "loading",
+    RESOLVED: "resolved",
+    REJECTED: "rejected",
+};
 
 export const fetchBooks = createAsyncThunk("@books/fetchBooks", async function (_, { rejectWithValue }) {
     try {
