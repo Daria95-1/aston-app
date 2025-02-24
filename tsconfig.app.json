@@ -28,8 +28,8 @@
         "baseUrl": "./src",
         "paths": {
             "@components/*": ["components/*"],
-            "@utils/*": ["utils/*"] // Пример для других путей, если нужно
+            "@constants/*": ["constants/*"]
         }
     },
-    "include": ["src", "src/components.d.ts"]
+    "include": ["src", "src/components.d.ts", "src/constants.d.ts"]
 }

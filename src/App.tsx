@@ -1,5 +1,6 @@
 import { Routes, Route } from 'react-router-dom'
 import { Header } from '@components'
+import { ROUTES } from '@constants/routes'
 import './index.css'
 import './App.css'
 
@@ -8,11 +9,13 @@ function App() {
         <>
             <Header />
             <div>
-                {/* <h2>Контент страницы</h2> */}
                 <Routes>
-                    <Route path="/register" element={<div>Регистрация</div>} />
-                    <Route path="/login" element={<div>Авторизация</div>} />
-                    {/* <Route path='*' element={<div>Ошибка</div>} /> */}
+                    <Route
+                        path={ROUTES.REGISTER}
+                        element={<div>Регистрация</div>}
+                    />
+                    <Route path={ROUTES.LOGIN} element={<div>Авторизация</div>} />
+                    <Route path={ROUTES.NOT_FOUND} element={<div>Ошибка</div>} />
                 </Routes>
             </div>
             {/* <Footer /> */}
