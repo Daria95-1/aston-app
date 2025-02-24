@@ -1,10 +1,12 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import type { RootState } from "./store";
 
-const URL_START = "https://openlibrary.org/search.json?q=the+lord+of+the+rings";
-const STATUS_LOADING = "loading";
-const STATUS_RESOLVED = "resolved";
-const STATUS_REJECTED = "rejected";
+const URL_BASE = "https://openlibrary.org/search.json?q=";
+const STATUS_LOADING = {
+    loading: "loading",
+    resolved: "resolved",
+    rejected: "rejected",
+};
 
 interface Book {
     author_key: string[];
@@ -20,12 +22,12 @@ interface Book {
 interface State {
     bookList: Book[];
     status?: string;
-    error: null | string;
+    error?: string;
 }
 
 export const fetchBooks = createAsyncThunk("@books/fetchBooks", async function (_, { rejectWithValue }) {
     try {
-        const response = await fetch(URL_START);
+        const response = await fetch(`${URL_BASE}the+lord+of+the+rings`); //поправлю на строку из поиска когда он уже он у нас появится
 
         if (!response.ok) {
             throw new Error("Error!");
@@ -43,7 +45,7 @@ export const fetchBooks = createAsyncThunk("@books/fetchBooks", async function (
 const initialState: State = {
     bookList: [],
     status: "",
-    error: null,
+    error: "",
 };
 
 export const booksSlice = createSlice({
@@ -56,15 +58,15 @@ export const booksSlice = createSlice({
     },
     extraReducers: (builder) => {
         builder.addCase(fetchBooks.pending, (state) => {
-            state.status = STATUS_LOADING;
-            state.error = null;
+            state.status = STATUS_LOADING.loading;
+            state.error = "";
         });
         builder.addCase(fetchBooks.fulfilled, (state, action) => {
-            state.status = STATUS_RESOLVED;
+            state.status = STATUS_LOADING.resolved;
             state.bookList = action.payload.docs;
         });
         builder.addCase(fetchBooks.rejected, (state, action) => {
-            state.status = STATUS_REJECTED;
+            state.status = STATUS_LOADING.rejected;
             if (typeof action.payload === "string") {
                 state.error = action.payload;
             }
@@ -79,3 +81,4 @@ export default booksSlice.reducer;
 export const selectAllBooks = (state: RootState) => state.books.bookList;
 export const selectStatus = (state: RootState) => state.books.status;
 export const selectError = (state: RootState) => state.books.error;
+export const isBooksLoadingSelector = (state: RootState) => state.books.status === STATUS_LOADING.loading;
