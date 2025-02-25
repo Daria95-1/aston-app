@@ -29,7 +29,7 @@
         "paths": {
             "@components/*": ["components/*"],
             "@constants/*": ["constants/*"],
-            "@pages/*": ["pages/*"],
+            "@pages/*": ["pages/*"]
         }
     },
     "include": ["src", "src/components.d.ts", "src/constants.d.ts", "src/pages.d.ts"]
