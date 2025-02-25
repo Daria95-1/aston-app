@@ -28,8 +28,9 @@
         "baseUrl": "./src",
         "paths": {
             "@components/*": ["components/*"],
+            "@constants/*": ["constants/*"],
             "@pages/*": ["pages/*"],
         }
     },
-    "include": ["src", "src/components.d.ts", "src/pages.d.ts"]
+    "include": ["src", "src/components.d.ts", "src/constants.d.ts", "src/pages.d.ts"]
 }

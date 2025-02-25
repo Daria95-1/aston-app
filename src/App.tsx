@@ -3,6 +3,7 @@
 
 import { Routes, Route } from 'react-router-dom'
 import { Header } from '@components'
+import { ROUTES } from '@constants/routes'
 import { Authorization } from '@pages'
 import './App.css'
 
@@ -13,9 +14,15 @@ function App() {
             <Header />
             <div>
                 <Routes>
-                    <Route path="/register" element={<div>Регистрация</div>} />
-                    <Route path="/login" element={<Authorization />} />
-                    <Route path='*' element={<div>Ошибка</div>} />
+                    <Route
+                        path={ROUTES.REGISTER}
+                        element={<div>Регистрация</div>}
+                    />
+                    <Route path={ROUTES.LOGIN} element={<Authorization />} />
+                    <Route
+                        path={ROUTES.NOT_FOUND}
+                        element={<div>Ошибка</div>}
+                    />
                 </Routes>
             </div>
             {/* <Footer /> */}

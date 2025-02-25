@@ -69,8 +69,7 @@ body,
 html,
 body,
 #root {
-  width: 100%;
-  height: 100%;
+  min-height: 100%;
 }
 
 a {
@@ -83,7 +82,18 @@ input, button {
 }
 
 @layer components {
-  .form-shadow {
-    box-shadow: 0px 0px 10px var(--color-shadow);
+  .header {
+    background-color: var(--color-blue);
+  }
+
+  .logo-link,
+  .icon-bg,
+  .icon-text {
+    color: var(--color-white);
+  }
+
+  .logo {
+    font-size: 36px;
+    font-weight: 600;
   }
 }
