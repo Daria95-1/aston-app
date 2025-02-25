@@ -1,11 +1,16 @@
 import { configureStore } from "@reduxjs/toolkit";
+// import thunk from 'redux-thunk'
 import booksReducer from "./booksSlice";
+import { userReducer, usersReducer} from '@reducers'
+
 
 export const store = configureStore({
     reducer: {
         books: booksReducer,
+        user: userReducer,
+        users: usersReducer,
     },
-});
+})
 
 export type RootState = ReturnType<typeof store.getState>
 export type AppDispatch = typeof store.dispatch;

@@ -20,7 +20,7 @@ interface Book {
     title: string;
 }
 
-interface State {
+export interface State {
     bookList: Book[];
     status?: string;
     error?: string;

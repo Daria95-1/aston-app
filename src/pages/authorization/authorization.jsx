@@ -1,11 +1,13 @@
-import { server } from '../../bff'
-import { useForm } from 'react-hook-form'
 import { useState } from 'react'
+import { useDispatch } from 'react-redux'
+import { useForm } from 'react-hook-form'
+import { Link } from 'react-router-dom'
+import { server } from '../../bff'
 import * as yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { Link } from 'react-router-dom'
 import { Button, Input, ValidationError } from '@components'
 import { LINKS } from '@constants/links'
+import { setUser } from '@actions'
 
 const authFormSchema = yup.object().shape({
     login: yup
@@ -42,14 +44,17 @@ export const Authorization = () => {
      })
     
     const [serverError, setServerError] = useState(null)
+
+    const dispatch = useDispatch()
     
     const onSubmit = ({ login, password }) => {
         server.authorize(login, password).then(({ error, res }) => {
             if (error) {
                 setServerError(`Ошибка запроса: ${error}`)
+                return
             }
-
-
+            // в res находится ключ в виде hash
+            dispatch(setUser(res))
         })
     }
 
