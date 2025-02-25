@@ -8,10 +8,13 @@ export default defineConfig({
     resolve: {
         alias: {
             '@components': path.resolve(__dirname, 'src/components'),
+            '@actions': path.resolve(__dirname, 'src/actions'),
+            '@bff': path.resolve(__dirname, 'src/bff'),
             '@constants': path.resolve(__dirname, 'src/constants'),
             '@pages': path.resolve(__dirname, 'src/pages'),
             '@reducers': path.resolve(__dirname, 'src/reducers'),
-            '@actions': path.resolve(__dirname, 'src/actions'),
+            '@selectors': path.resolve(__dirname, 'src/selectors'),
+            '@types': path.resolve(__dirname, 'src/types'),
         },
     },
 })

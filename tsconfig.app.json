@@ -27,12 +27,15 @@
         /* Настройка абсолютных путей */
         "baseUrl": "./src",
         "paths": {
+            "@types/*": ["types/*"],
+            "@bff/*": ["bff/*"],
+            "@actions/*": ["actions/*"],
             "@components/*": ["components/*"],
             "@constants/*": ["constants/*"],
-            "@pages/*": ["pages/*"],
             "@reducers/*": ["reducers/*"],
-            "@actions/*": ["actions/*"]
+            "@selectors/*": ["selectors/*"],
+            "@pages/*": ["pages/*"],
         }
     },
-    "include": ["src", "src/components.d.ts", "src/constants.d.ts", "src/pages.d.ts", "src/reducers.d.ts", "src/actions.d.ts"]
+    "include": ["src", "src/types/*.d.ts"]
 }

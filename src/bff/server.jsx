@@ -1,12 +1,14 @@
 import { getUser } from './get-user'
 import { addUser } from './add-user'
 import { sessions } from './sessions'
-// import { createSession } from './create-session'
 
 export const server = {
+    async logout(session) {
+        sessions.remove(session)
+    },
     async authorize(authLogin, authPassword) {
         // ищем пользователя с конкретным логином
-        const user = getUser(authLogin)
+        const user = await getUser(authLogin)
 
         // если пользователь не найден, то ошибка
         if (!user) {

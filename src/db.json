@@ -4,7 +4,7 @@
             "id": "001",
             "login": "ivan",
             "password": "qwe123",
-            "role_id": 0
+            "role_id": 1
         }
     ],
     "roles": [
