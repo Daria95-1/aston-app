@@ -19,7 +19,6 @@ function App() {
     return (
         <>
             <Header />
-            <div>
                 <Routes>
                     <Route
                         path={ROUTES.REGISTER}
@@ -28,7 +27,6 @@ function App() {
                     <Route path={ROUTES.LOGIN} element={<div>Авторизация</div>} />
                     <Route path={ROUTES.NOT_FOUND} element={<div>Ошибка</div>} />
                 </Routes>
-            </div>
             {/* <Footer /> */}
             {isBooksLoading && <h2>Loading.........</h2>}
             {error && <h2>An error has occured {error}</h2>}
