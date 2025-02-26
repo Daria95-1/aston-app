@@ -1,6 +1,3 @@
-// подключить БД юзера:
-// json-server --watch src/db.json --port 5180
-
 import { Routes, Route } from 'react-router-dom'
 import { Header } from '@components'
 import { ROUTES } from '@constants'

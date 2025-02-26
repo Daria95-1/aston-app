@@ -1,11 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
-// import thunk from 'redux-thunk'
 import booksReducer from "./booksSlice";
-import { userReducer, usersReducer} from '@reducers'
+import { appReducer, userReducer, usersReducer} from '@reducers'
 
 
 export const store = configureStore({
     reducer: {
+        app: appReducer,
         books: booksReducer,
         user: userReducer,
         users: usersReducer,

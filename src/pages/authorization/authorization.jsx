@@ -1,13 +1,17 @@
-import { useState } from 'react'
-import { useDispatch } from 'react-redux'
+import { useEffect, useState } from 'react'
+import { useDispatch, useSelector, useStore } from 'react-redux'
 import { useForm } from 'react-hook-form'
-import { Link } from 'react-router-dom'
+import { Link, Navigate } from 'react-router-dom'
 import { server } from '../../bff'
 import * as yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { Button, Input, ValidationError } from '@components'
-import { LINKS } from '@constants/links'
+import { LINKS, ROLE } from '@constants'
 import { setUser } from '@actions'
+import { selectUserRole } from '@selectors'
+
+// подключить БД юзера:
+// json-server --watch src/db.json --port 5180
 
 const authFormSchema = yup.object().shape({
     login: yup
@@ -15,38 +19,55 @@ const authFormSchema = yup.object().shape({
         .required('Введите логин')
         .matches(
             /^\w+$/,
-            'Неверно заполнен логин. Допускаются только буквы и цифры'
+            'Неверно заполнен логин: допускаются только буквы и цифры'
         )
-        .min(3, 'Неверно заполнен логин. Минимум 3 символа')
-        .max(15, 'Неверно заполнен логин. Максимум 15 символов'),
+        .min(3, 'Неверно заполнен логин: минимум 3 символа')
+        .max(15, 'Неверно заполнен логин: максимум 15 символов'),
     password: yup
         .string()
         .required('Введите пароль')
         .matches(
             /^[\w#%]+$/,
-            'Неверно заполнен пароль. Допускаются только буквы, цифры и знаки # %'
+            'Неверно заполнен пароль: допускаются только буквы, цифры и знаки # %'
         )
-        .min(6, 'Неверно заполнен пароль. Минимум 6 символов')
-        .max(30, 'Неверно заполнен пароль. Максимум 30 символов'),
+        .min(6, 'Неверно заполнен пароль: минимум 6 символов')
+        .max(30, 'Неверно заполнен пароль: максимум 30 символов'),
 })
 
 export const Authorization = () => {
     const {
         register,
+        reset,
         handleSubmit,
-        formState: {errors},
-     } = useForm({
+        formState: { errors },
+    } = useForm({
         defaultValues: {
             login: '',
             password: '',
         },
-        resolver: yupResolver(authFormSchema)
-     })
+        resolver: yupResolver(authFormSchema),
+    })
+
     
     const [serverError, setServerError] = useState(null)
-
+    const store = useStore()
     const dispatch = useDispatch()
-    
+    const roleId = useSelector(selectUserRole)
+
+    // запускаем reset, когда флаг wasLogout меняется в appReducer
+    useEffect(() => {
+        let currentWasLogout = store.getState().app.wasLogout
+
+        return store.subscribe(() => {
+            let previousWasLogout = currentWasLogout
+            currentWasLogout = store.getState().app.wasLogout
+
+            if (currentWasLogout !== previousWasLogout) {
+                reset()
+            }
+        })
+    }, [reset, store])
+
     const onSubmit = ({ login, password }) => {
         server.authorize(login, password).then(({ error, res }) => {
             if (error) {
@@ -61,7 +82,12 @@ export const Authorization = () => {
     const formError = errors?.login?.message || errors?.password?.message
 
     const errorMessage = formError || serverError
-    
+
+    // редирект на главную при авторизации
+    if (roleId !== ROLE.GUEST) {
+        return <Navigate to={LINKS.MAIN_PAGE} />
+    }
+
     return (
         <div className="flex flex-col items-center justify-center mt-[200px]">
             <div className="flex flex-col items-center text-center rounded-[4px] form-shadow">
