@@ -2,13 +2,13 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import type { RootState } from "../store";
 import { ROUTES } from '@constants';
 
-interface Status {
+type Status = {
     LOADING: "loading";
     RESOLVED: "resolved";
     REJECTED: "rejected";
 }
 
-interface Book {
+type Book = {
     author_key: string[];
     author_name: string[];
     cover_edition_key: string;
@@ -19,7 +19,7 @@ interface Book {
     title: string;
 }
 
-export interface State {
+export type State = {
     bookList: Book[];
     status?: string;
     error?: string;

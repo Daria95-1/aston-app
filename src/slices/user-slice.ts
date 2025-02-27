@@ -3,7 +3,7 @@ import { createSlice } from '@reduxjs/toolkit'
 import { ROLE } from '@constants'
 
 // Определяем тип состояния для пользователя
-interface UserState {
+type UserState = {
     id: number | null
     login: string | null
     roleId: string

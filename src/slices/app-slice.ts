@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { type RootState } from '../store'
 
-interface AppState {
+type AppState = {
     wasLogout: boolean
 }
 
