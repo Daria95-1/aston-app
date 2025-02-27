@@ -1,6 +1,7 @@
 import React from 'react';
+import { Button } from './Button';
 
-interface BookCardProps {
+type BookCardProps = {
   id: number;
   price: number;
   title: string;
@@ -16,13 +17,11 @@ const BookCard: React.FC<BookCardProps> = ({ price, title, author, image }) => {
       <p>{title}</p>
       <p className="text-sm text-gray-600">{author}</p>
       <div className="mt-2 flex justify-center items-center space-x-2">
-        <button className="bg-blue-600 text-white px-4 py-2 rounded">
-          Купить
-        </button>
-        <button className="text-blue-400">🩵</button>
+        <Button variant="check">Подробнее</Button>
+        <Button variant="like">🩵</Button>
       </div>
     </div>
   );
 };
 
-export default BookCard;
+export  { BookCard };

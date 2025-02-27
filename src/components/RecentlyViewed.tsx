@@ -1,7 +1,7 @@
 import React from 'react';
-import BookCard from './BookCard';
+import { BookCard } from './BookCard';
 
-interface RecentlyViewedProps {
+type RecentlyViewedProps ={
   books: { id: number; price: number; title: string }[];
 }
 
@@ -21,4 +21,4 @@ const RecentlyViewed: React.FC<RecentlyViewedProps> = ({ books }) => {
   );
 };
 
-export default RecentlyViewed;
+export  { RecentlyViewed };
