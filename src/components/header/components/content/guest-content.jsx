@@ -1,10 +1,10 @@
 import { Link } from 'react-router-dom'
 import { IconButton } from '@components'
-import { LINKS } from '@constants'
+import { ROUTES } from '@constants'
 
 export const GuestContent = () => {
     return (
-        <Link to={LINKS.AUTH}>
+        <Link to={ROUTES.LOGIN}>
             <IconButton icon="bi-person-fill" text="Войти" />
         </Link>
     )

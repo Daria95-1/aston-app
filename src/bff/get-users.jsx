@@ -1,3 +1,7 @@
+import { ROUTES, USERS } from '@constants'
+
 // получаем пользователей из БД
 export const getUsers = () =>
-    fetch('http://localhost:5180/users').then((loadedUsers) => loadedUsers.json())
+    fetch(`${ROUTES.BASE_URL}/${USERS.USERS}`).then((loadedUsers) =>
+        loadedUsers.json()
+    )

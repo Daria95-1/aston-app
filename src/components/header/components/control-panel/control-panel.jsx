@@ -1,7 +1,7 @@
 import { useSelector } from 'react-redux'
 import { ROLE } from '@constants'
 import { IconButton } from '@components'
-import { selectUserRole } from '@selectors'
+import { selectUserRole } from '@slices'
 import { GuestContent, UserContent } from '../../components'
 
 export const ControlPanel = () => {

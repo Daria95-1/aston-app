@@ -1,4 +1,4 @@
-import { ROLE } from '@constants/role'
+import { ROLE } from '@constants'
 import { addBookToFavorites, logout } from './session'
 
 export const createSession = (roleId) => {

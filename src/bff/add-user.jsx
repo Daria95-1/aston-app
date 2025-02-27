@@ -1,5 +1,7 @@
+import { ROUTES, USERS } from '@constants'
+
 export const addUser = (login, password) =>
-    fetch('http://localhost:5180/users', {
+    fetch(`${ROUTES.BASE_URL}/${USERS.USER}`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json;charset=utf-8',

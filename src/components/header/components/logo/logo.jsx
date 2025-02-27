@@ -1,9 +1,9 @@
 import { Link } from 'react-router-dom'
-import { LINKS } from '@constants/links'
+import { ROUTES } from '@constants'
 
 export const Logo = () => {
     return (
-        <Link className="logo-link" to={LINKS.MAIN_PAGE}>
+        <Link className="logo-link" to={ROUTES.MAIN_PAGE}>
             <p className="text-[30px] font-[700] text-[white] cursor-pointer">
                 BookShowcase
             </p>

@@ -29,12 +29,11 @@
         "paths": {
             "@types/*": ["types/*"],
             "@bff/*": ["bff/*"],
-            "@actions/*": ["actions/*"],
             "@components/*": ["components/*"],
             "@constants/*": ["constants/*"],
-            "@reducers/*": ["reducers/*"],
-            "@selectors/*": ["selectors/*"],
             "@pages/*": ["pages/*"],
+            "@schemas/*": ["schemas/*"],
+            "@slices/*": ["slices/*"],
         }
     },
     "include": ["src", "src/types/*.d.ts"]
