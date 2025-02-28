@@ -1,11 +1,10 @@
-import React from 'react';
-import { BookCard } from './BookCard';
+import { BookCard } from '@components';
 
 type RecentlyViewedProps ={
   books: { id: number; price: number; title: string }[];
 }
 
-const RecentlyViewed: React.FC<RecentlyViewedProps> = ({ books }) => {
+export const RecentlyViewed: React.FC<RecentlyViewedProps> = ({ books }) => {
   return (
     <div className="my-4">
       <h2 className="text-xl font-bold mb-2">Вы смотрели ранее</h2>
@@ -20,5 +19,3 @@ const RecentlyViewed: React.FC<RecentlyViewedProps> = ({ books }) => {
     </div>
   );
 };
-
-export  { RecentlyViewed };

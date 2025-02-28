@@ -1,5 +1,5 @@
 import { forwardRef } from 'react'
-import { Button } from '../button/button'
+import { FormButton } from '@components'
 import { Icon } from '../icon/icon'
 
 export const Input = forwardRef(({ showIcon, ...props }, ref) => {
@@ -11,12 +11,12 @@ export const Input = forwardRef(({ showIcon, ...props }, ref) => {
                 ref={ref}
             />
             {showIcon && (
-                <Button
+                <FormButton
                     type="button"
                     className="absolute right-[0] top-1/2 transform -translate-y-1/2 text-gray-400 border-0"
                 >
                     <Icon className={'bi-eye-slash mb-[12px]'} />
-                </Button>
+                </FormButton>
             )}
         </div>
     )

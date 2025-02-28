@@ -5,7 +5,7 @@ import { server } from '../../bff'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { authFormSchema } from '@schemas'
 import { Link, Navigate } from 'react-router-dom'
-import { Button, Input, ValidationError } from '@components'
+import { FormButton, Input, ValidationError } from '@components'
 import { ROUTES, ROLE } from '@constants'
 import { selectUserRole, setUser } from '@slices'
 
@@ -88,13 +88,13 @@ export const Authorization = () => {
                         showIcon={true}
                     />
 
-                    <Button
+                    <FormButton
                         type="submit"
                         className="text-[18px] font-[500] w-full h-[45px] text-[white] bg-[#2B8AFF] mb-[25px] border-0 rounded-[4px]"
                         disabled={!!formError}
                     >
                         Войти
-                    </Button>
+                    </FormButton>
                     {errorMessage && (
                         <ValidationError>{errorMessage}</ValidationError>
                     )}
