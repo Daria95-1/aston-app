@@ -38,25 +38,27 @@
     font-display: swap;
 }
 
-@import "tailwindcss/base";
+/* @import "tailwindcss/base";
 @import "tailwindcss/components";
-@import "tailwindcss/utilities";
+@import "tailwindcss/utilities"; */
 
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   font-synthesis: none;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 
+  background: #F6F6F9;
   --color-blue: #2B8AFF;
-  --color-white: #fff;
-    --color-light-gray: #F4F4F4;
-  --color-gray: #6C6C6C;
-  --color-black: #000;
+  --color-shadow: #1617413f;
 }
 
 body,
@@ -72,8 +74,12 @@ body,
 
 a {
   text-decoration: none;
+  color: var(--color-blue)
 }
 
+input, button {
+    box-sizing: border-box;
+}
 
 @layer components {
   .header {
@@ -89,30 +95,5 @@ a {
   .logo {
     font-size: 36px;
     font-weight: 600;
-  }
-
-  .icon-blue {
-    color:var(--color-blue);
-  }
-
-  .icon-bg {
-    width: 40px;
-    height: 40px;
-    background: var(--color-white);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .icon-container {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-
-  .heder-icons {
-    display: flex;
-    gap: 40px;
   }
 }

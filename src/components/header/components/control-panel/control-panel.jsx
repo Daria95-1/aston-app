@@ -1,15 +1,22 @@
-import { Link } from 'react-router-dom'
-import { LINKS } from '@constants/links'
+import { useSelector } from 'react-redux'
+import { ROLE } from '@constants'
 import { IconButton } from '@components'
+import { selectUserRole } from '@slices'
+import { GuestContent, UserContent } from '../../components'
 
 export const ControlPanel = () => {
+    const roleId = useSelector(selectUserRole)
+
+    const displayContent = roleId === ROLE.GUEST ? <GuestContent /> : <UserContent />
+
     return (
         <div className="flex gap-[40px]">
-            <IconButton icon="bi-heart-fill" text="Избранное" />
-            <IconButton icon="bi-cart-fill" text="Корзина" />
-            <Link to={LINKS.AUTH}>
-                <IconButton icon="bi-person-fill" text="Войти" />
-            </Link>
+            <IconButton
+                icon="bi-heart-fill"
+                className={'cursor-pointer'}
+                text="Избранное"
+            />
+            {displayContent}
         </div>
     )
 }

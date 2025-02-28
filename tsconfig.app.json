@@ -27,9 +27,14 @@
         /* Настройка абсолютных путей */
         "baseUrl": "./src",
         "paths": {
+            "@types/*": ["types/*"],
+            "@bff/*": ["bff/*"],
             "@components/*": ["components/*"],
-            "@constants/*": ["constants/*"]
+            "@constants/*": ["constants/*"],
+            "@pages/*": ["pages/*"],
+            "@schemas/*": ["schemas/*"],
+            "@slices/*": ["slices/*"],
         }
     },
-    "include": ["src", "src/components.d.ts", "src/constants.d.ts"]
+    "include": ["src", "src/types/*.d.ts"]
 }

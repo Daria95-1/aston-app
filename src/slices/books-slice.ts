@@ -1,15 +1,14 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import type { RootState } from "./store";
+import type { RootState } from "../store";
+import { ROUTES } from '@constants';
 
-const URL_BASE = "https://openlibrary.org/search.json?q=";
-
-interface Status {
+type Status = {
     LOADING: "loading";
     RESOLVED: "resolved";
     REJECTED: "rejected";
 }
 
-interface Book {
+type Book = {
     author_key: string[];
     author_name: string[];
     cover_edition_key: string;
@@ -20,7 +19,7 @@ interface Book {
     title: string;
 }
 
-interface State {
+export type State = {
     bookList: Book[];
     status?: string;
     error?: string;
@@ -34,7 +33,7 @@ const STATUS_LOADING: Status = {
 
 export const fetchBooks = createAsyncThunk("@books/fetchBooks", async function (_, { rejectWithValue }) {
     try {
-        const response = await fetch(`${URL_BASE}the+lord+of+the+rings`); //поправлю на строку из поиска когда он уже он у нас появится
+        const response = await fetch(`${ROUTES.LIBRARY}the+lord+of+the+rings`) //поправлю на строку из поиска когда он уже у нас появится
 
         if (!response.ok) {
             throw new Error("Error!");
@@ -81,11 +80,23 @@ export const booksSlice = createSlice({
     },
 });
 
+export const booksReducer = booksSlice.reducer
+
 export const { firstLoading } = booksSlice.actions;
 
-export default booksSlice.reducer;
+export const selectAllBooks = (state: RootState): Book[] => {
+    return (state as { books: State }).books.bookList
+}
 
-export const selectAllBooks = (state: RootState) => state.books.bookList;
-export const selectStatus = (state: RootState) => state.books.status;
-export const selectError = (state: RootState) => state.books.error;
-export const isBooksLoadingSelector = (state: RootState) => state.books.status === STATUS_LOADING.LOADING;
+export const selectStatus = (state: RootState): string | undefined => {
+    return (state as { books: State }).books.status
+}
+
+export const selectError = (state: RootState): string | undefined => {
+    return (state as { books: State }).books.error
+}
+
+export const isBooksLoadingSelector = (state: RootState): boolean => {
+    return (state as { books: State }).books.status === STATUS_LOADING.LOADING
+}
+
