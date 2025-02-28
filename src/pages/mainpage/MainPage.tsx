@@ -1,16 +1,16 @@
 import { useState } from 'react'
 
-import './App.css'
+import './MainPage.css'
 import React from 'react';
-import { Header } from './components/Header';
-import { Search } from './components/Search';
-import { Filters } from './components/Filters';
-import { BookCard } from './components/BookCard';
-import { RecentlyViewed } from './components/RecentlyViewed';
-import { Footer } from './components/Footer';
-import { books, recentlyViewed } from './mock';
+import { Header } from '../../components/Header';
+import { Search } from '../../components/Search';
+import { Filters } from '../../components/Filters';
+import { BookCard } from '../../components/BookCard';
+import { RecentlyViewed } from '../../components/RecentlyViewed';
+import { Footer } from '../../components/Footer';
+import { books, recentlyViewed } from '../../mock';
 
-function App() {
+function Mainpage() {
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -30,6 +30,6 @@ function App() {
   );
 }
 
-export  { App };
+export  { Mainpage };
 
 
