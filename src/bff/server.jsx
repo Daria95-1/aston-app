@@ -39,10 +39,10 @@ export const server = {
     },
     async register(regLogin, regPassword) {
         // проверяем, что логин не занят
-        const user = getUser(regLogin)
+        const existedUser = await getUser(regLogin)
 
         // если пользователь найден, то ошибка
-        if (user) {
+        if (existedUser) {
             return {
                 error: 'Такой логин уже занят',
                 res: null,
@@ -50,7 +50,9 @@ export const server = {
         }
 
         // при регистрации добавляем пользователя в БД
-        await addUser(regLogin, regPassword)
+        const user = await addUser(regLogin, regPassword)
+        console.log(user);
+        
 
         // если пользователь зарегистировался, авторизовываем его сразу
         return {

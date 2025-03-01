@@ -5,4 +5,5 @@ declare module '@bff' {
     export { getUsers } from '../bff/get-users'
     export { server } from '../bff/server'
     export { sessions } from '../bff/sessions'
+    export { userTransform } from '../bff/transformers/user-transform'
 }

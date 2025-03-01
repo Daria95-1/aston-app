@@ -1,7 +1,8 @@
-import { getUsers } from './get-users'
+import { ROUTES, USERS } from '@constants'
+import { userTransform } from '@bff'
 
-export const getUser = async (loginToFind) => {
-    const users = await getUsers()
-    
-    return users.find(({ login }) => login === loginToFind)
-}
+export const getUser = async (loginToFind) =>
+    fetch(`${ROUTES.BASE_URL}/${USERS.USERS}?login=${loginToFind}`)
+        .then((loadedUser) => loadedUser.json())
+        .then(([loadedUser]) => loadedUser && userTransform(loadedUser))
+

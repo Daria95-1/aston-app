@@ -83,7 +83,7 @@ export const Authorization = () => {
 
                     <Input
                         type="password"
-                        placeholder="Введите пароль"
+                        placeholder="Введите пароль..."
                         {...register('password', { onChange: handleInputChange })}
                         showIcon={true}
                     />
