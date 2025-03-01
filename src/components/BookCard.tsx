@@ -1,4 +1,3 @@
-import React from 'react';
 import { Button } from './Button';
 
 type BookCardProps = {
@@ -12,7 +11,7 @@ type BookCardProps = {
 const BookCard: React.FC<BookCardProps> = ({ price, title, author, image }) => {
   return (
     <div className="border border-gray-300 rounded p-2 text-center">
-      <img src={image} alt={title} className="w-full h-60 object-cover mb-2" />
+      <img src={image} alt={title} className="w-full h-80 object-cover mb-2" />
       <p className="font-bold">{price} Р</p>
       <p>{title}</p>
       <p className="text-sm text-gray-600">{author}</p>
