@@ -1,4 +1,3 @@
-import React from 'react';
 import { BookCard } from './BookCard';
 
 type RecentlyViewedProps ={
@@ -9,7 +8,7 @@ const RecentlyViewed: React.FC<RecentlyViewedProps> = ({ books }) => {
   return (
     <div className="my-4">
       <h2 className="text-xl font-bold mb-2">Вы смотрели ранее</h2>
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
         {books.map((book) => (
           <BookCard key={book.id} {...book} />
         ))}
