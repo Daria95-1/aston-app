@@ -9,18 +9,15 @@ type Status = {
 };
 
 type Book = {
-    author_key: string[];
     author_name: string[];
-    cover_edition_key: string;
     cover_i: number;
-    edition_count: number;
-    first_publish_year: number;
     key: string;
     title: string;
+    description: string;
 };
 
 export type State = {
-    bookList: Book[];
+    book: Book;
     status?: string;
     error?: string;
 };
@@ -31,9 +28,9 @@ const STATUS_LOADING: Status = {
     REJECTED: "rejected",
 };
 
-export const fetchBooks = createAsyncThunk("@books/fetchBooks", async function (_, { rejectWithValue }) {
+export const fetchOneBook = createAsyncThunk("@book/fetchOneBooks", async function (key: string, { rejectWithValue }) {
     try {
-        const response = await fetch(`${ROUTES.LIBRARY}/search.json?q=the+lord+of+the+rings`); //поправлю на строку из поиска когда он уже у нас появится
+        const response = await fetch(`${ROUTES.LIBRARY}${key}.json`);
 
         if (!response.ok) {
             throw new Error("Error!");
@@ -49,25 +46,31 @@ export const fetchBooks = createAsyncThunk("@books/fetchBooks", async function (
 });
 
 const initialState: State = {
-    bookList: [],
+    book: {
+        author_name: [],
+        cover_i: 0,
+        key: "",
+        title: "",
+        description: "",
+    },
     status: "",
     error: "",
 };
 
-export const booksSlice = createSlice({
-    name: "books",
+export const oneBookSlice = createSlice({
+    name: "book",
     initialState,
     reducers: {},
     extraReducers: (builder) => {
-        builder.addCase(fetchBooks.pending, (state) => {
+        builder.addCase(fetchOneBook.pending, (state) => {
             state.status = STATUS_LOADING.LOADING;
             state.error = "";
         });
-        builder.addCase(fetchBooks.fulfilled, (state, action) => {
+        builder.addCase(fetchOneBook.fulfilled, (state, action) => {
             state.status = STATUS_LOADING.RESOLVED;
-            state.bookList = action.payload.docs;
+            state.book = action.payload;
         });
-        builder.addCase(fetchBooks.rejected, (state, action) => {
+        builder.addCase(fetchOneBook.rejected, (state, action) => {
             state.status = STATUS_LOADING.REJECTED;
             if (typeof action.payload === "string") {
                 state.error = action.payload;
@@ -76,20 +79,20 @@ export const booksSlice = createSlice({
     },
 });
 
-export const booksReducer = booksSlice.reducer;
+export const oneBookReducer = oneBookSlice.reducer;
 
-export const selectAllBooks = (state: RootState): Book[] => {
-    return (state as { books: State }).books.bookList;
+export const selectBook = (state: RootState): Book => {
+    return (state as { book: State }).book.book;
 };
 
 export const selectStatus = (state: RootState): string | undefined => {
-    return (state as { books: State }).books.status;
+    return (state as { book: State }).book.status;
 };
 
 export const selectError = (state: RootState): string | undefined => {
-    return (state as { books: State }).books.error;
+    return (state as { book: State }).book.error;
 };
 
 export const isBooksLoadingSelector = (state: RootState): boolean => {
-    return (state as { books: State }).books.status === STATUS_LOADING.LOADING;
+    return (state as { book: State }).book.status === STATUS_LOADING.LOADING;
 };
