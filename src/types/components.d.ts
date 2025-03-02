@@ -9,6 +9,7 @@ declare module '@components' {
     export { Footer } from '../components/footer/footer'
     export { Header } from '../components/header/header'
     export { Logo } from '../components/header/components/logo/logo'
+    export { PasswordInput } from '../components/password-input/password-input'
     export { RecentlyViewed } from '../components/recently-viewed/recently-viewed'
     export { Routes } from '../components/constans/routes'
     export { Search } from '../components/search/search'

@@ -2,7 +2,7 @@ import { forwardRef } from 'react'
 import { FormButton } from '@components'
 import { Icon } from '../icon/icon'
 
-export const Input = forwardRef(({ showIcon, ...props }, ref) => {
+export const Input = forwardRef(({ ...props }, ref) => {
     return (
         <div className="relative w-full">
             <input
@@ -10,14 +10,6 @@ export const Input = forwardRef(({ showIcon, ...props }, ref) => {
                 {...props}
                 ref={ref}
             />
-            {showIcon && (
-                <FormButton
-                    type="button"
-                    className="absolute right-[0] top-1/2 transform -translate-y-1/2 text-gray-400 border-0"
-                >
-                    <Icon className={'bi-eye-slash mb-[12px]'} />
-                </FormButton>
-            )}
         </div>
     )
 })

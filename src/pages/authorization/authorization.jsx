@@ -1,15 +1,18 @@
-import { useEffect, useState } from 'react'
-import { useDispatch, useSelector, useStore } from 'react-redux'
+import { useState } from 'react'
+import { useSelector } from 'react-redux'
 import { useForm } from 'react-hook-form'
-import { server } from '../../bff'
+import { useAuthSubmit } from '@hooks'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { authFormSchema } from '@schemas'
 import { Link, Navigate } from 'react-router-dom'
-import { FormButton, Input, ValidationError } from '@components'
+import {
+    FormButton,
+    TextInput,
+    PasswordInput,
+    ValidationError,
+} from '@components'
 import { ROUTES, ROLE } from '@constants'
-import { selectUserRole, setUser } from '@slices'
-
-// TODO: подключить БД юзера: json-server --watch src/db.json --port 5180
+import { selectUserRole } from '@slices'
 
 export const Authorization = () => {
     const {
@@ -25,42 +28,22 @@ export const Authorization = () => {
         resolver: yupResolver(authFormSchema),
     })
 
-    
-    const [serverError, setServerError] = useState(null)
-    const store = useStore()
-    const dispatch = useDispatch()
+    const [showPassword, setShowPassword] = useState(false)
     const roleId = useSelector(selectUserRole)
 
-    // запускаем reset, когда флаг wasLogout меняется в appReducer
-    useEffect(() => {
-        let currentWasLogout = store.getState().app.wasLogout
+    // Подключаем хук для авторизации
+    const { onSubmit, serverError, clearServerError } = useAuthSubmit(false) // false для авторизации
 
-        return store.subscribe(() => {
-            let previousWasLogout = currentWasLogout
-            currentWasLogout = store.getState().app.wasLogout
-
-            if (currentWasLogout !== previousWasLogout) {
-                reset()
-            }
-        })
-    }, [reset, store])
-
-    const onSubmit = ({ login, password }) => {
-        server.authorize(login, password).then(({ error, res }) => {
-            if (error) {
-                setServerError(`Ошибка запроса: ${error}`)
-                return
-            }
-            // в res находится ключ в виде hash
-            dispatch(setUser(res))
-        })
+    const handleInputChange = () => {
+        clearServerError()
     }
 
-    const handleInputChange = () => setServerError(null)
-
     const formError = errors?.login?.message || errors?.password?.message
-
     const errorMessage = formError || serverError
+
+    const handleFormSubmit = (data) => {
+        onSubmit(data, reset)
+    }
 
     // редирект на главную при авторизации
     if (roleId !== ROLE.GUEST) {
@@ -72,25 +55,26 @@ export const Authorization = () => {
             <div className="flex flex-col items-center text-center rounded-[4px] form-shadow">
                 <form
                     className="flex flex-col w-[350px] items-center justify-center bg-[white] px-[30px] pt-[20px] pb-[35px] rounded-[10px]"
-                    onSubmit={handleSubmit(onSubmit)}
+                    onSubmit={handleSubmit(handleFormSubmit)}
                 >
                     <h2 className="font-semibold">Вход</h2>
-                    <Input
-                        type="text"
+                    <TextInput
+                        register={register}
+                        name="login"
                         placeholder="Введите логин..."
-                        {...register('login', { onChange: handleInputChange })}
+                        onChange={handleInputChange}
                     />
-
-                    <Input
-                        type="password"
+                    <PasswordInput
+                        register={register}
+                        name="password"
                         placeholder="Введите пароль..."
-                        {...register('password', { onChange: handleInputChange })}
-                        showIcon={true}
+                        onChange={handleInputChange}
+                        showPassword={showPassword}
+                        setShowPassword={setShowPassword}
                     />
-
                     <FormButton
                         type="submit"
-                        className="text-[18px] font-[500] w-full h-[45px] text-[white] bg-[#2B8AFF] mb-[25px] border-0 rounded-[4px]"
+                        className="text-[18px] font-[500] w-full h-[45px] text-[white] bg-[#2B8AFF] mb-[25px] border-0 rounded-[4px] cursor-pointer"
                         disabled={!!formError}
                     >
                         Войти

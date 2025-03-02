@@ -14,6 +14,8 @@ export default defineConfig({
             '@schemas': path.resolve(__dirname, 'src/schemas'),
             '@slices': path.resolve(__dirname, 'src/slices'),
             '@types': path.resolve(__dirname, 'src/types'),
+            '@utils': path.resolve(__dirname, 'src/utils'),
+            '@hooks': path.resolve(__dirname, 'src/hooks'),
         },
     },
 })
