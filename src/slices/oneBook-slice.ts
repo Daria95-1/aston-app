@@ -22,27 +22,30 @@ export type State = {
     error?: string;
 };
 
+interface MyKnownError {
+    errorMessage: string;
+}
+
 const STATUS_LOADING: Status = {
     LOADING: "loading",
     RESOLVED: "resolved",
     REJECTED: "rejected",
 };
 
-export const fetchOneBook = createAsyncThunk("@book/fetchOneBooks", async function (key: string, { rejectWithValue }) {
-    try {
-        const response = await fetch(`${ROUTES.LIBRARY}${key}.json`);
-
-        if (!response.ok) {
-            throw new Error("Error!");
-        }
-
-        const data = await response.json();
-        return data;
-    } catch (error) {
-        if (error instanceof Error) {
-            return rejectWithValue(error.message);
-        }
+export const fetchOneBook = createAsyncThunk<
+    Book,
+    string,
+    {
+        rejectValue: MyKnownError;
     }
+>("@book/fetchOneBooks", async function (key, thunkApi) {
+    const response = await fetch(`${ROUTES.LIBRARY}${key}.json`);
+
+    if (!response.ok) {
+        return thunkApi.rejectWithValue((await response.json()) as MyKnownError);
+    }
+
+    return (await response.json()) as Book;
 });
 
 const initialState: State = {
@@ -69,6 +72,7 @@ export const oneBookSlice = createSlice({
         builder.addCase(fetchOneBook.fulfilled, (state, action) => {
             state.status = STATUS_LOADING.RESOLVED;
             state.book = action.payload;
+            console.log(state.book);
         });
         builder.addCase(fetchOneBook.rejected, (state, action) => {
             state.status = STATUS_LOADING.REJECTED;
