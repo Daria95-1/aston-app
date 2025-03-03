@@ -1,5 +1,5 @@
 import  { useState } from 'react';
-import { Button } from './Button';
+import { Button } from '@components';
 
 const Filters: React.FC = () => {
   const [activeFilter, setActiveFilter] = useState<string | null>(null);

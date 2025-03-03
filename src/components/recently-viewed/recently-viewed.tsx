@@ -1,4 +1,4 @@
-import { BookCard } from './BookCard';
+import { BookCard } from '@components';
 
 type RecentlyViewedProps ={
   books: { id: number; price: number; title: string }[];
