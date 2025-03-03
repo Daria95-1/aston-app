@@ -1,7 +1,7 @@
 import { useLayoutEffect } from "react";
 import { useDispatch } from "react-redux";
 import { Routes, Route } from "react-router-dom";
-import { Header, Footer } from "@components";
+import { Footer } from "@components";
 import { ROUTES } from "@constants";
 import { Authorization, Registration, MainPage } from "@pages";
 import { setUser } from "@slices/user-slice";
@@ -23,7 +23,6 @@ function App() {
 
     return (
         <>
-            <Header />
             <Routes>
                 <Route path={ROUTES.REGISTER} element={<Registration />} />
                 <Route path={ROUTES.LOGIN} element={<Authorization />} />

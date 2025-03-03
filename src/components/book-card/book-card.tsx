@@ -12,7 +12,7 @@ const BookCard: React.FC<Book> = ({ title, author_name, cover_edition_key }) => 
     return (
         <div className="border border-gray-300 rounded p-2 text-center">
             <img
-                src={`${ROUTES.LIBRARY_COVERS}${cover_edition_key}-S.jpg`}
+                src={`${ROUTES.LIBRARY_COVERS}${cover_edition_key}-M.jpg`}
                 alt={title}
                 className="w-full h-60 object-cover mb-2"
             />

@@ -12,4 +12,4 @@ export * from "./header/header";
 export * from "./search/search";
 export * from "./validation-error/validation-error";
 export * from "./footer/footer";
-export * from "./bookCardList/bookCardList";
+export * from "./book-card-list/book-card-list";

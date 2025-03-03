@@ -53,11 +53,7 @@ const initialState: State = {
 export const booksSlice = createSlice({
     name: "books",
     initialState,
-    reducers: {
-        firstLoading: (state) => {
-            console.log(state);
-        },
-    },
+    reducers: {},
     extraReducers: (builder) => {
         builder.addCase(fetchBooks.pending, (state) => {
             state.status = STATUS_LOADING.LOADING;
@@ -78,8 +74,6 @@ export const booksSlice = createSlice({
 });
 
 export const booksReducer = booksSlice.reducer;
-
-export const { firstLoading } = booksSlice.actions;
 
 export const selectAllBooks = (state: RootState): Book[] => {
     return (state as { books: State }).books.bookList;
