@@ -30,7 +30,6 @@ const userSlice = createSlice({
             state.session = action.payload.session
         },
         logoutUser: (state) => {
-            console.log('Logging out, resetting user state')
             state.id = null
             state.login = null
             state.roleId = ROLE.GUEST

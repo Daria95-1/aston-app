@@ -1,6 +1,4 @@
-import React from 'react';
-
-const Search: React.FC = () => {
+export const Search: React.FC = () => {
   return (
     <div className="my-4">
       <input
@@ -11,5 +9,3 @@ const Search: React.FC = () => {
     </div>
   );
 };
-
-export { Search };
