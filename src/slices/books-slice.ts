@@ -1,29 +1,25 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import type { RootState } from "../store";
-import { ROUTES } from '@constants';
+import { ROUTES } from "@constants";
 
 type Status = {
     LOADING: "loading";
     RESOLVED: "resolved";
     REJECTED: "rejected";
-}
+};
 
 type Book = {
-    author_key: string[];
     author_name: string[];
     cover_edition_key: string;
-    cover_i: number;
-    edition_count: number;
-    first_publish_year: number;
     key: string;
     title: string;
-}
+};
 
 export type State = {
     bookList: Book[];
     status?: string;
     error?: string;
-}
+};
 
 const STATUS_LOADING: Status = {
     LOADING: "loading",
@@ -33,7 +29,7 @@ const STATUS_LOADING: Status = {
 
 export const fetchBooks = createAsyncThunk("@books/fetchBooks", async function (_, { rejectWithValue }) {
     try {
-        const response = await fetch(`${ROUTES.LIBRARY}the+lord+of+the+rings`) //поправлю на строку из поиска когда он уже у нас появится
+        const response = await fetch(`${ROUTES.LIBRARY}/search.json?q=the+lord+of+the+rings`); //поправлю на строку из поиска когда он уже у нас появится
 
         if (!response.ok) {
             throw new Error("Error!");
@@ -70,6 +66,7 @@ export const booksSlice = createSlice({
         builder.addCase(fetchBooks.fulfilled, (state, action) => {
             state.status = STATUS_LOADING.RESOLVED;
             state.bookList = action.payload.docs;
+            console.log(state.bookList);
         });
         builder.addCase(fetchBooks.rejected, (state, action) => {
             state.status = STATUS_LOADING.REJECTED;
@@ -80,23 +77,22 @@ export const booksSlice = createSlice({
     },
 });
 
-export const booksReducer = booksSlice.reducer
+export const booksReducer = booksSlice.reducer;
 
 export const { firstLoading } = booksSlice.actions;
 
 export const selectAllBooks = (state: RootState): Book[] => {
-    return (state as { books: State }).books.bookList
-}
+    return (state as { books: State }).books.bookList;
+};
 
 export const selectStatus = (state: RootState): string | undefined => {
-    return (state as { books: State }).books.status
-}
+    return (state as { books: State }).books.status;
+};
 
 export const selectError = (state: RootState): string | undefined => {
-    return (state as { books: State }).books.error
-}
+    return (state as { books: State }).books.error;
+};
 
 export const isBooksLoadingSelector = (state: RootState): boolean => {
-    return (state as { books: State }).books.status === STATUS_LOADING.LOADING
-}
-
+    return (state as { books: State }).books.status === STATUS_LOADING.LOADING;
+};
