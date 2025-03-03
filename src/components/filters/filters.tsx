@@ -1,7 +1,7 @@
 import  { useState } from 'react';
-import { Button } from '@components';
+import { Button, Icon } from '@components';
 
-const Filters: React.FC = () => {
+export const Filters: React.FC = () => {
   const [activeFilter, setActiveFilter] = useState<string | null>(null);
   const handleFilterClick = (filter: string) => {
     setActiveFilter(filter === activeFilter ? null : filter); 
@@ -17,25 +17,23 @@ const Filters: React.FC = () => {
           isActive={activeFilter === 'popular'}
           onClick={() => handleFilterClick('popular')}
         >
-          По популярности
+          По популярности <Icon className={'bi-star ml-1'} />
         </Button>
         <Button
           variant="filter"
           isActive={activeFilter === 'price-up'}
           onClick={() => handleFilterClick('price-up')}
         >
-          По возрастанию цены ⬆
+          По алфавиту <Icon className={'bi-sort-alpha-up ml-1'} />
         </Button>
         <Button
           variant="filter"
           isActive={activeFilter === 'price-down'}
           onClick={() => handleFilterClick('price-down')}
         >
-          По убыванию цены ⬇
+          По алфавиту <Icon className={'bi-sort-alpha-down ml-1'} />
         </Button>
       </div>
     </div>
   );
 };
-
-export { Filters };
