@@ -1,8 +1,10 @@
 declare module '@bff' {
-    export { addUser } from '../bff/add-user'
-    export { createSession } from '../bff/create-session'
-    export { getUser } from '../bff/get-user'
-    export { getUsers } from '../bff/get-users'
+    export { getUser } from '../bff/api/get-user'
+    export { userTransform } from '../bff/transformers/user-transform'
     export { server } from '../bff/server'
     export { sessions } from '../bff/sessions'
+    export { authorize } from '../bff/operation/authorize'
+    export { register } from '../bff/operation/register'
+    export { sessionTransform } from '../bff/transformers/session-transform'
+    export { addBookToFavorites } from '../bff/operation/add-book-to-favorites'
 }

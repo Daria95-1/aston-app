@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
-import { Button } from './Button';
+import { useState } from 'react';
+import { Button } from '@components'
 
-const Filters: React.FC = () => {
+export const Filters: React.FC = () => {
   const [activeFilter, setActiveFilter] = useState<string | null>(null);
   const handleFilterClick = (filter: string) => {
     setActiveFilter(filter === activeFilter ? null : filter); 
@@ -37,5 +37,3 @@ const Filters: React.FC = () => {
     </div>
   );
 };
-
-export { Filters };
