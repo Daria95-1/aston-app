@@ -1,4 +1,6 @@
+import { ROUTES } from "@constants";
 import { Button } from "./Button";
+export { ROUTES } from "../constants/routes";
 
 type Book = {
     author_name: string[];
@@ -11,7 +13,7 @@ const BookCard: React.FC<Book> = ({ title, author_name, cover_edition_key }) => 
     return (
         <div className="border border-gray-300 rounded p-2 text-center">
             <img
-                src={`https://covers.openlibrary.org/b/olid/${cover_edition_key}-S.jpg`}
+                src={`${ROUTES.LIBRARY_COVERS}${cover_edition_key}-S.jpg`}
                 alt={title}
                 className="w-full h-60 object-cover mb-2"
             />
