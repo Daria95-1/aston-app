@@ -14,3 +14,6 @@ button[class*="bg-"]:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
 
+.css-1c5o7vy-MuiPagination-ul {
+  justify-content: center;
+}
