@@ -33,7 +33,10 @@ function App() {
         <>
             <Header />
             <Routes>
-                <Route path={ROUTES.REGISTER} element={<Registration />} />
+                <Route
+                    path={ROUTES.REGISTER}
+                    element={<Registration />}
+                />
                 <Route path={ROUTES.LOGIN} element={<Authorization />} />
                 <Route path={ROUTES.MAIN_PAGE} element={<MainPage />} />
                 <Route path={ROUTES.FAVORITES} element={<Favorites />} />
