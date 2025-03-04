@@ -1,6 +1,6 @@
 export const Search: React.FC = () => {
   return (
-    <div className="my-4">
+    <div className="mx-auto max-w-[1536px]">
       <input
         type="text"
         placeholder="Найдите книгу..."

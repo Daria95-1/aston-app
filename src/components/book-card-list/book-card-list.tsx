@@ -13,7 +13,7 @@ const BookCardList: React.FC = () => {
     }, [dispatch]);
 
     return (
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-6 gap-4 my-4 w-full max-w-full">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 my-4 mx-auto max-w-[1536px]">
             {booksList.map((book) => (
                 <BookCard {...book} key={book.key} />
             ))}

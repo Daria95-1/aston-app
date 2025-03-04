@@ -9,7 +9,7 @@ export const Filters: React.FC = () => {
   };
 
   return (
-    <div className="my-4">
+    <div className="mx-auto max-w-[1536px]">
       <h2 className="text-xl font-bold mb-2 ml-0">Новинки</h2>
       <div className="flex space-x-4">
         <Button
