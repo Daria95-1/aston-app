@@ -15,11 +15,27 @@ type Book = {
     title: string;
 };
 
+type Data = {
+    numFound: number;
+    docs: [];
+};
+
 export type State = {
     bookList: Book[];
     status?: string;
     error?: string;
+    numberOfPages: number;
+    currentPage: number;
 };
+
+interface MyKnownError {
+    errorMessage: string;
+}
+
+interface UserAttributes {
+    request: string;
+    page: number;
+}
 
 const STATUS_LOADING: Status = {
     LOADING: "loading",
@@ -27,33 +43,40 @@ const STATUS_LOADING: Status = {
     REJECTED: "rejected",
 };
 
-export const fetchBooks = createAsyncThunk("@books/fetchBooks", async function (_, { rejectWithValue }) {
-    try {
-        const response = await fetch(`${ROUTES.LIBRARY}/search.json?q=the+lord+of+the+rings`); //поправлю на строку из поиска когда он уже у нас появится
-
-        if (!response.ok) {
-            throw new Error("Error!");
-        }
-
-        const data = await response.json();
-        return data;
-    } catch (error) {
-        if (error instanceof Error) {
-            return rejectWithValue(error.message);
-        }
+export const fetchBooks = createAsyncThunk<
+    Data,
+    UserAttributes,
+    {
+        rejectValue: MyKnownError;
     }
+>("@books/fetchBooks", async function (attributes, thunkApi) {
+    const response = await fetch(
+        `${ROUTES.LIBRARY}/search.json?q=${attributes.request}&page=${attributes.page}&limit=25`
+    );
+
+    if (!response.ok) {
+        return thunkApi.rejectWithValue((await response.json()) as MyKnownError);
+    }
+
+    return (await response.json()) as Data;
 });
 
 const initialState: State = {
     bookList: [],
     status: "",
     error: "",
+    numberOfPages: 0,
+    currentPage: 1,
 };
 
 export const booksSlice = createSlice({
     name: "books",
     initialState,
-    reducers: {},
+    reducers: {
+        changePage: (state, action) => {
+            state.currentPage = action.payload;
+        },
+    },
     extraReducers: (builder) => {
         builder.addCase(fetchBooks.pending, (state) => {
             state.status = STATUS_LOADING.LOADING;
@@ -62,7 +85,7 @@ export const booksSlice = createSlice({
         builder.addCase(fetchBooks.fulfilled, (state, action) => {
             state.status = STATUS_LOADING.RESOLVED;
             state.bookList = action.payload.docs;
-            console.log(state.bookList);
+            state.numberOfPages = Math.floor(action.payload.numFound / 25 + 1);
         });
         builder.addCase(fetchBooks.rejected, (state, action) => {
             state.status = STATUS_LOADING.REJECTED;
@@ -74,6 +97,8 @@ export const booksSlice = createSlice({
 });
 
 export const booksReducer = booksSlice.reducer;
+
+export const { changePage } = booksSlice.actions;
 
 export const selectAllBooks = (state: RootState): Book[] => {
     return (state as { books: State }).books.bookList;
@@ -89,4 +114,12 @@ export const selectError = (state: RootState): string | undefined => {
 
 export const isBooksLoadingSelector = (state: RootState): boolean => {
     return (state as { books: State }).books.status === STATUS_LOADING.LOADING;
+};
+
+export const selectNumberOfPages = (state: RootState): number => {
+    return (state as { books: State }).books.numberOfPages;
+};
+
+export const selectPage = (state: RootState): number => {
+    return (state as { books: State }).books.currentPage;
 };
