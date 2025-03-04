@@ -1,5 +1,6 @@
 import { useSelector } from 'react-redux'
-import { ROLE } from '@constants'
+import { Link } from 'react-router-dom'
+import { ROLE, ROUTES } from '@constants'
 import { IconButton } from '@components'
 import { selectUserRole } from '@slices'
 import { GuestContent, UserContent } from '../../components'
@@ -11,11 +12,13 @@ export const ControlPanel = () => {
 
     return (
         <div className="flex gap-[40px]">
-            <IconButton
-                icon="bi-heart-fill"
-                className={'cursor-pointer'}
-                text="Избранное"
-            />
+            <Link to={ROUTES.FAVORITES}>
+                <IconButton
+                    icon="bi-heart-fill"
+                    className={'cursor-pointer'}
+                    text="Избранное"
+                />
+            </Link>
             {displayContent}
         </div>
     )

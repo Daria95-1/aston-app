@@ -14,6 +14,8 @@ import {
 import { ROUTES, ROLE } from '@constants'
 import { selectUserRole } from '@slices'
 
+// TODO: подключить БД юзера: json-server --watch src/db.json --port 5180
+
 export const Authorization = () => {
     const {
         register,

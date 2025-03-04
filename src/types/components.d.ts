@@ -1,4 +1,5 @@
 declare module "@components" {
+    export { AdditionalContent } from '../components/additional-content/additional-content'
     export { Button } from "../components/buttons/button";
     export { FormButton } from "../components/buttons/form-button";
     export { Filters } from "../components/filters/filters";

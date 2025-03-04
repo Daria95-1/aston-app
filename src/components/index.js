@@ -1,3 +1,4 @@
+export * from "./additional-content/additional-content";
 export * from "./book-card/book-card";
 export * from "./buttons/button";
 export * from "./buttons/form-button";
