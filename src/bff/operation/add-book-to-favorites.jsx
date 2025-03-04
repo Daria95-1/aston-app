@@ -1,14 +1,8 @@
-import { ROLE } from '@constants'
-import { sessions } from '../sessions'
+import { addToFavorites } from '@slices/user-slice'
 
-// TODO: доделать добавление в избранное
-export const addBookToFavorites = async (userSession) => {
-    const accessRole = [ROLE.USER]
-
-    if (!sessions.access(userSession, accessRole)) {
-        return {
-            error: 'Доступ запрещен',
-            res: null,
-        }
+export const addBookToFavorites = async (dispatch, book) => {
+    return {
+        error: null,
+        res: await dispatch(addToFavorites(book)),
     }
 }
