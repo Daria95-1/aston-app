@@ -2,6 +2,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { IconButton, Icon } from '@components'
 import { selectUserLogin, logoutUser, selectUserSession } from '@slices'
 import { sessions } from '../../../../bff/sessions'
+import { STORAGE_KEYS } from '@constants'
 
 export const UserContent = () => {
     const dispatch = useDispatch()
@@ -13,7 +14,7 @@ export const UserContent = () => {
 
         sessions.remove(session)
 
-        sessionStorage.removeItem('userData')
+        sessionStorage.removeItem(`${STORAGE_KEYS.USER_DATA}`)
     }
 
     return (

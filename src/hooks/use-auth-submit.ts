@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { setUser } from '@slices/user-slice'
 import { server } from '@bff'
+import { STORAGE_KEYS } from '@constants'
 
 type SubmitData = {
     login: string
@@ -48,7 +49,10 @@ export const useAuthSubmit = (isRegister = false): UseAuthSubmitReturn => {
             // в res находится ключ в виде hash
             dispatch(setUser(res))
             // при перезагрузке не разлогиниваемся
-            sessionStorage.setItem('userData', JSON.stringify(res))
+            sessionStorage.setItem(
+                `${STORAGE_KEYS.USER_DATA}`,
+                JSON.stringify(res)
+            )
         })
     }
 

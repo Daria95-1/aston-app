@@ -11,6 +11,12 @@
       "login": "dari",
       "password": "qwe123",
       "role_id": 1
+    },
+    {
+      "id": "4b9e",
+      "login": "daria",
+      "password": "qwe123",
+      "role_id": 1
     }
   ],
   "roles": [
@@ -23,5 +29,16 @@
       "name": "Пользователь"
     }
   ],
-  "sessions": []
+  "sessions": [
+    {
+      "id": "58de",
+      "hash": "0.50755004744734755206536647165194153785705566406250",
+      "user": {
+        "id": "4b9e",
+        "login": "daria",
+        "password": "qwe123",
+        "role_id": 1
+      }
+    }
+  ]
 }

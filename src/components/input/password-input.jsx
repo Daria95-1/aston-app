@@ -1,4 +1,4 @@
-import { Input, FormButton, Icon } from '@components'
+import { Input, Icon } from '@components'
 import { getInputType } from '@utils'
 
 export const PasswordInput = ({
@@ -9,6 +9,10 @@ export const PasswordInput = ({
     showPassword,
     setShowPassword,
 }) => {
+    const togglePasswordVisibility = () => {
+        setShowPassword((prev) => !prev)
+    }
+
     return (
         <div className="relative w-full">
             <Input
@@ -16,13 +20,13 @@ export const PasswordInput = ({
                 placeholder={placeholder}
                 {...register(name, { onChange })}
             />
-            <FormButton
+            <div
                 type="button"
-                className="absolute right-[0] top-1/2 transform -translate-y-1/2 text-gray-400 border-0 bg-transparent pb-[13px]"
-                onClick={() => setShowPassword((prev) => !prev)}
+                className="absolute right-0 top-1 flex items-center text-gray-400 border-0 pr-2 pt-2"
+                onClick={togglePasswordVisibility}
             >
                 <Icon className={showPassword ? 'bi-eye' : 'bi-eye-slash'} />
-            </FormButton>
+            </div>
         </div>
     )
 }

@@ -59,7 +59,9 @@ export const Authorization = () => {
                     className="flex flex-col w-[350px] items-center justify-center bg-[white] px-[30px] pt-[20px] pb-[35px] rounded-[10px]"
                     onSubmit={handleSubmit(handleFormSubmit)}
                 >
-                    <h2 className="font-semibold">Вход</h2>
+                    <h2 className="text-[20px] font-semibold mb-3">
+                        Вход
+                    </h2>
                     <TextInput
                         register={register}
                         name="login"
@@ -76,7 +78,7 @@ export const Authorization = () => {
                     />
                     <FormButton
                         type="submit"
-                        className="text-[18px] font-[500] w-full h-[45px] text-[white] bg-[#2B8AFF] mb-[25px] border-0 rounded-[4px] cursor-pointer"
+                        className="text-[16px] font-[500] w-full h-[45px] text-[white] bg-[#2B8AFF] mb-[25px] border-0 rounded-[4px] cursor-pointer"
                         disabled={!!formError}
                     >
                         Войти

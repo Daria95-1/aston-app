@@ -2,7 +2,7 @@ import { useLayoutEffect } from "react";
 import { useDispatch } from "react-redux";
 import { Routes, Route } from "react-router-dom";
 import { Header, Footer } from '@components'
-import { ROUTES } from "@constants";
+import { ROUTES, STORAGE_KEYS } from '@constants'
 import {
     Authorization,
     Registration,
@@ -16,7 +16,9 @@ function App() {
     const dispatch = useDispatch();
 
     useLayoutEffect(() => {
-        const currentUserDataJSON = sessionStorage.getItem("userData");
+        const currentUserDataJSON = sessionStorage.getItem(
+            `${STORAGE_KEYS.USER_DATA}`
+        )
 
         if (!currentUserDataJSON) {
             return;
