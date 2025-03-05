@@ -2,13 +2,13 @@ import { getUser } from '@bff/api'
 import { sessions } from '../sessions'
 
 type AuthorizeResponse = {
-    error: string | null
-    res: {
+    error?: string
+    res?: {
         id?: number
         login?: string
         roleId?: string
         session?: string
-    } | null
+    }
 }
 
 export const authorize = async (
@@ -20,7 +20,7 @@ export const authorize = async (
     if (!user) {
         return {
             error: 'Такой пользователь не найден',
-            res: null,
+            res: undefined,
         }
     }
 
@@ -29,12 +29,12 @@ export const authorize = async (
     if (authPassword !== password) {
         return {
             error: 'Неверный пароль',
-            res: null,
+            res: undefined,
         }
     }
 
     return {
-        error: null,
+        error: undefined,
         res: {
             id,
             login,

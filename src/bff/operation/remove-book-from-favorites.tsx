@@ -2,7 +2,7 @@ import { AppDispatch } from '../../store'
 import { deleteFromFavorites } from '@slices/user-slice'
 
 type RemoveBookFromFavoritesResponse = {
-    error: string | null
+    error?: string
     res: ReturnType<typeof deleteFromFavorites> | null
 }
 
@@ -13,7 +13,7 @@ export const removeBookFromFavorites = async (
     try {
         const res = dispatch(deleteFromFavorites(bookId))
         return {
-            error: null,
+            error: undefined,
             res,
         }
     } catch (error) {

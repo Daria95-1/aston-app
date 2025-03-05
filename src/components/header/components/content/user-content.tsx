@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { ROUTES } from '@constants';
+import { ROUTES, STORAGE_KEYS } from '@constants'
 import { IconButton, Icon } from '@components';
 import { selectUserLogin, logoutUser, selectUserSession } from '@slices/user-slice';
 import { sessions } from '@bff';
@@ -13,7 +13,7 @@ export const UserContent: React.FC = () => {
     const handleLogout = () => {
         dispatch(logoutUser());
         sessions.remove(session);
-        sessionStorage.removeItem('userData');
+        sessionStorage.removeItem(`${STORAGE_KEYS.USER_DATA}`)
     };
 
     return (

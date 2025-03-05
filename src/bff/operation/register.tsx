@@ -2,13 +2,13 @@ import { addUser, getUser } from '@bff/api'
 import { sessions } from '../sessions'
 
 type RegisterResponse = {
-    error: string | null
-    res: {
+    error?: string
+    res?: {
         id: number
         login: string
         roleId: string
         session: string
-    } | null
+    }
 }
 
 export const register = async (
@@ -20,7 +20,7 @@ export const register = async (
     if (existedUser) {
         return {
             error: 'Такой логин уже занят',
-            res: null,
+            res: undefined,
         }
     }
 
@@ -29,7 +29,7 @@ export const register = async (
     const { id, login, roleId } = user
 
     return {
-        error: null,
+        error: undefined,
         res: {
             id,
             login,

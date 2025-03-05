@@ -1,9 +1,7 @@
-/** @format */
-
 import { Input, Icon } from '@components'
 import { getInputType } from '@utils'
 
-interface PasswordInputProps {
+type PasswordInputProps = {
     register: (
         name: string,
         options?: Record<string, unknown>
