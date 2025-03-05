@@ -3,6 +3,9 @@ import { useLayoutEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import { Routes, Route } from 'react-router-dom'
 import { Header, Footer } from '@components'
+import { ROUTES } from "@constants";
+import { Authorization, Registration, MainPage, ItemPage } from "@pages";
+import { setUser } from "@slices/user-slice";
 import { ROUTES, STORAGE_KEYS } from '@constants'
 import { setUser } from '@slices/user-slice'
 import {
@@ -43,6 +46,7 @@ function App() {
                 <Route path={ROUTES.REGISTER} element={<Registration />} />
                 <Route path={ROUTES.LOGIN} element={<Authorization />} />
                 <Route path={ROUTES.MAIN_PAGE} element={<MainPage />} />
+                <Route path={ROUTES.ITEM_PAGE} element={<ItemPage />} />
                 <Route path={ROUTES.FAVORITES} element={<Favorites />} />
                 <Route path={ROUTES.NOT_FOUND} element={<ErrorPage />} />
             </Routes>

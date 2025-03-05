@@ -7,7 +7,7 @@ import { BookCard } from "@components";
 import { selectUserFavorites } from '@slices/user-slice'
 import { useSelector } from 'react-redux';
 
-const BookCardList: React.FC = () => {
+export const BookCardList: React.FC = () => {
     const dispatch = useAppDispatch();
     const booksList = useAppSelector(selectAllBooks);
     const isLoading = useAppSelector(isBooksLoadingSelector)
@@ -36,8 +36,12 @@ const BookCardList: React.FC = () => {
     if (isLoading) {
         return <div className="loader"></div>
     }
-
     return (
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 my-4 mx-auto max-w-[1536px]">
+            {booksList.map((book) => (
+                <BookCard {...book} key={book.key} itemKey={book.key} />
+            ))}
+            
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-6 gap-4 my-4 w-full max-w-full">
             {booksList.map((book) => {
                 const isFavorite = favorites.some(
@@ -45,7 +49,7 @@ const BookCardList: React.FC = () => {
                 )
                 return (
                     <BookCard
-                        key={book.key}
+                        itemKey={book.key}
                         bookId={book.key}
                         cover_edition_key={book.cover_edition_key}
                         title={book.title}
@@ -61,5 +65,3 @@ const BookCardList: React.FC = () => {
         </div>
     )
 };
-
-export { BookCardList };

@@ -13,6 +13,7 @@ export type Book = {
     cover_edition_key: string;
     key: string;
     title: string;
+    first_publish_year: string;
 };
 
 export type State = {
@@ -29,7 +30,7 @@ const STATUS_LOADING: Status = {
 
 export const fetchBooks = createAsyncThunk("@books/fetchBooks", async function (_, { rejectWithValue }) {
     try {
-        const response = await fetch(`${ROUTES.LIBRARY}/search.json?q=the+lord+of+the+rings`); //поправлю на строку из поиска когда он уже у нас появится
+        const response = await fetch(`${ROUTES.LIBRARY}/search.json?q=war+and+piece`); //поправлю на строку из поиска когда он уже у нас появится
 
         if (!response.ok) {
             throw new Error("Error!");

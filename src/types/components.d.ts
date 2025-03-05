@@ -15,6 +15,7 @@ declare module "@components" {
     export { Routes } from "../components/constans/routes";
     export { Search } from "../components/search/search";
     export { BookCardList } from "../components/book-card-list/book-card-list";
+    export { Description } from "../components/description/description";
     export { TextInput } from '../components/input/text-input'
     export { ValidationError } from '../components/validation-error/validation-error'
 }

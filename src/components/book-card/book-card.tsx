@@ -4,6 +4,18 @@ import { selectUserRole } from '@slices/user-slice'
 import { Button, Icon } from '@components'
 import { ROUTES } from '@constants'
 
+import { useNavigate } from 'react-router-dom';
+
+type Books = {
+    author_name: string[];
+    cover_edition_key: string;
+    key: string;
+    title: string;
+    first_publish_year: string;
+    itemKey?: string;
+};
+
+
 type Book = {
     bookId: string
     author_name: string
@@ -13,14 +25,8 @@ type Book = {
     onFavoriteClick: (key: string, isFavorite: boolean) => void
 }
 
-const BookCard: React.FC<Book> = ({
-    bookId,
-    author_name,
-    cover_edition_key,
-    title,
-    isFavorite,
-    onFavoriteClick,
-}) => {
+const BookCard: React.FC<Books> = ({ title, author_name, cover_edition_key, itemKey, first_publish_year, isFavorite, onFavoriteClick, bookId }) => {
+    const navigate = useNavigate();
     const userRole = useSelector(selectUserRole) as ROLE
     const isUserAuthorized = userRole !== ROLE.GUEST
     const changeIcon = isFavorite ? 'bi-heart-fill' : 'bi-heart'
@@ -34,7 +40,16 @@ const BookCard: React.FC<Book> = ({
             <Icon className={changeIcon} onClick={handleFavoriteClick} />
         </Button>
     )
-
+    const handleDetailsClick = () => {
+        navigate(`${ROUTES.ITEM_PAGE.replace(':key', cover_edition_key)}`, {
+            state: {
+                key: itemKey, 
+                image: cover_edition_key,
+                year: first_publish_year,
+                author: author_name
+              },
+        });
+    } 
     return (
         <div className="border border-gray-300 rounded p-2 text-center">
             <img
@@ -45,7 +60,7 @@ const BookCard: React.FC<Book> = ({
             <p>{title}</p>
             <p className="text-sm text-gray-600">{author_name}</p>
             <div className="mt-2 flex justify-center items-center space-x-2">
-                <Button variant="check">Подробнее</Button>
+                <Button variant="check" onClick={handleDetailsClick}>Подробнее</Button>
                 {showFavoriteButton}
             </div>
         </div>
