@@ -14,6 +14,8 @@ import {
 import { ROUTES, ROLE } from '@constants'
 import { selectUserRole } from '@slices/user-slice'
 
+// TODO: json-server --watch src/db.json --port 5180
+
 type FormData = {
     login: string
     password: string
@@ -47,6 +49,7 @@ export const Authorization = () => {
     const errorMessage = formError || serverError
 
     const handleFormSubmit: SubmitHandler<FormData> = (data) => {
+        console.log('Form data:', data)
         onSubmit(data, reset)
     }
 

@@ -1,19 +1,25 @@
 {
   "users": [
     {
-      "id": 111,
+      "id": "111",
       "login": "ivan",
+      "password": "qwe123",
+      "role_id": 1
+    },
+    {
+      "id": "6b35",
+      "login": "dari",
       "password": "qwe123",
       "role_id": 1
     }
   ],
   "roles": [
     {
-      "id": 0,
+      "id": "0",
       "name": "Гость"
     },
     {
-      "id": 1,
+      "id": "1",
       "name": "Пользователь"
     }
   ],
