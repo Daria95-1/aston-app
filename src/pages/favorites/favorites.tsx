@@ -1,13 +1,27 @@
 import { EmptyFavorites } from '@pages'
 import { BookCard } from '@components'
-import { selectUserFavorites } from '@slices/user-slice'
+import { selectUserFavorites, selectUserRole } from '@slices/user-slice'
 import { useSelector, useDispatch } from 'react-redux'
 import { removeBookFromFavorites } from '@bff/operation'
 import { AppDispatch } from '../../store'
+import { useNavigate } from 'react-router-dom'
+import { ROUTES, ROLE } from '@constants'
+import { useEffect, useState } from 'react'
 
 export const Favorites = () => {
+    const navigate = useNavigate()
+    const roleId = useSelector(selectUserRole)
     const favorites = useSelector(selectUserFavorites)
     const dispatch = useDispatch<AppDispatch>()
+    const [isCheckingAuth, setIsCheckingAuth] = useState(true)
+
+    useEffect(() => {
+        if (roleId === ROLE.GUEST) {
+            navigate(ROUTES.LOGIN)
+        } else {
+            setIsCheckingAuth(false)
+        }
+    }, [roleId, navigate])
 
     const handleDeleteFavoriteClick = (bookId: string): void => {
         removeBookFromFavorites(dispatch, bookId)
@@ -15,6 +29,11 @@ export const Favorites = () => {
 
     const getFavoriteClickHandler = (bookId: string) => () => {
         handleDeleteFavoriteClick(bookId)
+    }
+
+    // Пока не проверили роль — ничего не рендерим
+    if (isCheckingAuth) {
+        return null
     }
 
     if (favorites.length === 0) {

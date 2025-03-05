@@ -1,5 +1,5 @@
 import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
-import { selectAllBooks } from "@slices/books-slice";
+import { selectAllBooks, isBooksLoadingSelector } from '@slices/books-slice'
 import { useEffect } from "react";
 import { fetchBooks } from "@slices/books-slice";
 import { addBookToFavorites, removeBookFromFavorites } from '@bff/operation'
@@ -10,6 +10,7 @@ import { useSelector } from 'react-redux';
 const BookCardList: React.FC = () => {
     const dispatch = useAppDispatch();
     const booksList = useAppSelector(selectAllBooks);
+    const isLoading = useAppSelector(isBooksLoadingSelector)
     const favorites = useSelector(selectUserFavorites)
 
     useEffect(() => {
@@ -31,6 +32,10 @@ const BookCardList: React.FC = () => {
         (bookId: string, isFavorite: boolean) => () => {
             handleFavoriteClick(bookId, isFavorite)
         }
+    
+    if (isLoading) {
+        return <div className="loader"></div>
+    }
 
     return (
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-6 gap-4 my-4 w-full max-w-full">
