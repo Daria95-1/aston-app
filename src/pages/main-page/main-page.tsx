@@ -1,5 +1,5 @@
 import "./main-page.css";
-import {  Search, Filters,  RecentlyViewed, BookCardList } from "@components";
+import { Search, Filters, RecentlyViewed, BookCardList } from "@components";
 import { recentlyViewed } from "../../mock";
 
 const MainPage: React.FC = () => {

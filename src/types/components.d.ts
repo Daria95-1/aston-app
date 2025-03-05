@@ -1,4 +1,5 @@
 declare module "@components" {
+    export { AdditionalContent } from '../components/additional-content/additional-content'
     export { Button } from "../components/buttons/button";
     export { FormButton } from "../components/buttons/form-button";
     export { Filters } from "../components/filters/filters";
@@ -14,4 +15,6 @@ declare module "@components" {
     export { Routes } from "../components/constans/routes";
     export { Search } from "../components/search/search";
     export { BookCardList } from "../components/book-card-list/book-card-list";
+    export { TextInput } from '../components/input/text-input'
+    export { ValidationError } from '../components/validation-error/validation-error'
 }

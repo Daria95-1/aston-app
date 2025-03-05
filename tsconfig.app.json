@@ -36,6 +36,7 @@
             "@slices/*": ["slices/*"],
             "@utils/*": ["utils/*"],
             "@hooks/*": ["hooks/*"],
+            "@routes/*": ["routes/*"],
         }
     },
     "include": ["src", "src/types/*.d.ts"]

@@ -1,21 +1,36 @@
 import { RootState } from '../store'
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { ROLE } from '@constants'
 
+type FavoriteItem = {
+    key: string
+    title: string
+    author_name: string[]
+    cover_edition_key: string
+}
+
 // Определяем тип состояния для пользователя
-type UserState = {
+export type User = {
     id: number | null
     login: string | null
     roleId: string
     session: string | null
+    favorites: FavoriteItem[]
+}
+
+export type Session = {
+    id: number
+    hash: string
+    user: User
 }
 
 // Начальное состояние
-const initialState: UserState = {
+const initialState: User = {
     id: null,
     login: null,
     roleId: ROLE.GUEST,
     session: null,
+    favorites: [],
 }
 
 // Создание слайса
@@ -35,19 +50,32 @@ const userSlice = createSlice({
             state.roleId = ROLE.GUEST
             state.session = null
         },
+        addToFavorites: (state, action: PayloadAction<FavoriteItem>) => {
+            state.favorites.push(action.payload)
+        },
+        deleteFromFavorites: (state, action: PayloadAction<string>) => {
+            state.favorites = state.favorites.filter(
+                (book) => book.key !== action.payload
+            )
+        },
     },
 })
 
-export const { setUser, logoutUser } = userSlice.actions
+export const { setUser, logoutUser, addToFavorites, deleteFromFavorites } =
+    userSlice.actions
 
 export const userReducer = userSlice.reducer
 
 export const selectUserLogin = (state: RootState): string | null => {
-    return (state as { user: UserState }).user.login
+    return (state as { user: User }).user.login
 }
 export const selectUserRole = (state: RootState): string => {
-    return (state as { user: UserState }).user.roleId
+    return (state as { user: User }).user.roleId
 }
 export const selectUserSession = (state: RootState): string | null => {
-    return (state as { user: UserState }).user.session
+    return (state as { user: User }).user.session
+}
+
+export const selectUserFavorites = (state: RootState): FavoriteItem[] => {
+    return (state as { user: User }).user.favorites
 }

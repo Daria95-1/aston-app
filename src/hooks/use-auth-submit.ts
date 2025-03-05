@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { setUser } from '@slices/user-slice'
 import { server } from '@bff'
+import { STORAGE_KEYS } from '@constants'
 
 type SubmitData = {
     login: string
@@ -18,14 +19,13 @@ type ServerResponse = {
 type UseAuthSubmitReturn = {
     onSubmit: (data: SubmitData, reset: () => void) => void
     serverError: string | null
-    clearServerError: () => void // Функция для очистки ошибки
+    clearServerError: () => void
 }
 
 export const useAuthSubmit = (isRegister = false): UseAuthSubmitReturn => {
     const dispatch = useDispatch()
     const [serverError, setServerError] = useState<string | null>(null)
 
-    // Функция для очистки ошибки
     const clearServerError = () => {
         setServerError(null)
     }
@@ -35,20 +35,17 @@ export const useAuthSubmit = (isRegister = false): UseAuthSubmitReturn => {
         reset: () => void
     ): void => {
         const action = isRegister ? server.register : server.authorize
-
         action(login, password).then(({ error, res }: ServerResponse) => {
             if (error) {
                 setServerError(`Ошибка запроса: ${error}`)
                 return
             }
-
-            // Очистим форму при успешном входе/регистрации
             reset()
-
-            // в res находится ключ в виде hash
             dispatch(setUser(res))
-            // при перезагрузке не разлогиниваемся
-            sessionStorage.setItem('userData', JSON.stringify(res))
+            sessionStorage.setItem(
+                `${STORAGE_KEYS.USER_DATA}`,
+                JSON.stringify(res)
+            )
         })
     }
 

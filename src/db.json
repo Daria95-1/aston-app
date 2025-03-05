@@ -1,14 +1,8 @@
 {
   "users": [
     {
-      "id": "001",
+      "id": "111",
       "login": "ivan",
-      "password": "qwe123",
-      "role_id": 1
-    },
-    {
-      "id": "99ac",
-      "login": "dari",
       "password": "qwe123",
       "role_id": 1
     }

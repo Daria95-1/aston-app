@@ -8,7 +8,7 @@ type Status = {
     REJECTED: "rejected";
 };
 
-type Book = {
+export type Book = {
     author_name: string[];
     cover_edition_key: string;
     key: string;
