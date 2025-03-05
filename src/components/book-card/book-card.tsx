@@ -1,6 +1,6 @@
 import { useSelector } from 'react-redux'
 import { ROLE } from '@constants'
-import { selectUserRole } from '@slices'
+import { selectUserRole } from '@slices/user-slice'
 import { Button, Icon } from '@components'
 import { ROUTES } from '@constants'
 

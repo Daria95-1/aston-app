@@ -1,64 +1,21 @@
 {
   "users": [
     {
-      "id": "001",
+      "id": 111,
       "login": "ivan",
-      "password": "qwe123",
-      "role_id": 1
-    },
-    {
-      "id": "99ac",
-      "login": "dari",
-      "password": "qwe123",
-      "role_id": 1
-    },
-    {
-      "id": "4b9e",
-      "login": "daria",
       "password": "qwe123",
       "role_id": 1
     }
   ],
   "roles": [
     {
-      "id": "0",
+      "id": 0,
       "name": "Гость"
     },
     {
-      "id": "1",
+      "id": 1,
       "name": "Пользователь"
     }
   ],
-  "sessions": [
-    {
-      "id": "9825",
-      "hash": "0.97802516277206663630749972071498632431030273437500",
-      "user": {
-        "id": "001",
-        "login": "ivan",
-        "password": "qwe123",
-        "roleId": 1
-      }
-    },
-    {
-      "id": "788a",
-      "hash": "0.54049561505134935401883922168053686618804931640625",
-      "user": {
-        "id": "001",
-        "login": "ivan",
-        "password": "qwe123",
-        "roleId": 1
-      }
-    },
-    {
-      "id": "e015",
-      "hash": "0.26381347324549153654515976086258888244628906250000",
-      "user": {
-        "id": "001",
-        "login": "ivan",
-        "password": "qwe123",
-        "roleId": 1
-      }
-    }
-  ]
+  "sessions": []
 }

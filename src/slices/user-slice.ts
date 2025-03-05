@@ -10,7 +10,7 @@ type FavoriteItem = {
 }
 
 // Определяем тип состояния для пользователя
-type UserState = {
+export type User = {
     id: number | null
     login: string | null
     roleId: string
@@ -18,8 +18,14 @@ type UserState = {
     favorites: FavoriteItem[]
 }
 
+export type Session = {
+    id: number
+    hash: string
+    user: User
+}
+
 // Начальное состояние
-const initialState: UserState = {
+const initialState: User = {
     id: null,
     login: null,
     roleId: ROLE.GUEST,
@@ -61,15 +67,15 @@ export const { setUser, logoutUser, addToFavorites, deleteFromFavorites } =
 export const userReducer = userSlice.reducer
 
 export const selectUserLogin = (state: RootState): string | null => {
-    return (state as { user: UserState }).user.login
+    return (state as { user: User }).user.login
 }
 export const selectUserRole = (state: RootState): string => {
-    return (state as { user: UserState }).user.roleId
+    return (state as { user: User }).user.roleId
 }
 export const selectUserSession = (state: RootState): string | null => {
-    return (state as { user: UserState }).user.session
+    return (state as { user: User }).user.session
 }
 
 export const selectUserFavorites = (state: RootState): FavoriteItem[] => {
-    return (state as { user: UserState }).user.favorites
+    return (state as { user: User }).user.favorites
 }
