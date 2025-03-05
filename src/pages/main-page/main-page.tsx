@@ -1,7 +1,7 @@
 import "./main-page.css";
+import { Pagination } from "@mui/material";
 import { Search, Filters, RecentlyViewed, BookCardList } from "@components";
 import { recentlyViewed } from "../../mock";
-import { Pagination } from "@mui/material";
 import { useAppDispatch, useAppSelector } from "@hooks/hooks";
 import { selectNumberOfPages, changePage, fetchBooks, selectPage } from "../../slices/books-slice";
 import { useEffect } from "react";
@@ -26,6 +26,7 @@ const MainPage: React.FC = () => {
                 <Filters />
                 <BookCardList />
                 <Pagination
+                    className="pagination"
                     count={numberPages}
                     page={currentPage}
                     onChange={handleChange}

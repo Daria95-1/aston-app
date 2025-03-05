@@ -2,6 +2,8 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import type { RootState } from "../store";
 import { ROUTES } from "@constants";
 
+const BOOKS_LIMIT = 25;
+
 type Status = {
     LOADING: "loading";
     RESOLVED: "resolved";
@@ -22,20 +24,20 @@ type Data = {
 
 export type State = {
     bookList: Book[];
-    status?: string;
-    error?: string;
     numberOfPages: number;
     currentPage: number;
+    status?: string;
+    error?: string;
 };
 
-interface MyKnownError {
+type MyKnownError = {
     errorMessage: string;
-}
+};
 
-interface UserAttributes {
+type UserAttributes = {
     request: string;
     page: number;
-}
+};
 
 const STATUS_LOADING: Status = {
     LOADING: "loading",
@@ -50,9 +52,9 @@ export const fetchBooks = createAsyncThunk<
         rejectValue: MyKnownError;
     }
 >("@books/fetchBooks", async function (attributes, thunkApi) {
-    const response = await fetch(
-        `${ROUTES.LIBRARY}/search.json?q=${attributes.request}&page=${attributes.page}&limit=25`
-    );
+    const { request, page } = attributes;
+
+    const response = await fetch(`${ROUTES.LIBRARY}/search.json?q=${request}&page=${page}&limit=${BOOKS_LIMIT}`);
 
     if (!response.ok) {
         return thunkApi.rejectWithValue((await response.json()) as MyKnownError);
@@ -85,7 +87,7 @@ export const booksSlice = createSlice({
         builder.addCase(fetchBooks.fulfilled, (state, action) => {
             state.status = STATUS_LOADING.RESOLVED;
             state.bookList = action.payload.docs;
-            state.numberOfPages = Math.floor(action.payload.numFound / 25 + 1);
+            state.numberOfPages = Math.floor(action.payload.numFound / BOOKS_LIMIT + 1);
         });
         builder.addCase(fetchBooks.rejected, (state, action) => {
             state.status = STATUS_LOADING.REJECTED;
