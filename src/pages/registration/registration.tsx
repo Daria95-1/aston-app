@@ -62,7 +62,7 @@ export const Registration = () => {
     }
 
     return (
-        <div className="flex flex-col items-center justify-center mt-[200px]">
+        <div className="flex flex-col items-center justify-center mt-[80px]">
             <div className="flex flex-col items-center text-center rounded-[4px] form-shadow">
                 <form
                     className="flex flex-col w-[350px] items-center justify-center bg-[white] px-[30px] pt-[20px] pb-[35px] rounded-[10px]"
