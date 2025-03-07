@@ -19,8 +19,9 @@ export const ItemContent: React.FC<ItemContentProps> = ({ description,  title, a
           <Characteristic name={'Заголовок'} characteristic={title} characteristicUnknown={'заголовок не найден'} />
           <Characteristic name={'Автор'} characteristic={author} characteristicUnknown={'автор не известен'} />
           <Characteristic name={'Год'} characteristic={year} characteristicUnknown={'год не известен'} />
+          <Tags tags={tags} />
         </div>
-        <Tags tags={tags} />
+        
       </div>
     </div>
   );

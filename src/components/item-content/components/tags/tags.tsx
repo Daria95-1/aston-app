@@ -37,7 +37,7 @@ export const Tags: React.FC<TagsProps> = ({ tags = [], maxTags = 5 }) => {
 
   return (
     <div>
-        <div className="flex items-baseline gap-2 mb-5 mt-3"> 
+        <div className="flex items-baseline gap-2 mb-5"> 
             <span className="text-14 text-gray-800">tags:</span> 
             <div className="flex flex-wrap gap-2"> 
                 {displayTags.map((tag, index) => (
