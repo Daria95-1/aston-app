@@ -37,12 +37,8 @@ export const BookCardList: React.FC = () => {
         return <div className="loader"></div>
     }
     return (
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 my-4 mx-auto max-w-[1536px]">
-            {booksList.map((book) => (
-                <BookCard {...book} key={book.key} itemKey={book.key} />
-            ))}
             
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-6 gap-4 my-4 w-full max-w-full">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 md:grid-cols-5 gap-4 my-4 mx-auto max-w-[1536px]">
             {booksList.map((book) => {
                 const isFavorite = favorites.some(
                     (favorite) => favorite.key === book.key

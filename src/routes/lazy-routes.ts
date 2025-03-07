@@ -25,3 +25,8 @@ export const ErrorPage = lazy(() =>
         default: module.ErrorPage,
     }))
 )
+export const ItemPage = lazy(() =>
+    import('@pages/item-page/item-page').then((module) => ({
+        default: module.ItemPage,
+    }))
+)

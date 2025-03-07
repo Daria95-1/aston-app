@@ -6,31 +6,26 @@ import { ROUTES } from '@constants'
 
 import { useNavigate } from 'react-router-dom';
 
-type Books = {
+type Book = {
     author_name: string[];
     cover_edition_key: string;
     key: string;
     title: string;
     first_publish_year: string;
-    itemKey?: string;
+    itemKey: string;
+    bookId: string
+    isFavorite: boolean
+    onFavoriteClick: (key: string, isFavorite: boolean) => void
+    
 };
 
 
-type Book = {
-    bookId: string
-    author_name: string
-    cover_edition_key: string
-    title: string
-    isFavorite: boolean
-    onFavoriteClick: (key: string, isFavorite: boolean) => void
-}
-
-const BookCard: React.FC<Books> = ({ title, author_name, cover_edition_key, itemKey, first_publish_year, isFavorite, onFavoriteClick, bookId }) => {
+const BookCard: React.FC<Book> = ({ title, author_name, cover_edition_key, itemKey, first_publish_year, isFavorite, onFavoriteClick, bookId }) => {
     const navigate = useNavigate();
     const userRole = useSelector(selectUserRole) as ROLE
     const isUserAuthorized = userRole !== ROLE.GUEST
     const changeIcon = isFavorite ? 'bi-heart-fill' : 'bi-heart'
-
+    console.log('test', onFavoriteClick)
     const handleFavoriteClick = () => {
         onFavoriteClick(bookId, isFavorite)
     }
@@ -46,7 +41,8 @@ const BookCard: React.FC<Books> = ({ title, author_name, cover_edition_key, item
                 key: itemKey, 
                 image: cover_edition_key,
                 year: first_publish_year,
-                author: author_name
+                author: author_name,
+                isFavorite: isFavorite
               },
         });
     } 

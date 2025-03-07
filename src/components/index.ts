@@ -14,4 +14,7 @@ export * from "./search/search";
 export * from "./validation-error/validation-error";
 export * from "./footer/footer";
 export * from "./book-card-list/book-card-list";
-export * from "./description/description";
+export * from "./item-content/item-content";
+export * from "./item-content/components/description/description";
+export * from "./item-content/components/tags/tags";
+export * from "./item-content/components/characteristic/characteristic";

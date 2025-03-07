@@ -14,7 +14,7 @@ export const Button = ({ variant = 'check', isActive = false, children, onClick,
     displayText: 'text-[#2B8AFF]',
     filter: isActive
       ? 'px-2 py-2 border flex items-center text-white bg-[#2B8AFF]' 
-      : 'px-2 py-2 border flex items-center text-blue-400 bg-white-600', 
+      : 'px-2 py-2 border flex items-center text-[#2B8AFF] bg-white-600', 
   }[variant];
 
   return (

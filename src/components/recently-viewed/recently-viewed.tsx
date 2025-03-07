@@ -13,9 +13,6 @@ const RecentlyViewed: React.FC<RecentlyViewedProps> = ({ books }) => {
           <BookCard key={book.id} {...book} />
         ))}
       </div>
-      <button className="bg-blue-600 text-white px-4 py-2 rounded mt-4">
-        Показать все
-      </button>
     </div>
   );
 };

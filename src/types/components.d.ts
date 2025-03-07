@@ -15,7 +15,10 @@ declare module "@components" {
     export { Routes } from "../components/constans/routes";
     export { Search } from "../components/search/search";
     export { BookCardList } from "../components/book-card-list/book-card-list";
-    export { Description } from "../components/description/description";
+    export { ItemContent } from "../components/item-content/item-content";
     export { TextInput } from '../components/input/text-input'
     export { ValidationError } from '../components/validation-error/validation-error'
+    export { Description } from "../components/item-content/componrnts/description/description";
+    export { Tags } from "../components/item-content/componrnts/tags/tags";
+    export { Characteristic } from "../components/item-content/componrnts/characteristic/characteristic";
 }
