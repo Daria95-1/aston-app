@@ -1,4 +1,4 @@
-import { defineConfig } from 'vite'
+import { defineConfig } from 'vitest/config'
 import react from '@vitejs/plugin-react'
 import tailwindcssVite from '@tailwindcss/vite'
 import path from 'path'
@@ -18,5 +18,13 @@ export default defineConfig({
             '@hooks': path.resolve(__dirname, 'src/hooks'),
             '@routes': path.resolve(__dirname, 'src/routes'),
         },
+    },
+    test: {
+        environment: 'jsdom',
+        globals: true,
+        deps: {
+            inline: ['@testing-library/react', '@testing-library/jest-dom'],
+        },
+        setupFiles: ['./src/setup-tests.ts'],
     },
 })
