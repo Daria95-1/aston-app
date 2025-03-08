@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux'
 import { Routes, Route } from 'react-router-dom'
 import { Header, Footer } from '@components'
 import { ROUTES, STORAGE_KEYS } from '@constants'
-import { setUser } from '@slices/user-slice'
+import { setUser, setFavorites } from '@slices/user-slice'
 import {
     Authorization,
     Registration,
@@ -33,6 +33,14 @@ function App() {
                 roleId: Number(currentUserData.roleId),
             })
         )
+
+        const savedFavorites = sessionStorage.getItem(
+            STORAGE_KEYS.FAVOTITES_DATA
+        )
+        
+        if (savedFavorites) {
+            dispatch(setFavorites(JSON.parse(savedFavorites)))
+        }
     }, [dispatch])
 
     return (

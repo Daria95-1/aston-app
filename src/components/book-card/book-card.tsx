@@ -34,22 +34,21 @@ const BookCard: React.FC<Book> = ({
             <Icon className={changeIcon} onClick={handleFavoriteClick} />
         </Button>
     )
-
-    return (
-        <div className="border border-gray-300 rounded p-2 text-center">
-            <img
-                src={`${ROUTES.LIBRARY_COVERS}${cover_edition_key}-M.jpg`}
-                alt={title}
-                className="w-full h-120 object-cover mb-2"
-            />
-            <p>{title}</p>
-            <p className="text-sm text-gray-600">{author_name}</p>
-            <div className="mt-2 flex justify-center items-center space-x-2">
-                <Button variant="check">Подробнее</Button>
-                {showFavoriteButton}
+        return (
+            <div className="border border-gray-300 rounded p-2 text-center">
+                <img
+                    src={`${ROUTES.LIBRARY_COVERS}${cover_edition_key}-M.jpg`}
+                    alt={title}
+                    className="w-full h-120 object-cover mb-2"
+                />
+                <p>{title}</p>
+                <p className="text-sm text-gray-600">{author_name}</p>
+                <div className="mt-2 flex justify-center items-center space-x-2">
+                    <Button variant="check">Подробнее</Button>
+                    {showFavoriteButton}
+                </div>
             </div>
-        </div>
-    )
+        )
 }
 
 export { BookCard }

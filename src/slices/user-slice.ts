@@ -52,19 +52,25 @@ const userSlice = createSlice({
         },
         addToFavorites: (state, action: PayloadAction<FavoriteItem>) => {
             state.favorites.push(action.payload)
-            sessionStorage.setItem('favorites', JSON.stringify(state.favorites))
         },
         deleteFromFavorites: (state, action: PayloadAction<string>) => {
             state.favorites = state.favorites.filter(
                 (book) => book.key !== action.payload
             )
-            sessionStorage.setItem('favorites', JSON.stringify(state.favorites))
+        },
+        setFavorites: (state, action: PayloadAction<FavoriteItem[]>) => {
+            state.favorites = action.payload
         },
     },
 })
 
-export const { setUser, logoutUser, addToFavorites, deleteFromFavorites } =
-    userSlice.actions
+export const {
+    setUser,
+    logoutUser,
+    addToFavorites,
+    deleteFromFavorites,
+    setFavorites,
+} = userSlice.actions
 
 export const userReducer = userSlice.reducer
 

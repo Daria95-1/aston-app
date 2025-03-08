@@ -5,6 +5,3 @@ export * from './get-roles'
 export * from './add-session'
 export * from './delete-session'
 export * from './get-session'
-export * from './add-favorite'
-export * from "./get_favorite"
-export * from './delete-favorite'
