@@ -1,4 +1,5 @@
 import { EmptyFavorites } from '@pages'
+import { useEffect, useState } from 'react'
 import { BookCard } from '@components'
 import { selectUserFavorites, selectUserRole } from '@slices/user-slice'
 import { useSelector, useDispatch } from 'react-redux'
@@ -6,7 +7,6 @@ import { removeBookFromFavorites } from '@bff/operation'
 import { AppDispatch } from '../../store'
 import { useNavigate } from 'react-router-dom'
 import { ROUTES, ROLE } from '@constants'
-import { useEffect, useState } from 'react'
 
 export const Favorites = () => {
     const navigate = useNavigate()
@@ -14,6 +14,7 @@ export const Favorites = () => {
     const favorites = useSelector(selectUserFavorites)
     const dispatch = useDispatch<AppDispatch>()
     const [isCheckingAuth, setIsCheckingAuth] = useState(true)
+
 
     useEffect(() => {
         if (roleId === ROLE.GUEST) {

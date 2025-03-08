@@ -52,11 +52,13 @@ const userSlice = createSlice({
         },
         addToFavorites: (state, action: PayloadAction<FavoriteItem>) => {
             state.favorites.push(action.payload)
+            sessionStorage.setItem('favorites', JSON.stringify(state.favorites))
         },
         deleteFromFavorites: (state, action: PayloadAction<string>) => {
             state.favorites = state.favorites.filter(
                 (book) => book.key !== action.payload
             )
+            sessionStorage.setItem('favorites', JSON.stringify(state.favorites))
         },
     },
 })
