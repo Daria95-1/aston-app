@@ -27,11 +27,15 @@ const BookCardList: React.FC = () => {
     };
 
     if (isLoading) {
-        return <div className="loader"></div>;
+        return (
+            <div className="min-h-screen">
+                <div className="loader"></div>
+            </div>
+        );
     }
 
     return (
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-6 gap-4 my-4 w-full max-w-full">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-6 gap-4 my-4 w-full max-w-full ">
             {booksList.map((book) => {
                 const isFavorite = favorites.some((favorite) => favorite.key === book.key);
                 return (
