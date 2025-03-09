@@ -4,12 +4,9 @@ type Search = {
 };
 
 export const Search: React.FC<Search> = ({ value, setValue }) => {
-  
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setValue(event.target.value);
     };
-
-    console.log(value);
 
     return (
         <div className="mx-auto max-w-[1536px]">
