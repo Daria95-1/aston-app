@@ -35,7 +35,7 @@ const BookCardList: React.FC = () => {
     }
 
     return (
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-4 my-4 mx-auto max-w-[1536px]">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-4 my-4 mx-auto max-w-[1536px] mb-10">
             {booksList.map((book) => {
                 const isFavorite = favorites.some(
                     (favorite) => favorite.key === book.key
