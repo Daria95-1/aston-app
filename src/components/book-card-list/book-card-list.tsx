@@ -35,9 +35,11 @@ const BookCardList: React.FC = () => {
     }
 
     return (
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-6 gap-4 my-4 w-full max-w-full">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-4 my-4 mx-auto max-w-[1536px]">
             {booksList.map((book) => {
-                const isFavorite = favorites.some((favorite) => favorite.key === book.key);
+                const isFavorite = favorites.some(
+                    (favorite) => favorite.key === book.key
+                )
                 return (
                     <BookCard
                         key={book.key}
@@ -46,12 +48,15 @@ const BookCardList: React.FC = () => {
                         title={book.title}
                         author_name={book.author_name}
                         isFavorite={isFavorite}
-                        onFavoriteClick={getFavoriteClickHandler(book.key, isFavorite)}
+                        onFavoriteClick={getFavoriteClickHandler(
+                            book.key,
+                            isFavorite
+                        )}
                     />
-                );
+                )
             })}
         </div>
-    );
+    )
 };
 
 export { BookCardList };
