@@ -30,14 +30,23 @@ const MainPage: React.FC = () => {
                     count={numberPages}
                     page={currentPage}
                     onChange={handleChange}
-                    color="primary"
+                    sx={{
+                        '& .Mui-selected': {
+                            backgroundColor: '#2B8AFF !important',
+                            color: 'white !important',
+                        },
+                        '& .MuiPaginationItem-root:hover': {
+                            backgroundColor: '#155dfc',
+                            color: 'white',
+                        },
+                    }}
                     size="large"
                 />
 
                 <RecentlyViewed books={recentlyViewed} />
             </main>
         </div>
-    );
+    )
 };
 
 export { MainPage };
