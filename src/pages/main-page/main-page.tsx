@@ -24,7 +24,6 @@ const MainPage: React.FC = () => {
     }, [dispatch, currentPage, value]);
 
     const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
-        console.log(event);
         dispatch(changePage(value));
     };
 
