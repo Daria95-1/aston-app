@@ -1,7 +1,7 @@
 import { FC, ReactNode } from 'react'
 import { Link } from 'react-router-dom'
 
-interface FormContainerProps {
+type FormContainerProps = {
     children: ReactNode
     linkTo: string
     linkText: string

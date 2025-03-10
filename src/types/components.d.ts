@@ -18,4 +18,5 @@ declare module "@components" {
     export { TextInput } from '../components/input/text-input'
     export { ValidationError } from '../components/validation-error/validation-error'
     export { FormContainer } from '../components/form-container/form-container'
+    export { ErrorBoundary } from '../components/error-boundary/error-boundary'
 }

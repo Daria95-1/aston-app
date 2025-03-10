@@ -1,8 +1,6 @@
-/** @format */
-
 import { Input } from '@components'
 
-interface TextInputProps {
+type TextInputProps = {
     register: (
         name: string,
         options?: Record<string, unknown>

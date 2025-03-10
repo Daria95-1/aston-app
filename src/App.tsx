@@ -2,7 +2,7 @@ import { Suspense } from 'react'
 import { useLayoutEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import { Routes, Route } from 'react-router-dom'
-import { Header, Footer } from '@components'
+import { Header, Footer, ErrorBoundary } from '@components'
 import { ROUTES, STORAGE_KEYS } from '@constants'
 import { setUser, setFavorites } from '@slices/user-slice'
 import {
@@ -48,6 +48,7 @@ function App() {
             <Header />
             <Suspense fallback={<div className="loader"></div>}>
                 <div className="mt-30 mb-30">
+                    <ErrorBoundary>
                     <Routes>
                         <Route path={ROUTES.REGISTER} element={<Registration />} />
                         <Route path={ROUTES.LOGIN} element={<Authorization />} />
@@ -55,6 +56,7 @@ function App() {
                         <Route path={ROUTES.FAVORITES} element={<Favorites />} />
                         <Route path={ROUTES.NOT_FOUND} element={<ErrorPage />} />
                     </Routes>
+                    </ErrorBoundary>
                 </div>
             </Suspense>
             <Footer />

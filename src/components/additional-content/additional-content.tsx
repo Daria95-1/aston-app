@@ -1,4 +1,4 @@
-interface AdditionalContentProps {
+type AdditionalContentProps = {
   title: string;
   description?: string;
   image: string;

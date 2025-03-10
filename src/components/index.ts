@@ -15,3 +15,4 @@ export * from "./validation-error/validation-error";
 export * from "./footer/footer";
 export * from "./book-card-list/book-card-list";
 export * from './form-container/form-container'
+export * from './error-boundary/error-boundary'

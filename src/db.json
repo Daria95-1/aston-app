@@ -5,12 +5,6 @@
       "login": "ivan",
       "password": "qwe123",
       "role_id": 1
-    },
-    {
-      "id": "f819",
-      "login": "oleg",
-      "password": "qwe123",
-      "role_id": 1
     }
   ],
   "roles": [
@@ -23,16 +17,5 @@
       "name": "Пользователь"
     }
   ],
-  "sessions": [
-    {
-      "id": "003b",
-      "hash": "0.67399490706510345461310862447135150432586669921875",
-      "user": {
-        "id": "f819",
-        "login": "oleg",
-        "password": "qwe123",
-        "role_id": 1
-      }
-    }
-  ]
+  "sessions": []
 }
