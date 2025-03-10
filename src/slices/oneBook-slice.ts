@@ -22,7 +22,7 @@ export type State = {
     error?: string;
 };
 
-interface MyKnownError {
+type MyKnownError = {
     errorMessage: string;
 }
 

@@ -11,7 +11,7 @@ export const Filters: React.FC = () => {
   return (
       <div className="mx-auto max-w-[1536px]">
           <h2 className="text-xl font-bold mt-10 mb-4 ml-0">Новинки</h2>
-          <div className="flex space-x-4 gap-5 mb-8">
+          <div className="flex space-x-4 gap-5 mt-5 mb-8">
               <Button
                   variant="filter"
                   isActive={activeFilter === 'popular'}
@@ -36,4 +36,4 @@ export const Filters: React.FC = () => {
           </div>
       </div>
   )
-}; 
+};

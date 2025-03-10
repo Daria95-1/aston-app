@@ -21,7 +21,7 @@ const MainPage: React.FC = () => {
 
     return (
         <div className="min-h-screen flex flex-col">
-            <main className="p-4 flex-1">
+            <div className="p-4 flex-1">
                 <Search />
                 <Filters />
                 <BookCardList />
@@ -44,7 +44,7 @@ const MainPage: React.FC = () => {
                 />
 
                 <RecentlyViewed books={recentlyViewed} />
-            </main>
+            </div>
         </div>
     )
 };
