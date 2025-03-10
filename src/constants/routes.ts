@@ -8,5 +8,6 @@ export const ROUTES = {
     USERS: 'users',
     LIBRARY: 'https://openlibrary.org',
     LIBRARY_COVERS: 'https://covers.openlibrary.org/b/olid/',
-    ITEM_PAGE: "/book/:key"
+    ITEM_PAGE: "/book/:key",
+    HISTORY: '/history'
 }

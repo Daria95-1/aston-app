@@ -4,4 +4,6 @@ export * from "./main-page/main-page";
 export * from "./item-page/item-page";
 export * from './favorites/favorites'
 export * from './favorites/empty-favorites'
+export * from './history/history'
+export * from './history/empty-history'
 export * from './error-page/error-page'

@@ -1,8 +1,11 @@
 import { useSelector } from 'react-redux'
 import { ROLE } from '@constants'
-import { selectUserRole } from '@slices/user-slice'
+import { selectUserRole, isBookFavorite } from '@slices/user-slice'
 import { Button, Icon } from '@components'
 import { ROUTES } from '@constants'
+import { useFavoriteHandler } from '../../hendlers/handleFavoriteClick'
+import { RootState } from '../../store';
+
 
 import { useNavigate } from 'react-router-dom';
 
@@ -14,25 +17,27 @@ type Book = {
     first_publish_year: string;
     itemKey: string;
     bookId: string
-    isFavorite: boolean
-    onFavoriteClick: (key: string, isFavorite: boolean) => void
-    
 };
 
 
-const BookCard: React.FC<Book> = ({ title, author_name, cover_edition_key, itemKey, first_publish_year, isFavorite, onFavoriteClick, bookId }) => {
+export const BookCard: React.FC<Book> = ({ title, author_name, cover_edition_key, itemKey, first_publish_year,  bookId }) => {
     const navigate = useNavigate();
     const userRole = useSelector(selectUserRole) as ROLE
     const isUserAuthorized = userRole !== ROLE.GUEST
-    const changeIcon = isFavorite ? 'bi-heart-fill' : 'bi-heart'
-    console.log('test', onFavoriteClick)
-    const handleFavoriteClick = () => {
-        onFavoriteClick(bookId, isFavorite)
-    }
+    const bookData = {
+        key: bookId,
+        title: title,
+        author_name: author_name,
+        cover_edition_key: cover_edition_key,
+        first_publish_year: first_publish_year
+      };
+    const { handleFavoriteClick } = useFavoriteHandler();
+    const isFavorite = useSelector((state: RootState) => isBookFavorite(state, bookId));
+    const changeIcon = isFavorite ? 'bi-heart-fill' : 'bi-heart';
 
     const showFavoriteButton = isUserAuthorized && (
         <Button variant="like">
-            <Icon className={changeIcon} onClick={handleFavoriteClick} />
+            <Icon className={changeIcon} onClick={() => handleFavoriteClick(bookId, bookData, isFavorite,)} />
         </Button>
     )
     const handleDetailsClick = () => {
@@ -42,7 +47,7 @@ const BookCard: React.FC<Book> = ({ title, author_name, cover_edition_key, itemK
                 image: cover_edition_key,
                 year: first_publish_year,
                 author: author_name,
-                isFavorite: isFavorite
+                title: title,
               },
         });
     } 
@@ -63,4 +68,4 @@ const BookCard: React.FC<Book> = ({ title, author_name, cover_edition_key, itemK
     )
 }
 
-export { BookCard }
+

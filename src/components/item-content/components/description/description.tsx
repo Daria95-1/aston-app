@@ -9,6 +9,10 @@ type DescriptionProps = {
 export const Description: React.FC<DescriptionProps> = ({ description, maxLength = 300 }) => {
   const [isAll, setIsAll] = useState(false);
 
+  const handleAllDescription = () => {
+    setIsAll(!isAll);
+  };
+
   if (description.length <= maxLength) {
     return (
         <div>
@@ -28,7 +32,7 @@ export const Description: React.FC<DescriptionProps> = ({ description, maxLength
         <span className="text-14 leading-[1.5]">{displayText}</span>
         <Button 
           variant="displayText" 
-          onClick={() => setIsAll(!isAll)}
+          onClick={handleAllDescription}
           className="w-fit"
         >
           {isAll ? 'Скрыть' : 'Показать полностью'}

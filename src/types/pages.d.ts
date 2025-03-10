@@ -6,4 +6,6 @@ declare module "@pages" {
     export { Favorites } from '../pages/favorites/favorites'
     export { EmptyFavorites } from '../pages/favorites/empty-favorites'
     export { ErrorPage } from '../pages/error-page'
+    export { History } from '../pages/history/history'
+    export { EmptyHistory } from '../pages/history/empty-history'
 }

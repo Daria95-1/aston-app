@@ -8,7 +8,11 @@ type TagsProps = {
 
 export const Tags: React.FC<TagsProps> = ({ tags = [], maxTags = 5 }) => {
   const [isAll, setIsAll] = useState(false);
-  const safeTags = Array.isArray(tags) ? tags : [];  
+  const safeTags = Array.isArray(tags) ? tags : []; 
+  
+  const handleAllTags = () => {
+    setIsAll(!isAll);
+  };
   
   if (safeTags.length === 0) {
     return (
@@ -49,7 +53,7 @@ export const Tags: React.FC<TagsProps> = ({ tags = [], maxTags = 5 }) => {
         </div>
         <Button
             variant="displayText"
-            onClick={() => setIsAll(!isAll)}
+            onClick={handleAllTags}
             className="w-fit mt-2"
         >
             {isAll ? 'Скрыть' : `Показать еще (${tags.length - maxTags})`}

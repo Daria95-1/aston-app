@@ -1,6 +1,5 @@
 import "./main-page.css";
 import { Search, Filters, RecentlyViewed, BookCardList } from "@components";
-import { recentlyViewed } from "../../mock";
 
 export const MainPage: React.FC = () => {
     return (
@@ -9,7 +8,7 @@ export const MainPage: React.FC = () => {
                 <Search />
                 <Filters />
                 <BookCardList />
-                <RecentlyViewed books={recentlyViewed} />
+                <RecentlyViewed  />
             </main>
         </div>
     );

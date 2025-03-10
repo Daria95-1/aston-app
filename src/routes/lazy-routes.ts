@@ -30,3 +30,8 @@ export const ItemPage = lazy(() =>
         default: module.ItemPage,
     }))
 )
+export const History = lazy(() =>
+    import('@pages/history/history').then((module) => ({
+        default: module.History,
+    }))
+)

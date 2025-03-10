@@ -11,7 +11,8 @@ import {
     MainPage,
     Favorites,
     ErrorPage,
-    ItemPage
+    ItemPage,
+    History
 } from '@routes/lazy-routes' // lazy + Suspense
 
 function App() {
@@ -46,6 +47,7 @@ function App() {
                 <Route path={ROUTES.MAIN_PAGE} element={<MainPage />} />
                 <Route path={ROUTES.ITEM_PAGE} element={<ItemPage />} />
                 <Route path={ROUTES.FAVORITES} element={<Favorites />} />
+                <Route path={ROUTES.HISTORY} element={<History />} />
                 <Route path={ROUTES.NOT_FOUND} element={<ErrorPage />} />
             </Routes>
             </Suspense>
