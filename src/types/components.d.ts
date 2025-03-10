@@ -17,4 +17,5 @@ declare module "@components" {
     export { BookCardList } from "../components/book-card-list/book-card-list";
     export { TextInput } from '../components/input/text-input'
     export { ValidationError } from '../components/validation-error/validation-error'
+    export { FormContainer } from '../components/form-container/form-container'
 }

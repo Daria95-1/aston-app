@@ -60,8 +60,9 @@ export const Favorites = () => {
     }
 
     return (
-        <div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 my-4 mx-auto max-w-[1536px] mt-10">
+        <div className="mx-auto max-w-[1536px]">
+            <h2 className="text-xl font-bold mb-2 ml-0">Избранное</h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 my-4">
                 {favorites.map((favorite) => (
                     <BookCard
                         key={favorite.key}

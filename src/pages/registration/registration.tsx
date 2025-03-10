@@ -1,15 +1,16 @@
 import { useState } from 'react'
 import { useSelector } from 'react-redux'
+import { Navigate } from 'react-router-dom'
 import { useForm, SubmitHandler } from 'react-hook-form'
 import { useAuthSubmit } from '@hooks'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { regFormSchema } from '@schemas'
-import { Link, Navigate } from 'react-router-dom'
 import {
     FormButton,
     ValidationError,
     TextInput,
     PasswordInput,
+    FormContainer,
 } from '@components'
 import { ROUTES, ROLE } from '@constants'
 import { selectUserRole } from '@slices/user-slice'
@@ -62,56 +63,45 @@ export const Registration = () => {
     }
 
     return (
-        <div className="flex flex-col items-center justify-center mt-[80px]">
-            <div className="flex flex-col items-center text-center rounded-[4px] form-shadow">
-                <form
-                    className="flex flex-col w-[350px] items-center justify-center bg-[white] px-[30px] pt-[20px] pb-[35px] rounded-[10px]"
-                    onSubmit={handleSubmit(handleFormSubmit)}
-                >
-                    <h2 className="text-[20px] font-semibold mb-3">
-                        Регистрация
-                    </h2>
-                    <TextInput
-                        register={register}
-                        name="login"
-                        placeholder="Введите логин..."
-                        onChange={handleInputChange}
-                    />
-                    <PasswordInput
-                        register={register}
-                        name="password"
-                        placeholder="Введите пароль..."
-                        showPassword={showPassword}
-                        setShowPassword={setShowPassword}
-                        onChange={handleInputChange}
-                    />
-                    <PasswordInput
-                        register={register}
-                        name="passcheck"
-                        placeholder="Повторите пароль..."
-                        showPassword={showConfirmPassword}
-                        setShowPassword={setShowConfirmPassword}
-                        onChange={handleInputChange}
-                    />
-                    <FormButton
-                        type="submit"
-                        className="text-[16px] font-[500] w-full h-[45px] text-[white] bg-[#2B8AFF] mb-[25px] border-0 rounded-[4px] cursor-pointer"
-                        disabled={!!formError}
-                    >
-                        Зарегистрироваться
-                    </FormButton>
-                    {errorMessage && (
-                        <ValidationError>{errorMessage}</ValidationError>
-                    )}
-                </form>
-            </div>
-
-            <Link
-                className="text-[15px] font-[400]mt-[30px] mt-[30px] "
-                to={ROUTES.LOGIN}
+        <FormContainer linkTo={ROUTES.LOGIN} linkText="Войти">
+            <form
+                className="flex flex-col w-[350px] items-center justify-center bg-[white] px-[30px] pt-[20px] pb-[35px] rounded-[10px]"
+                onSubmit={handleSubmit(handleFormSubmit)}
             >
-                Войти
-            </Link>
-        </div>
+                <h2 className="text-[20px] font-semibold mb-3">Регистрация</h2>
+                <TextInput
+                    register={register}
+                    name="login"
+                    placeholder="Введите логин..."
+                    onChange={handleInputChange}
+                />
+                <PasswordInput
+                    register={register}
+                    name="password"
+                    placeholder="Введите пароль..."
+                    showPassword={showPassword}
+                    setShowPassword={setShowPassword}
+                    onChange={handleInputChange}
+                />
+                <PasswordInput
+                    register={register}
+                    name="passcheck"
+                    placeholder="Повторите пароль..."
+                    showPassword={showConfirmPassword}
+                    setShowPassword={setShowConfirmPassword}
+                    onChange={handleInputChange}
+                />
+                <FormButton
+                    type="submit"
+                    className="text-[16px] font-[500] w-full h-[45px] text-[white] bg-[#2B8AFF] mb-[25px] border-0 rounded-[4px] cursor-pointer"
+                    disabled={!!formError}
+                >
+                    Зарегистрироваться
+                </FormButton>
+                {errorMessage && (
+                    <ValidationError>{errorMessage}</ValidationError>
+                )}
+            </form>
+        </FormContainer>
     )
 }

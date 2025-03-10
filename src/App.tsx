@@ -46,14 +46,16 @@ function App() {
     return (
         <>
             <Header />
-            <Suspense fallback={<div className='loader'></div>}>
-            <Routes>
-                <Route path={ROUTES.REGISTER} element={<Registration />} />
-                <Route path={ROUTES.LOGIN} element={<Authorization />} />
-                <Route path={ROUTES.MAIN_PAGE} element={<MainPage />} />
-                <Route path={ROUTES.FAVORITES} element={<Favorites />} />
-                <Route path={ROUTES.NOT_FOUND} element={<ErrorPage />} />
-            </Routes>
+            <Suspense fallback={<div className="loader"></div>}>
+                <div className="mt-30 mb-30">
+                    <Routes>
+                        <Route path={ROUTES.REGISTER} element={<Registration />} />
+                        <Route path={ROUTES.LOGIN} element={<Authorization />} />
+                        <Route path={ROUTES.MAIN_PAGE} element={<MainPage />} />
+                        <Route path={ROUTES.FAVORITES} element={<Favorites />} />
+                        <Route path={ROUTES.NOT_FOUND} element={<ErrorPage />} />
+                    </Routes>
+                </div>
             </Suspense>
             <Footer />
         </>
