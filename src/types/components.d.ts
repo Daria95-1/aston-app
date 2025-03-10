@@ -21,4 +21,5 @@ declare module "@components" {
     export { Description } from "../components/item-content/componrnts/description/description";
     export { Tags } from "../components/item-content/componrnts/tags/tags";
     export { Characteristic } from "../components/item-content/componrnts/characteristic/characteristic";
+    export { Modal } from "../components/modal/modal";
 }

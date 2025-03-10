@@ -1,4 +1,4 @@
-import "./main-page.css";
+//import "./main-page.css";
 import { Search, Filters, RecentlyViewed, BookCardList } from "@components";
 
 export const MainPage: React.FC = () => {

@@ -1,14 +1,15 @@
-import  { useEffect,  } from 'react';
-import { Button, Icon, ItemContent, RecentlyViewed,  } from '@components';
+import  { useEffect, useState } from 'react';
+import { Button, Icon, ItemContent, RecentlyViewed, Modal  } from '@components';
 import { useLocation } from 'react-router-dom';
+import { ROLE } from '@constants'
 import { ROUTES } from "@constants";
 import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
 import { selectBook, fetchOneBook } from "@slices/oneBook-slice";
 import { RootState } from '../../store';
-import {  addBookToHistory } from '@bff/operation'
+import { addBookToHistory } from '@bff/operation'
 import { useFavoriteHandler } from '../../hendlers/handleFavoriteClick'
 import { useSelector } from 'react-redux'
-import {  isBookFavorite } from '@slices/user-slice'
+import { isBookFavorite, selectUserRole } from '@slices/user-slice'
 
 
 
@@ -16,7 +17,9 @@ import {  isBookFavorite } from '@slices/user-slice'
 export const ItemPage: React.FC = () => {
   const location = useLocation();
   const books = location.state;
-  
+  const userRole = useSelector(selectUserRole) as ROLE
+  const isUserAuthorized = userRole !== ROLE.GUEST
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const dispatch = useAppDispatch();
   const book = useAppSelector(selectBook);
   const { handleFavoriteClick } = useFavoriteHandler();
@@ -38,6 +41,17 @@ export const ItemPage: React.FC = () => {
       : book.description || 'Описание книги отсутствует.';
   const tags = book.subjects && book.subjects.length > 0 ? book.subjects : [];
 
+  const handleFavoriteClickWrapper = () => {
+    if (isUserAuthorized) {
+      handleFavoriteClick(books.key, Item, isFavorite);
+    } else {
+      setIsModalOpen(true);
+    }
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+    };
 
   useEffect(() => {
     addBookToHistory(dispatch, Item);
@@ -64,16 +78,22 @@ export const ItemPage: React.FC = () => {
           title={book.title}
           tags={tags}
         />
-        <div className="p-4 bg-white rounded-lg shadow-lg border border-gray-200 w-[350px] h-[200px] " >
+        <div className="p-4 bg-white rounded-lg shadow-lg border border-gray-200 w-[400px] h-[200px] " >
           <div className="text-14 mt-4 mb-4 flex leading-relaxed gap-2">
               <Icon className="bi bi-shop"/> Приобрести книгу вы можете в наших магазинах, предварительно оставив offline-заявку
           </div>
-          <Button variant="check" className="w-full mt-6" onClick={() => handleFavoriteClick(books.key, Item, isFavorite,)} >
+          <Button variant="check" className="w-full mt-6 " onClick={handleFavoriteClickWrapper} >
             <div className="flex items-center justify-center" style={{gap:'4px'}}>
               {addFavoriteButtonText}
               <Icon className={changeIcon}  />
             </div>
           </Button>
+          <Modal
+            isOpen={isModalOpen}
+            onClose={handleCloseModal}
+            title="Требуется авторизация"
+          >         
+          </Modal>
         </div>
       </div>
       <RecentlyViewed  nonVisible={books.key} />

@@ -18,3 +18,5 @@ export * from "./item-content/item-content";
 export * from "./item-content/components/description/description";
 export * from "./item-content/components/tags/tags";
 export * from "./item-content/components/characteristic/characteristic";
+export * from "./modal/modal";
+
