@@ -23,14 +23,18 @@ const MainPage: React.FC = () => {
         dispatch(fetchBooks({ page: currentPage, request: value || "the+lord+of+the+rings" }));
     }, [dispatch, currentPage, value]);
 
-    const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
+    const handleChangePage = (event: React.ChangeEvent<unknown>, value: number) => {
         dispatch(changePage(value));
+    };
+
+    const handleChangeInput = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setValue(event.target.value);
     };
 
     return (
         <div className="min-h-screen flex flex-col">
             <main className="p-4 flex-1">
-                <Search value={value} setValue={setValue} />
+                <Search value={value} handleChangeInput={handleChangeInput} />
                 <Filters />
                 <BookCardList />
                 {!isLoading && (
@@ -38,7 +42,7 @@ const MainPage: React.FC = () => {
                         className="pagination"
                         count={numberPages}
                         page={currentPage}
-                        onChange={handleChange}
+                        onChange={handleChangePage}
                         color="primary"
                         size="large"
                     />
