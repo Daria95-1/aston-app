@@ -58,11 +58,19 @@ const userSlice = createSlice({
                 (book) => book.key !== action.payload
             )
         },
+        setFavorites: (state, action: PayloadAction<FavoriteItem[]>) => {
+            state.favorites = action.payload
+        },
     },
 })
 
-export const { setUser, logoutUser, addToFavorites, deleteFromFavorites } =
-    userSlice.actions
+export const {
+    setUser,
+    logoutUser,
+    addToFavorites,
+    deleteFromFavorites,
+    setFavorites,
+} = userSlice.actions
 
 export const userReducer = userSlice.reducer
 

@@ -9,7 +9,7 @@ type AddBookToFavoritesResponse = {
 
 export const addBookToFavorites = async (
     dispatch: AppDispatch,
-    book: Book
+    book: Book,
 ): Promise<AddBookToFavoritesResponse> => {
     try {
         const res = dispatch(addToFavorites(book))

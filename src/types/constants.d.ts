@@ -6,4 +6,5 @@ declare module '@constants' {
     export { USERS } from '../constants/users'
     export { SESSIONS } from '../constants/sessions'
     export { STORAGE_KEYS } from '../constants/storage-keys'
+    export { FAVORITES } from '../constants/favorites'
 }

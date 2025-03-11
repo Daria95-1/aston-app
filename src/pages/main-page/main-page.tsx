@@ -33,25 +33,34 @@ const MainPage: React.FC = () => {
 
     return (
         <div className="min-h-screen flex flex-col">
-            <main className="p-4 flex-1">
+            <div className="p-4 flex-1">
                 <Search value={value} handleChangeInput={handleChangeInput} />
                 <Filters />
                 <BookCardList />
-                {!isLoading && (
-                    <Pagination
-                        className="pagination"
-                        count={numberPages}
-                        page={currentPage}
-                        onChange={handleChangePage}
-                        color="primary"
-                        size="large"
-                    />
-                )}
+              {!isLoading && (
+                <Pagination
+                    className="pagination"
+                    count={numberPages}
+                    page={currentPage}
+                    onChange={handleChangePage}
+                    sx={{
+                        '& .Mui-selected': {
+                            backgroundColor: '#2B8AFF !important',
+                            color: 'white !important',
+                        },
+                        '& .MuiPaginationItem-root:hover': {
+                            backgroundColor: '#155dfc',
+                            color: 'white',
+                        },
+                    }}
+                    size="large"
+                />
+               )}
 
                 <RecentlyViewed books={recentlyViewed} />
-            </main>
+            </div>
         </div>
-    );
+    )
 };
 
 export { MainPage };
