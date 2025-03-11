@@ -22,4 +22,5 @@ declare module "@components" {
     export { Tags } from "../components/item-content/componrnts/tags/tags";
     export { Characteristic } from "../components/item-content/componrnts/characteristic/characteristic";
     export { Modal } from "../components/modal/modal";
+    export { FavoriteButton } from "../components/buttons/favorite-button";
 }

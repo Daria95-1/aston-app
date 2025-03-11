@@ -20,6 +20,7 @@ export const BookCardList: React.FC = () => {
             {booksList.map((book) => {
                 return (
                     <BookCard
+                        key={book.key}
                         itemKey={book.key}
                         bookId={book.key}
                         cover_edition_key={book.cover_edition_key}

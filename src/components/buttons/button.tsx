@@ -22,7 +22,7 @@ export const Button = ({ variant = 'check', isActive = false, children, onClick,
   return (
     <button
       onClick={onClick}
-      onMouseEnter={onMouseEnter} // Передаем onMouseEnter
+      onMouseEnter={onMouseEnter} 
       onMouseLeave={onMouseLeave}
       className={`${baseClasses} ${variantClasses} ${className}`}
     >

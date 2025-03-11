@@ -9,7 +9,7 @@ type FavoriteItem = {
     cover_edition_key: string
 }
 
-type HistoryItem = {
+export type HistoryItem = {
     key: string
     title: string
     author_name: string[]
@@ -101,6 +101,8 @@ export const selectUserHistory = (state: RootState): HistoryItem[] => {
     return (state as { user: User }).user.history
 }
 
-export const isBookFavorite = (state: RootState, bookKey: string): boolean => {
-    return (state as { user: User }).user.favorites.some((fav) => fav.key === bookKey);
+
+
+export const isBookFavorite = (bookId: string) => (state: RootState): boolean => {
+    return (state as { user: User }).user.favorites.some((fav: FavoriteItem) => fav.key === bookId);
 };
