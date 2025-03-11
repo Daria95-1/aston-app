@@ -31,7 +31,11 @@ const BookCardList: React.FC = () => {
         }
 
     if (isLoading) {
-        return <div className="loader"></div>;
+        return (
+            <div className="min-h-screen">
+                <div className="loader"></div>
+            </div>
+        );
     }
 
     return (
