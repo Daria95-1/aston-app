@@ -2,7 +2,7 @@ import { RootState } from '../store'
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { ROLE } from '@constants'
 
-type FavoriteItem = {
+export type FavoriteItem = {
     key: string
     title: string
     author_name: string[]

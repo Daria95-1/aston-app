@@ -37,7 +37,8 @@
             "@slices/*": ["slices/*"],
             "@utils/*": ["utils/*"],
             "@hooks/*": ["hooks/*"],
-            "@routes/*": ["routes/*"]
+            "@routes/*": ["routes/*"],
+            "@middlewares/*": ["middlewares/*"]
         }
     },
     "include": ["src", "src/types/*.d.ts"]

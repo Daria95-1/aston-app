@@ -47,8 +47,10 @@ export const Favorites = () => {
                 STORAGE_KEYS.FAVOTITES_DATA,
                 JSON.stringify(favorites)
             )
+        } else {
+            sessionStorage.removeItem(STORAGE_KEYS.FAVOTITES_DATA) // Убираем, если избранное пустое
         }
-    }, [favorites]) // Срабатывает, когда favorites изменяется
+    }, [favorites])
 
     // Пока не проверили роль — ничего не рендерим
     if (isCheckingAuth) {

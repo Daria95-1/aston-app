@@ -17,6 +17,7 @@ export default defineConfig({
             '@utils': path.resolve(__dirname, 'src/utils'),
             '@hooks': path.resolve(__dirname, 'src/hooks'),
             '@routes': path.resolve(__dirname, 'src/routes'),
+            '@middlewares': path.resolve(__dirname, 'src/middlewares'),
         },
     },
     test: {

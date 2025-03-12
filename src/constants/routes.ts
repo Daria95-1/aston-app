@@ -5,6 +5,7 @@ export const ROUTES = {
     FAVORITES: '/favorites',
     NOT_FOUND: '*',
     BASE_URL: 'http://localhost:5180',
+    API_USERS: 'http://localhost:5180/users',
     USERS: 'users',
     LIBRARY: 'https://openlibrary.org',
     LIBRARY_COVERS: 'https://covers.openlibrary.org/b/olid/',

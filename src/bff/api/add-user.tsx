@@ -20,6 +20,7 @@ export const addUser = async (
             login,
             password,
             role_id: 1,
+            favorites: []
         }),
     })
 
