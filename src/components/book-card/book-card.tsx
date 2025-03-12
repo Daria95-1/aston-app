@@ -3,6 +3,7 @@ import { ROLE } from '@constants'
 import { selectUserRole } from '@slices/user-slice'
 import { Button, Icon } from '@components'
 import { ROUTES } from '@constants'
+import imageNotFound from '../../image/image_not_found.png';
 
 type Book = {
     bookId: string
@@ -24,6 +25,9 @@ const BookCard: React.FC<Book> = ({
     const userRole = useSelector(selectUserRole) as ROLE
     const isUserAuthorized = userRole !== ROLE.GUEST
     const changeIcon = isFavorite ? 'bi-heart-fill' : 'bi-heart'
+    const image = cover_edition_key
+    ? `${ROUTES.LIBRARY_COVERS}${cover_edition_key}-M.jpg`
+    : imageNotFound;
 
     const handleFavoriteClick = () => {
         onFavoriteClick(bookId, isFavorite)
@@ -37,7 +41,7 @@ const BookCard: React.FC<Book> = ({
         return (
             <div className="border border-gray-300 rounded p-2 text-center">
                 <img
-                    src={`${ROUTES.LIBRARY_COVERS}${cover_edition_key}-M.jpg`}
+                    src={image}
                     alt={title}
                     className="w-full h-120 object-cover mb-2"
                 />

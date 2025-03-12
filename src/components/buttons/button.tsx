@@ -4,9 +4,10 @@ type ButtonProps = {
   children: React.ReactNode;
   onClick?: () => void;
   className?: string;
-};
+  dataFilter?: string;
+} 
 
-export const Button = ({ variant = 'check', isActive = false, children, onClick, className = '' }: ButtonProps) => {
+export const Button = ({ variant = 'check', isActive = false, children, onClick, className = '', dataFilter }: ButtonProps) => {
   const baseClasses = 'rounded'
   const variantClasses = {
       check: 'bg-[#2B8AFF] text-white px-3 py-2 w-48',
@@ -20,6 +21,7 @@ export const Button = ({ variant = 'check', isActive = false, children, onClick,
       <button
           onClick={onClick}
           className={`${baseClasses} ${variantClasses} ${className} cursor-pointer`}
+          data-filter={dataFilter}
       >
           {children}
       </button>

@@ -1,39 +1,61 @@
-import  { useState } from 'react';
 import { Button, Icon } from '@components';
 
-export const Filters: React.FC = () => {
-  const [activeFilter, setActiveFilter] = useState<string | null>(null);
-  const handleFilterClick = (filter: string) => {
-    setActiveFilter(filter === activeFilter ? null : filter); 
-    
-  };
+const filters = [
+    { id: 'popular', label: 'По популярности', icon: 'bi-star' },
+    { id: 'date', label: 'По дате', icon: null }, 
+    { id: 'random', label: 'Случайные', icon: null }
+  ] as const;
 
-  return (
-      <div className="mx-auto max-w-[1536px]">
-          <h2 className="text-xl font-bold mt-10 mb-4 ml-0">Новинки</h2>
-          <div className="flex space-x-4 gap-5 mt-5 mb-8">
-              <Button
-                  variant="filter"
-                  isActive={activeFilter === 'popular'}
-                  onClick={() => handleFilterClick('popular')}
-              >
-                  По популярности <Icon className={'bi-star ml-1'} />
-              </Button>
-              <Button
-                  variant="filter"
-                  isActive={activeFilter === 'price-up'}
-                  onClick={() => handleFilterClick('price-up')}
-              >
-                  По алфавиту <Icon className={'bi-sort-alpha-up ml-1'} />
-              </Button>
-              <Button
-                  variant="filter"
-                  isActive={activeFilter === 'price-down'}
-                  onClick={() => handleFilterClick('price-down')}
-              >
-                  По алфавиту <Icon className={'bi-sort-alpha-down ml-1'} />
-              </Button>
-          </div>
-      </div>
-  )
+type FiltersProps = {
+    activeFilter: 'popular' | 'date' | 'random';
+    dateDirection: 'new' | 'old';
+    onFilterChange: (filter: 'popular' | 'date' | 'random') => void;
+    onDateDirection: () => void;
+}
+  
+export const Filters: React.FC<FiltersProps> = ({
+    activeFilter,
+    dateDirection,
+    onFilterChange,
+    onDateDirection,
+}) => {
+    const handleFilterClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+        const filter = event.currentTarget.dataset.filter as 'popular' | 'date' | 'random';
+      
+        if (filter === 'date' && activeFilter === 'date') {
+          onDateDirection(); 
+        } else {
+          onFilterChange(filter); 
+        }
+      };
+
+    return (
+        <div className="mx-auto max-w-[1536px]">
+            <div className="flex space-x-4 gap-5 mt-5 mb-8">
+                {filters.map((filter) => {
+                    const buttonLabel =
+                        filter.id === 'date'
+                            ? dateDirection === 'new'
+                                ? 'Сначала новые'
+                                : 'Сначала старые'
+                            : filter.label;
+
+                    const iconClass = filter.id === 'popular' ? filter.icon : null;
+
+                    return (
+                        <Button
+                            key={filter.id}
+                            variant="filter"
+                            isActive={activeFilter === filter.id}
+                            dataFilter={filter.id}
+                            onClick={handleFilterClick}
+                        >
+                            {buttonLabel}{' '}
+                            {iconClass && <Icon className={`${iconClass} ml-1`} />}
+                        </Button>
+                    );
+                })}
+            </div>
+        </div>
+    );
 };
