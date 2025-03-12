@@ -3,7 +3,12 @@ import { Pagination } from "@mui/material";
 import { Search, Filters, RecentlyViewed, BookCardList } from "@components";
 import { recentlyViewed } from "../../mock";
 import { useAppDispatch, useAppSelector } from "@hooks/hooks";
-import { selectNumberOfPages, changePage, fetchBooks, selectPage } from "../../slices/books-slice";
+import {
+    selectNumberOfPages,
+    changePage,
+    fetchBooks,
+    selectPage,
+} from "../../slices/books-slice";
 import {
     selectUserFavorites,
     setFavorites,
@@ -43,21 +48,26 @@ const MainPage: React.FC = () => {
         )
     }, [dispatch, currentPage])
 
-    const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
+    const handleChangePage = (event: React.ChangeEvent<unknown>, value: number) => {
         dispatch(changePage(value))
     }
+
+    const handleChangeInput = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setValue(event.target.value);
+    };
 
     return (
         <div className="min-h-screen flex flex-col">
             <div className="p-4 flex-1">
-                <Search />
+                <Search value={value} handleChangeInput={handleChangeInput} />
                 <Filters />
                 <BookCardList />
+              {!isLoading && (
                 <Pagination
                     className="pagination"
                     count={numberPages}
                     page={currentPage}
-                    onChange={handleChange}
+                    onChange={handleChangePage}
                     sx={{
                         '& .Mui-selected': {
                             backgroundColor: '#2B8AFF !important',
@@ -70,6 +80,7 @@ const MainPage: React.FC = () => {
                     }}
                     size="large"
                 />
+               )}
 
                 <RecentlyViewed books={recentlyViewed} />
             </div>
