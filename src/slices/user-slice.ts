@@ -68,6 +68,10 @@ const userSlice = createSlice({
                 (book) => book.key !== action.payload
             )
         },
+
+        setFavorites: (state, action: PayloadAction<FavoriteItem[]>) => {
+            state.favorites = action.payload
+        },
         
         addToHistory: (state, action: PayloadAction<HistoryItem>) => {
             const existingIndex = state.history.findIndex((item) => item.key === action.payload.key);
@@ -82,7 +86,8 @@ export const {
     setUser,
     logoutUser,
     addToFavorites,
-    deleteFromFavorites, addToHistory,
+    deleteFromFavorites,
+    addToHistory,
     setFavorites,
 } = userSlice.actions
 

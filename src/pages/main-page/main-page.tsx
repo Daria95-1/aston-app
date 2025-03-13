@@ -1,7 +1,6 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Pagination } from "@mui/material";
 import { Search, Filters, RecentlyViewed, BookCardList } from "@components";
-import { recentlyViewed } from "../../mock";
 import { useAppDispatch, useAppSelector } from "@hooks/hooks";
 import {
     selectNumberOfPages,
@@ -16,9 +15,11 @@ import {
 } from '@slices/user-slice'
 import { STORAGE_KEYS } from '@constants'
 
-const MainPage: React.FC = () => {
+export const MainPage: React.FC = () => {
     const numberPages = useAppSelector(selectNumberOfPages)
     const currentPage = useAppSelector(selectPage)
+    const isLoading = useAppSelector(isBooksLoadingSelector);
+    const [value, setValue] = useState<string>("");
     const dispatch = useAppDispatch()
     const favorites = useAppSelector(selectUserFavorites)
 
@@ -80,7 +81,7 @@ const MainPage: React.FC = () => {
                 />
                )}
 
-                <RecentlyViewed books={recentlyViewed} />
+                <RecentlyViewed  />
             </div>
         </div>
     )

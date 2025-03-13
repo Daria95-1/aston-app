@@ -23,10 +23,6 @@ type Data = {
     docs: [];
 };
 
-type Data = {
-    numFound: number;
-    docs: [];
-};
 
 export type State = {
     bookList: Book[];
