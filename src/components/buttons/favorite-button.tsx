@@ -6,7 +6,12 @@ import { Button, Icon, Modal } from '@components';
 import { ROLE } from '@constants';
 import { selectUserRole, isBookFavorite } from '@slices/user-slice'
 import { Book } from '@slices/books-slice';
-import { addBookToFavorites, removeBookFromFavorites } from '@bff/operation'
+import {
+    selectUserFavorites,
+    deleteFromFavorites,
+    addToFavorites,
+} from '@slices/user-slice'
+
 
 type FavoriteButtonProps = {
     book: Book;
@@ -28,20 +33,18 @@ export const FavoriteButton: React.FC<FavoriteButtonProps> = ({
     const addFavoriteButtonText = isFavorite ? 'Убрать из избранного' : 'Добавить в избранное'
     
     
-    const addFavorite = async () => {
-        try {
-            if (isFavorite) {
-                await removeBookFromFavorites(dispatch, book.key);
-            } else {
-                await addBookToFavorites(dispatch, book);
+    const addFavorite = async (bookId: string, isFavorite: boolean) => {
+        if (isFavorite) {
+            dispatch(deleteFromFavorites(bookId))
+        } else {
+            if (book) {
+                dispatch(addToFavorites(book))
             }
-        } catch (error) {
-            console.error('Error in addFavorite', error);
         }
-    };
+    }
     const handleClick = () => {
         if (isUserAuthorized) {
-            addFavorite();
+            addFavorite(book.key, isFavorite);
         }
         else {
             setIsModalOpen(true);
