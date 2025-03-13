@@ -73,7 +73,6 @@ export const oneBookSlice = createSlice({
         builder.addCase(fetchOneBook.fulfilled, (state, action) => {
             state.status = STATUS_LOADING.RESOLVED;
             state.book = action.payload;
-            console.log(state.book);
         });
         builder.addCase(fetchOneBook.rejected, (state, action) => {
             state.status = STATUS_LOADING.REJECTED;

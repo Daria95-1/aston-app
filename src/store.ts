@@ -1,6 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { booksReducer, userReducer, oneBookReducer } from "@slices";
-import { favoritesMiddleware } from '@middlewares'
+// import { favoritesMiddleware } from '@middlewares'
 
 export const store = configureStore({
     reducer: {
@@ -8,8 +8,8 @@ export const store = configureStore({
         book: oneBookReducer,
         user: userReducer,
     },
-    middleware: (getDefaultMiddleware) =>
-        getDefaultMiddleware().concat(favoritesMiddleware),
+    // middleware: (getDefaultMiddleware) =>
+    //     getDefaultMiddleware().concat(favoritesMiddleware),
 })
 
 export type RootState = ReturnType<typeof store.getState>;

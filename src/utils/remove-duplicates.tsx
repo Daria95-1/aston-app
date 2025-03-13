@@ -13,5 +13,3 @@ export const removeDuplicates = (favorites: FavoriteItem[]) => {
         return true
     })
 }
-
-

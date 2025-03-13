@@ -9,7 +9,7 @@ import {
 import { useSelector, useDispatch } from 'react-redux'
 import { AppDispatch } from '../../store'
 import { useNavigate } from 'react-router-dom'
-import { ROUTES, ROLE, STORAGE_KEYS } from '@constants'
+import { ROUTES, ROLE } from '@constants'
 
 export const Favorites = () => {
     const navigate = useNavigate()
@@ -28,30 +28,7 @@ export const Favorites = () => {
 
     const handleDeleteFavoriteClick = (bookId: string): void => {
         dispatch(deleteFromFavorites(bookId))
-
-        const updatedFavorites = favorites.filter(
-            (favorite) => favorite.key !== bookId
-        )
-        if (updatedFavorites.length > 0) {
-            sessionStorage.setItem(
-                STORAGE_KEYS.FAVOTITES_DATA,
-                JSON.stringify(updatedFavorites)
-            )
-        } else {
-            sessionStorage.removeItem(STORAGE_KEYS.FAVOTITES_DATA)
-        }
     }
-
-    useEffect(() => {
-        if (favorites.length === 0) {
-            sessionStorage.removeItem(STORAGE_KEYS.FAVOTITES_DATA)
-        } else {
-            sessionStorage.setItem(
-                STORAGE_KEYS.FAVOTITES_DATA,
-                JSON.stringify(favorites)
-            )
-        }
-    }, [favorites])
 
     const getFavoriteClickHandler = (bookId: string) => () => {
         handleDeleteFavoriteClick(bookId)

@@ -5,7 +5,16 @@
       "login": "ivan",
       "password": "qwe123",
       "role_id": 1,
-      "favorites": []
+      "favorites": [
+        {
+          "key": "/works/OL3062799W",
+          "title": "The lord of the rings",
+          "author_name": [
+            "Brian Sibley"
+          ],
+          "cover_edition_key": "OL3953584M"
+        }
+      ]
     }
   ],
   "roles": [

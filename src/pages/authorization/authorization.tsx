@@ -50,7 +50,6 @@ export const Authorization = () => {
     const errorMessage = formError || serverError
 
     const handleFormSubmit: SubmitHandler<FormData> = (data) => {
-        console.log('Form data:', data)
         onSubmit(data, reset)
     }
 
