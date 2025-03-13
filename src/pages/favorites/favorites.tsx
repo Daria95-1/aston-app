@@ -1,9 +1,13 @@
 import { EmptyFavorites } from '@pages'
 import { useEffect, useState } from 'react'
 import { BookCard } from '@components'
-import { selectUserFavorites, selectUserRole, setFavorites } from '@slices/user-slice'
+import {
+    selectUserFavorites,
+    selectUserRole,
+    setFavorites,
+    deleteFromFavorites,
+} from '@slices/user-slice'
 import { useSelector, useDispatch } from 'react-redux'
-import { removeBookFromFavorites } from '@bff/operation'
 import { AppDispatch } from '../../store'
 import { useNavigate } from 'react-router-dom'
 import { ROUTES, ROLE, STORAGE_KEYS } from '@constants'
@@ -33,7 +37,7 @@ export const Favorites = () => {
     }, [roleId, navigate])
 
     const handleDeleteFavoriteClick = (bookId: string): void => {
-        removeBookFromFavorites(dispatch, bookId)
+        dispatch(deleteFromFavorites(bookId))
     }
 
     const getFavoriteClickHandler = (bookId: string) => () => {

@@ -10,8 +10,6 @@ declare module '@bff' {
     export { deleteSession } from '../bff/api/delete-session'
     export { getSession } from '../bff/api/get-session'
     export { userTransform } from '../bff/transformers/user-transform'
-    export { addBookToFavorites } from '../bff/operation/add-book-to-favorites'
-    export { removeBookFromFavorites } from '../bff/operation/remove-book-from-favorites'
     export { favoriteTransform } from '../bff/transformers/favorite-transform'
     export { getUpdateFavorites } from '../bff/api'
     export { getUserData } from '../bff/api'
