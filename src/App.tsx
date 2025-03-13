@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux'
 import { Routes, Route } from 'react-router-dom'
 import { Header, Footer, ErrorBoundaryWrapper } from '@components'
 import { ROUTES, STORAGE_KEYS } from '@constants'
-import { setUser, setFavorites } from '@slices/user-slice'
+import { setUser, setFavorites, setHistory } from '@slices/user-slice'
 import {
     Authorization,
     Registration,
@@ -20,30 +20,32 @@ function App() {
 
     useLayoutEffect(() => {
         const currentUserDataJSON = sessionStorage.getItem(
-            `${STORAGE_KEYS.USER_DATA}`
+            STORAGE_KEYS.USER_DATA
         )
 
-        if (!currentUserDataJSON) {
-            return
+        if (currentUserDataJSON) {
+            const currentUserData = JSON.parse(currentUserDataJSON)
+            dispatch(
+                setUser({
+                    ...currentUserData,
+                    roleId: Number(currentUserData.roleId),
+                })
+            )
         }
 
-        const currentUserData = JSON.parse(currentUserDataJSON)
-
-        dispatch(
-            setUser({
-                ...currentUserData,
-                roleId: Number(currentUserData.roleId),
-            })
-        )
-
         const savedFavorites = sessionStorage.getItem(
-            STORAGE_KEYS.FAVOTITES_DATA
+            STORAGE_KEYS.FAVORITES_DATA
         )
-        
         if (savedFavorites) {
             dispatch(setFavorites(JSON.parse(savedFavorites)))
         }
+
+        const savedHistory = sessionStorage.getItem(STORAGE_KEYS.HISTORY_DATA)
+        if (savedHistory) {
+            dispatch(setHistory(JSON.parse(savedHistory)))
+        }
     }, [dispatch])
+
 
     return (
         <>
@@ -67,6 +69,14 @@ function App() {
                             <Route
                                 path={ROUTES.FAVORITES}
                                 element={<Favorites />}
+                            />
+                            <Route
+                                path={ROUTES.ITEM_PAGE}
+                                element={<ItemPage />}
+                            />
+                            <Route
+                                path={ROUTES.HISTORY}
+                                element={<History />}
                             />
                             <Route
                                 path={ROUTES.NOT_FOUND}

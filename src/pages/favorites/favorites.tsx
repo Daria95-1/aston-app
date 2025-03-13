@@ -52,7 +52,7 @@ export const Favorites = () => {
                 JSON.stringify(favorites)
             )
         } else {
-            sessionStorage.removeItem(STORAGE_KEYS.FAVOTITES_DATA) // Убираем, если избранное пустое
+            sessionStorage.removeItem(STORAGE_KEYS.FAVOTITES_DATA)
         }
     }, [favorites])
 

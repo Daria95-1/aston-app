@@ -72,13 +72,18 @@ const userSlice = createSlice({
         setFavorites: (state, action: PayloadAction<FavoriteItem[]>) => {
             state.favorites = action.payload
         },
-        
+
         addToHistory: (state, action: PayloadAction<HistoryItem>) => {
-            const existingIndex = state.history.findIndex((item) => item.key === action.payload.key);
+            const existingIndex = state.history.findIndex(
+                (item) => item.key === action.payload.key
+            )
             if (existingIndex === -1) {
-              state.history.unshift(action.payload);
+                state.history.unshift(action.payload)
             }
-          },
+        },
+        setHistory: (state, action: PayloadAction<HistoryItem[]>) => {
+            state.history = action.payload
+        },
     },
 })
 
@@ -89,6 +94,7 @@ export const {
     deleteFromFavorites,
     addToHistory,
     setFavorites,
+    setHistory,
 } = userSlice.actions
 
 export const userReducer = userSlice.reducer
@@ -111,8 +117,13 @@ export const selectUserHistory = (state: RootState): HistoryItem[] => {
     return (state as { user: User }).user.history
 }
 
-
-
-export const isBookFavorite = (bookId: string) => (state: RootState): boolean => {
-    return (state as { user: User }).user.favorites.some((fav: FavoriteItem) => fav.key === bookId);
-};
+export const isBookFavorite =
+    (bookId: string) =>
+    (state: RootState): boolean => {
+        const favorites = (state as { user: User }).user.favorites
+        // Проверяем, что favorites - это массив
+        return (
+            Array.isArray(favorites) &&
+            favorites.some((fav: FavoriteItem) => fav.key === bookId)
+        )
+    }

@@ -1,6 +1,5 @@
 import { Button, FavoriteButton } from '@components'
 import { ROUTES } from '@constants'
-
 import { useNavigate } from 'react-router-dom';
 
 type Book = {

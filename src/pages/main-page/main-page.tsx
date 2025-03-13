@@ -1,12 +1,7 @@
 import { useEffect, useState } from "react";
-<<<<<<< HEAD
 import { Search, Filters, RecentlyViewed, BookCardList } from '@components'
 import { Pagination } from "@mui/material";
 import { recentlyViewed } from "../../mock";
-=======
-import { Pagination } from "@mui/material";
-import { Search, Filters, RecentlyViewed, BookCardList } from "@components";
->>>>>>> 890f4c0a70b8b493b19d750ab46fb7f74efde46e
 import { useAppDispatch, useAppSelector } from "@hooks/hooks";
 import {
     selectNumberOfPages,
@@ -24,13 +19,8 @@ import { STORAGE_KEYS } from '@constants'
 export const MainPage: React.FC = () => {
     const numberPages = useAppSelector(selectNumberOfPages)
     const currentPage = useAppSelector(selectPage)
-<<<<<<< HEAD
     const isLoading = useAppSelector(isBooksLoadingSelector)
     const [value, setValue] = useState<string>('')
-=======
-    const isLoading = useAppSelector(isBooksLoadingSelector);
-    const [value, setValue] = useState<string>("");
->>>>>>> 890f4c0a70b8b493b19d750ab46fb7f74efde46e
     const dispatch = useAppDispatch()
     const favorites = useAppSelector(selectUserFavorites)
 
@@ -80,50 +70,28 @@ export const MainPage: React.FC = () => {
                 <Search handleChangeInput={handleChangeInput} />
                 <Filters />
                 <BookCardList />
-<<<<<<< HEAD
                 {!isLoading && (
-                    <Pagination
-                        className="pagination"
-                        count={numberPages}
-                        page={currentPage}
-                        onChange={handleChangePage}
-                        sx={{
-                            '& .Mui-selected': {
-                                backgroundColor: '#2B8AFF !important',
-                                color: 'white !important',
-                            },
-                            '& .MuiPaginationItem-root:hover': {
-                                backgroundColor: '#155dfc',
-                                color: 'white',
-                            },
-                        }}
-                        size="large"
-                    />
+                    <div className="flex justify-center mt-10">
+                        <Pagination
+                            className="pagination"
+                            count={numberPages}
+                            page={currentPage}
+                            onChange={handleChangePage}
+                            sx={{
+                                '& .Mui-selected': {
+                                    backgroundColor: '#2B8AFF !important',
+                                    color: 'white !important',
+                                },
+                                '& .MuiPaginationItem-root:hover': {
+                                    backgroundColor: '#155dfc',
+                                    color: 'white',
+                                },
+                            }}
+                            size="large"
+                        />
+                    </div>
                 )}
                 <RecentlyViewed books={recentlyViewed} />
-=======
-              {!isLoading && (
-                <Pagination
-                    className="pagination"
-                    count={numberPages}
-                    page={currentPage}
-                    onChange={handleChangePage}
-                    sx={{
-                        '& .Mui-selected': {
-                            backgroundColor: '#2B8AFF !important',
-                            color: 'white !important',
-                        },
-                        '& .MuiPaginationItem-root:hover': {
-                            backgroundColor: '#155dfc',
-                            color: 'white',
-                        },
-                    }}
-                    size="large"
-                />
-               )}
-
-                <RecentlyViewed  />
->>>>>>> 890f4c0a70b8b493b19d750ab46fb7f74efde46e
             </div>
         </div>
     )
