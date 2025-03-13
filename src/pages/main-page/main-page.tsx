@@ -10,11 +10,6 @@ import {
     selectPage,
     isBooksLoadingSelector,
 } from '../../slices/books-slice'
-import {
-    selectUserFavorites,
-    setFavorites,
-} from '@slices/user-slice'
-import { STORAGE_KEYS } from '@constants'
 
 export const MainPage: React.FC = () => {
     const numberPages = useAppSelector(selectNumberOfPages)
@@ -22,27 +17,6 @@ export const MainPage: React.FC = () => {
     const isLoading = useAppSelector(isBooksLoadingSelector)
     const [value, setValue] = useState<string>('')
     const dispatch = useAppDispatch()
-    const favorites = useAppSelector(selectUserFavorites)
-
-    // Загрузка избранных книг при монтировании компонента
-    useEffect(() => {
-        const savedFavorites = sessionStorage.getItem(
-            STORAGE_KEYS.FAVOTITES_DATA
-        )
-        if (savedFavorites) {
-            dispatch(setFavorites(JSON.parse(savedFavorites)))
-        }
-    }, [dispatch])
-
-    // Сохраняем избранные книги в sessionStorage, когда favorites изменяются
-    useEffect(() => {
-        if (favorites.length > 0) {
-            sessionStorage.setItem(
-                STORAGE_KEYS.FAVOTITES_DATA,
-                JSON.stringify(favorites)
-            )
-        }
-    }, [favorites])
 
     useEffect(() => {
         dispatch(

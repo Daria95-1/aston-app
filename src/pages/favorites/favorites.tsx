@@ -4,7 +4,6 @@ import { BookCard } from '@components'
 import {
     selectUserFavorites,
     selectUserRole,
-    setFavorites,
     deleteFromFavorites,
 } from '@slices/user-slice'
 import { useSelector, useDispatch } from 'react-redux'
@@ -20,15 +19,6 @@ export const Favorites = () => {
     const [isCheckingAuth, setIsCheckingAuth] = useState(true)
 
     useEffect(() => {
-        const savedFavorites = sessionStorage.getItem(
-            STORAGE_KEYS.FAVOTITES_DATA
-        )
-        if (savedFavorites) {
-            dispatch(setFavorites(JSON.parse(savedFavorites)))
-        }
-    }, [dispatch])
-
-    useEffect(() => {
         if (roleId === ROLE.GUEST) {
             navigate(ROUTES.LOGIN)
         } else {
@@ -38,23 +28,34 @@ export const Favorites = () => {
 
     const handleDeleteFavoriteClick = (bookId: string): void => {
         dispatch(deleteFromFavorites(bookId))
-    }
 
-    const getFavoriteClickHandler = (bookId: string) => () => {
-        handleDeleteFavoriteClick(bookId)
-    }
-
-    // Сохраняем избранное при изменении списка favorites
-    useEffect(() => {
-        if (favorites.length > 0) {
+        const updatedFavorites = favorites.filter(
+            (favorite) => favorite.key !== bookId
+        )
+        if (updatedFavorites.length > 0) {
             sessionStorage.setItem(
                 STORAGE_KEYS.FAVOTITES_DATA,
-                JSON.stringify(favorites)
+                JSON.stringify(updatedFavorites)
             )
         } else {
             sessionStorage.removeItem(STORAGE_KEYS.FAVOTITES_DATA)
         }
+    }
+
+    useEffect(() => {
+        if (favorites.length === 0) {
+            sessionStorage.removeItem(STORAGE_KEYS.FAVOTITES_DATA)
+        } else {
+            sessionStorage.setItem(
+                STORAGE_KEYS.FAVOTITES_DATA,
+                JSON.stringify(favorites)
+            )
+        }
     }, [favorites])
+
+    const getFavoriteClickHandler = (bookId: string) => () => {
+        handleDeleteFavoriteClick(bookId)
+    }
 
     // Пока не проверили роль — ничего не рендерим
     if (isCheckingAuth) {

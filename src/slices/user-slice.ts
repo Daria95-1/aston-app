@@ -1,6 +1,6 @@
 import { RootState } from '../store'
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { ROLE } from '@constants'
+import { ROLE, STORAGE_KEYS } from '@constants'
 
 export type FavoriteItem = {
     key: string
@@ -62,15 +62,24 @@ const userSlice = createSlice({
         },
         addToFavorites: (state, action: PayloadAction<FavoriteItem>) => {
             state.favorites.push(action.payload)
+            sessionStorage.setItem(STORAGE_KEYS.FAVORITES_DATA, JSON.stringify(state.favorites))
         },
         deleteFromFavorites: (state, action: PayloadAction<string>) => {
             state.favorites = state.favorites.filter(
                 (book) => book.key !== action.payload
             )
+            sessionStorage.setItem(
+                STORAGE_KEYS.FAVORITES_DATA,
+                JSON.stringify(state.favorites)
+            )
         },
 
         setFavorites: (state, action: PayloadAction<FavoriteItem[]>) => {
             state.favorites = action.payload
+            sessionStorage.setItem(
+                STORAGE_KEYS.FAVORITES_DATA,
+                JSON.stringify(state.favorites)
+            )
         },
 
         addToHistory: (state, action: PayloadAction<HistoryItem>) => {

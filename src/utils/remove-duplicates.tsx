@@ -1,12 +1,17 @@
 import { FavoriteItem } from '@slices/user-slice'
 
 export const removeDuplicates = (favorites: FavoriteItem[]) => {
-    const seen = new Set()
+    const seen = new Map()
     return favorites.filter((book) => {
         const normalizedKey = book.key.trim().toLowerCase()
-        const isDuplicate = seen.has(normalizedKey)
-        seen.add(normalizedKey)
-        return !isDuplicate
+
+        if (seen.has(normalizedKey)) {
+            return false
+        }
+
+        seen.set(normalizedKey, book)
+        return true
     })
 }
+
 
