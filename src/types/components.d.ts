@@ -15,8 +15,14 @@ declare module "@components" {
     export { Routes } from "../components/constans/routes";
     export { Search } from "../components/search/search";
     export { BookCardList } from "../components/book-card-list/book-card-list";
+    export { ItemContent } from "../components/item-content/item-content";
     export { TextInput } from '../components/input/text-input'
     export { ValidationError } from '../components/validation-error/validation-error'
+    export { Description } from "../components/item-content/componrnts/description/description";
+    export { Tags } from "../components/item-content/componrnts/tags/tags";
+    export { Characteristic } from "../components/item-content/componrnts/characteristic/characteristic";
+    export { Modal } from "../components/modal/modal";
+    export { FavoriteButton } from "../components/buttons/favorite-button";
     export { FormContainer } from '../components/form-container/form-container'
     export { ErrorBoundaryWrapper } from '../components/error-boundary-wrapper/error-boundary-wrapper'
 }

@@ -11,6 +11,8 @@ import {
     MainPage,
     Favorites,
     ErrorPage,
+    ItemPage,
+    History
 } from '@routes/lazy-routes' // lazy + Suspense
 
 function App() {
