@@ -1,4 +1,4 @@
-import "./main-page.css";
+import { useEffect } from "react";
 import { Pagination } from "@mui/material";
 import { Search, Filters, RecentlyViewed, BookCardList } from "@components";
 import { recentlyViewed } from "../../mock";
@@ -10,14 +10,38 @@ import {
     selectPage,
     isBooksLoadingSelector,
 } from "../../slices/books-slice";
-import { useEffect, useState } from "react";
+import {
+    selectUserFavorites,
+    setFavorites,
+} from '@slices/user-slice'
+import { STORAGE_KEYS } from '@constants'
+import "./main-page.css";
 
 const MainPage: React.FC = () => {
-    const numberPages = useAppSelector(selectNumberOfPages);
-    const currentPage = useAppSelector(selectPage);
-    const isLoading = useAppSelector(isBooksLoadingSelector);
-    const [value, setValue] = useState<string>("");
-    const dispatch = useAppDispatch();
+    const numberPages = useAppSelector(selectNumberOfPages)
+    const currentPage = useAppSelector(selectPage)
+    const dispatch = useAppDispatch()
+    const favorites = useAppSelector(selectUserFavorites)
+
+    // Загрузка избранных книг при монтировании компонента
+    useEffect(() => {
+        const savedFavorites = sessionStorage.getItem(
+            STORAGE_KEYS.FAVOTITES_DATA
+        )
+        if (savedFavorites) {
+            dispatch(setFavorites(JSON.parse(savedFavorites)))
+        }
+    }, [dispatch])
+
+    // Сохраняем избранные книги в sessionStorage, когда favorites изменяются
+    useEffect(() => {
+        if (favorites.length > 0) {
+            sessionStorage.setItem(
+                STORAGE_KEYS.FAVOTITES_DATA,
+                JSON.stringify(favorites)
+            )
+        }
+    }, [favorites])
 
     useEffect(() => {
         dispatch(fetchBooks({ page: currentPage, request: value || "the+lord+of+the+rings" }));

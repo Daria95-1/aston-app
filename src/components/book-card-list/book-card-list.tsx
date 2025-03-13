@@ -1,26 +1,26 @@
-import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
-import { selectAllBooks, isBooksLoadingSelector } from "@slices/books-slice";
-import { addBookToFavorites, removeBookFromFavorites } from "@bff/operation";
-import { BookCard } from "@components";
-import { selectUserFavorites } from '@slices/user-slice'
-import { useSelector } from "react-redux";
+import { useAppDispatch, useAppSelector } from '../../hooks/hooks'
+import { selectAllBooks, isBooksLoadingSelector } from '@slices/books-slice'
+import { BookCard } from '@components'
+import {
+    selectUserFavorites,
+    deleteFromFavorites,
+    addToFavorites,
+} from '@slices/user-slice'
+import { useSelector } from 'react-redux'
 
 const BookCardList: React.FC = () => {
-    const booksList = useAppSelector(selectAllBooks);
-    const isLoading = useAppSelector(isBooksLoadingSelector);
-    const favorites = useSelector(selectUserFavorites);
-    const dispatch = useAppDispatch();
+    const booksList = useAppSelector(selectAllBooks)
+    const isLoading = useAppSelector(isBooksLoadingSelector)
+    const favorites = useSelector(selectUserFavorites)
+    const dispatch = useAppDispatch()
 
-    const handleFavoriteClick = async (
-        bookId: string,
-        isFavorite: boolean
-    ) => {
+    const handleFavoriteClick = async (bookId: string, isFavorite: boolean) => {
         if (isFavorite) {
-            await removeBookFromFavorites(dispatch, bookId)
+            dispatch(deleteFromFavorites(bookId))
         } else {
             const book = booksList.find((b) => b.key === bookId)
             if (book) {
-                await addBookToFavorites(dispatch, book)
+                dispatch(addToFavorites(book))
             }
         }
     }
@@ -61,6 +61,6 @@ const BookCardList: React.FC = () => {
             })}
         </div>
     )
-};
+}
 
-export { BookCardList };
+export { BookCardList }
