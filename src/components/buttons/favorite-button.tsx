@@ -34,22 +34,19 @@ export const FavoriteButton: React.FC<FavoriteButtonProps> = ({
             JSON.stringify(favorites)
         )
     }, [favorites])
-    
-    
-    const addFavorite = async () => {
-        try {
-            if (isFavorite) {
-                dispatch(deleteFromFavorites(book.key))
-            } else {
+   
+    const addFavorite = async (bookId: string, isFavorite: boolean) => {
+        if (isFavorite) {
+            dispatch(deleteFromFavorites(bookId))
+        } else {
+            if (book) {
                 dispatch(addToFavorites(book))
             }
-        } catch (error) {
-            console.error('Error in addFavorite', error);
         }
-    };
+    }
     const handleClick = () => {
         if (isUserAuthorized) {
-            addFavorite();
+            addFavorite(book.key, isFavorite);
         }
         else {
             setIsModalOpen(true);
