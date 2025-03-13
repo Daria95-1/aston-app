@@ -12,6 +12,7 @@ declare module '@bff' {
     export { userTransform } from '../bff/transformers/user-transform'
     export { addBookToFavorites } from '../bff/operation/add-book-to-favorites'
     export { removeBookFromFavorites } from '../bff/operation/remove-book-from-favorites'
+     export { addBookToHistory } from '../bff/operation/add-book-to-history'
     export { favoriteTransform } from '../bff/transformers/favorite-transform'
     export { getUpdateFavorites } from '../bff/api'
     export { getUserData } from '../bff/api'

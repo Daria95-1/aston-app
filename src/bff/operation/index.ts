@@ -1,4 +1,5 @@
 export * from './add-book-to-favorites'
 export * from './remove-book-from-favorites'
+export * from './add-book-to-history'
 export * from './authorize'
 export * from './register'

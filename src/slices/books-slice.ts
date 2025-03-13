@@ -15,6 +15,12 @@ export type Book = {
     cover_edition_key: string;
     key: string;
     title: string;
+    first_publish_year: string;
+};
+
+type Data = {
+    numFound: number;
+    docs: [];
 };
 
 type Data = {

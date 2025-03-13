@@ -9,6 +9,14 @@ export type FavoriteItem = {
     cover_edition_key: string
 }
 
+export type HistoryItem = {
+    key: string
+    title: string
+    author_name: string[]
+    cover_edition_key: string
+
+}
+
 // Определяем тип состояния для пользователя
 export type User = {
     id: number | null
@@ -16,6 +24,7 @@ export type User = {
     roleId: string
     session: string | null
     favorites: FavoriteItem[]
+    history: HistoryItem[]
 }
 
 export type Session = {
@@ -31,6 +40,7 @@ const initialState: User = {
     roleId: ROLE.GUEST,
     session: null,
     favorites: [],
+    history: []
 }
 
 // Создание слайса
@@ -58,9 +68,13 @@ const userSlice = createSlice({
                 (book) => book.key !== action.payload
             )
         },
-        setFavorites: (state, action: PayloadAction<FavoriteItem[]>) => {
-            state.favorites = action.payload
-        },
+        
+        addToHistory: (state, action: PayloadAction<HistoryItem>) => {
+            const existingIndex = state.history.findIndex((item) => item.key === action.payload.key);
+            if (existingIndex === -1) {
+              state.history.unshift(action.payload);
+            }
+          },
     },
 })
 
@@ -68,7 +82,7 @@ export const {
     setUser,
     logoutUser,
     addToFavorites,
-    deleteFromFavorites,
+    deleteFromFavorites, addToHistory,
     setFavorites,
 } = userSlice.actions
 
@@ -87,3 +101,13 @@ export const selectUserSession = (state: RootState): string | null => {
 export const selectUserFavorites = (state: RootState): FavoriteItem[] => {
     return (state as { user: User }).user.favorites
 }
+
+export const selectUserHistory = (state: RootState): HistoryItem[] => {
+    return (state as { user: User }).user.history
+}
+
+
+
+export const isBookFavorite = (bookId: string) => (state: RootState): boolean => {
+    return (state as { user: User }).user.favorites.some((fav: FavoriteItem) => fav.key === bookId);
+};

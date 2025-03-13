@@ -15,7 +15,6 @@ import {
     setFavorites,
 } from '@slices/user-slice'
 import { STORAGE_KEYS } from '@constants'
-import "./main-page.css";
 
 const MainPage: React.FC = () => {
     const numberPages = useAppSelector(selectNumberOfPages)
@@ -87,4 +86,4 @@ const MainPage: React.FC = () => {
     )
 };
 
-export { MainPage };
+

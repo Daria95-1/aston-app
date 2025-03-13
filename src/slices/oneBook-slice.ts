@@ -13,7 +13,8 @@ type Book = {
     cover_i: number;
     key: string;
     title: string;
-    description: string;
+    description: string | { type: string; value: string };
+    subjects?: string[];
 };
 
 export type State = {
@@ -44,7 +45,6 @@ export const fetchOneBook = createAsyncThunk<
     if (!response.ok) {
         return thunkApi.rejectWithValue((await response.json()) as MyKnownError);
     }
-
     return (await response.json()) as Book;
 });
 
@@ -55,6 +55,7 @@ const initialState: State = {
         key: "",
         title: "",
         description: "",
+        subjects: []
     },
     status: "",
     error: "",
