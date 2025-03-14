@@ -16,8 +16,9 @@ export const ItemPage: React.FC = () => {
     key: books.key,
     title: books.title,
     author_name: books.author,
-    cover_edition_key: books.image,
-    first_publish_year: books.year
+    cover_edition_key: books.cover_edition_key,
+    first_publish_year: books.year,
+    image: books.image
   }
 
   const descriptionText =
@@ -28,6 +29,7 @@ export const ItemPage: React.FC = () => {
 
   useEffect(() => {
     addBookToHistory(dispatch, Item);
+    console.log(Item)
   }, [ dispatch ]);
 
   useEffect(() => {
@@ -38,7 +40,7 @@ export const ItemPage: React.FC = () => {
     <div>
       <div className=" flex flex-col md:flex-row gap-8 mb-16 mt-16 mx-auto max-w-[1536px]">
         <img
-          src={`${ROUTES.LIBRARY_COVERS}${books.image}-M.jpg`}
+          src={books.image}
           alt={book.title}
           className="w-[350px] h-[500px] object-cover object-center"
         />

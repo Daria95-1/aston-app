@@ -58,6 +58,7 @@ const userSlice = createSlice({
             state.session = null
 
             sessionStorage.removeItem(STORAGE_KEYS.FAVORITES_DATA)
+            sessionStorage.removeItem(STORAGE_KEYS.HISTORY_DATA)
         },
         addToFavorites: (state, action: PayloadAction<FavoriteItem>) => {
             state.favorites.push(action.payload)
@@ -91,6 +92,7 @@ const userSlice = createSlice({
         },
         setHistory: (state, action: PayloadAction<HistoryItem[]>) => {
             state.history = action.payload
+            
         },
     },
 })
