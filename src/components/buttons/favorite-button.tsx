@@ -40,7 +40,7 @@ export const FavoriteButton: React.FC<FavoriteButtonProps> = ({
             dispatch(deleteFromFavorites(bookId))
         } else {
             if (book) {
-                dispatch(addToFavorites(book))
+              dispatch(addToFavorites(book))
             }
         }
     }
