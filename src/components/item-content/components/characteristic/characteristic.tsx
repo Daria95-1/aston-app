@@ -1,12 +1,8 @@
-
-
 type characteristicProps = {
     characteristic: string;
     characteristicUnknown: string;
     name: string;
   };
-
-
 
 export const Characteristic: React.FC<characteristicProps> = ({ characteristic, characteristicUnknown, name }) => {
 

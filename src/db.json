@@ -6,6 +6,13 @@
       "password": "qwe123",
       "role_id": 1,
       "favorites": []
+    },
+    {
+      "id": "504b",
+      "login": "daria",
+      "password": "qwe123",
+      "role_id": 1,
+      "favorites": []
     }
   ],
   "roles": [
@@ -18,26 +25,5 @@
       "name": "Пользователь"
     }
   ],
-  "sessions": [
-    {
-      "id": "536a",
-      "hash": "0.93420889612984847616417027893476188182830810546875",
-      "user": {
-        "id": "111",
-        "login": "ivan",
-        "password": "qwe123",
-        "roleId": 1
-      }
-    },
-    {
-      "id": "3969",
-      "hash": "0.87216143737109308453625544643728062510490417480469",
-      "user": {
-        "id": "111",
-        "login": "ivan",
-        "password": "qwe123",
-        "roleId": 1
-      }
-    }
-  ]
+  "sessions": []
 }

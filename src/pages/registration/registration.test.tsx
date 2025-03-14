@@ -6,7 +6,6 @@ import { Provider } from 'react-redux'
 import { store } from '../../store'
 import { ROUTES } from '@constants'
 
-// Мокаем хук useAuthSubmit
 vi.mock('@hooks', () => ({
     useAuthSubmit: vi.fn().mockReturnValue({
         onSubmit: vi.fn(),
@@ -16,7 +15,6 @@ vi.mock('@hooks', () => ({
 }))
 
 describe('Registration', () => {
-    // 1. Тестирование рендеринга формы регистрации
     it('should render the registration form', () => {
         render(
             <Provider store={store}>
@@ -26,7 +24,6 @@ describe('Registration', () => {
             </Provider>
         )
 
-        // Проверяем наличие полей
         expect(
             screen.getByPlaceholderText('Введите логин...')
         ).toBeInTheDocument()
@@ -39,7 +36,6 @@ describe('Registration', () => {
         expect(screen.getByText('Зарегистрироваться')).toBeInTheDocument()
     })
 
-    // 2. Тестирование ошибки при неправильном вводе
     it('should show error message when passwords do not match', async () => {
         vi.mock('@hooks', () => ({
             useAuthSubmit: vi.fn().mockReturnValue({
@@ -57,7 +53,6 @@ describe('Registration', () => {
             </Provider>
         )
 
-        // Заполняем поля
         fireEvent.change(screen.getByPlaceholderText('Введите логин...'), {
             target: { value: 'ivan' },
         })
@@ -65,19 +60,16 @@ describe('Registration', () => {
             target: { value: 'qwe123' },
         })
         fireEvent.change(screen.getByPlaceholderText('Повторите пароль...'), {
-            target: { value: 'qwe124' }, // Неверный пароль
+            target: { value: 'qwe124' },
         })
 
-        // Кликаем по кнопке
         fireEvent.click(screen.getByText('Зарегистрироваться'))
 
-        // Проверяем, что сообщение об ошибке появилось
         await waitFor(() => {
             expect(screen.getByText('Пароли не совпадают')).toBeInTheDocument()
         })
     })
 
-    // 3. Тестирование успешной регистрации
     it('should navigate to the main page after successful registration', async () => {
         vi.mock('@hooks', () => ({
             useAuthSubmit: vi.fn().mockReturnValue({
@@ -95,7 +87,6 @@ describe('Registration', () => {
             </Provider>
         )
 
-        // Заполняем форму
         fireEvent.change(screen.getByPlaceholderText('Введите логин...'), {
             target: { value: 'denis' },
         })
@@ -106,10 +97,8 @@ describe('Registration', () => {
             target: { value: 'qwe123' },
         })
 
-        // Кликаем по кнопке регистрации
         fireEvent.click(screen.getByText('Зарегистрироваться'))
 
-        // Ожидаем редирект
         await waitFor(() => {
             expect(window.location.pathname).toBe(ROUTES.MAIN_PAGE)
         })

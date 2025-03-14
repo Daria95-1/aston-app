@@ -5,13 +5,12 @@ import { Session } from './transformers/session-transform'
 export const sessions = {
     create(user: User): string {
         const hash = Math.random().toFixed(50)
-        addSession(hash, user) // Добавляем сессию
+        addSession(hash, user)
         return hash
     },
 
-    // Удаляем сессию по хешу
     async remove(hash: string): Promise<void> {
-        const session: Session | null = await getSession(hash) // Получаем сессию
+        const session: Session | null = await getSession(hash)
 
         if (!session) {
             return
@@ -20,9 +19,12 @@ export const sessions = {
         deleteSession(session.id.toString()) // Удаляем сессию
     },
 
-    // Проверяем доступ по роли
     async access(hash: string, accessRole: number[]): Promise<boolean> {
         const dbSession: Session | null = await getSession(hash)
+
+        if (!dbSession?.user || typeof dbSession.user.roleId !== 'number') {
+            return false
+        }
 
         return (
             Boolean(dbSession?.user) &&

@@ -40,8 +40,7 @@ export const Registration = () => {
     const [showConfirmPassword, setShowConfirmPassword] = useState(false)
     const roleId = useSelector(selectUserRole)
 
-    // Подключаем хук для регистрации
-    const { onSubmit, serverError, clearServerError } = useAuthSubmit(true) // true для регистрации
+    const { onSubmit, serverError, clearServerError } = useAuthSubmit(true)
 
     const handleInputChange = () => {
         clearServerError()
@@ -57,7 +56,6 @@ export const Registration = () => {
         onSubmit(data, reset)
     }
 
-    // редирект на главную при авторизации
     if (roleId !== ROLE.GUEST) {
         return <Navigate to={ROUTES.MAIN_PAGE} />
     }

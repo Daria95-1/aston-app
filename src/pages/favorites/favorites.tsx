@@ -35,7 +35,6 @@ export const Favorites = () => {
         handleDeleteFavoriteClick(bookId)
     }
 
-    // Пока не проверили роль — ничего не рендерим
     if (isCheckingAuth) {
         return null
     }

@@ -25,13 +25,10 @@ export const favoritesMiddleware: Middleware =
 
         if (addToFavorites.match(action)) {
             try {
-                // Преобразуем новую книгу в избранное
                 const newFavorite = favoriteTransform(action.payload)
 
-                // Получаем данные пользователя с сервера
                 const userData = await getUserData(userIdString)
 
-                // Проверяем, есть ли уже книга в избранном
                 const exists = userData.favorites.some(
                     (book: FavoriteItem) =>
                         book.key.trim().toLowerCase() ===
@@ -40,19 +37,16 @@ export const favoritesMiddleware: Middleware =
 
                 if (exists) {
                     console.warn('Книга уже в избранном, не добавляем')
-                    return next(action) // Выходим, если книга уже есть в избранном
+                    return next(action)
                 }
 
-                // Обновляем список избранных книг, удаляя дубликаты
                 const updatedFavorites = removeDuplicates([
                     ...userData.favorites,
                     newFavorite,
                 ])
 
-                // Отправляем обновленные данные на сервер
                 await getUpdateFavorites(userIdString, updatedFavorites)
 
-                // Обновляем состояние в Redux
                 store.dispatch(setFavorites(updatedFavorites))
 
             } catch (error) {
@@ -67,21 +61,14 @@ export const favoritesMiddleware: Middleware =
                 const bookKey = action.payload
                 const userData = await getUserData(userIdString)
 
-                // Обновляем список избранных, удаляя книгу
                 const updatedFavorites = userData.favorites.filter(
                     (book: FavoriteItem) => book.key !== bookKey
                 )
 
                 await getUpdateFavorites(userIdString, updatedFavorites)
 
-                // Обновляем состояние в Redux
                 store.dispatch(setFavorites(updatedFavorites))
 
-                // Сохраняем обновленный список избранных в sessionStorage
-                sessionStorage.setItem(
-                    'favorites', // или используйте какой-то ключ, если нужно
-                    JSON.stringify(updatedFavorites)
-                )
             } catch (error) {
                 console.error('Ошибка при удалении из избранного:', error)
             }

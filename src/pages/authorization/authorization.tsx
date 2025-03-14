@@ -39,8 +39,7 @@ export const Authorization = () => {
     const [showPassword, setShowPassword] = useState(false)
     const roleId = useSelector(selectUserRole)
 
-    // Подключаем хук для авторизации
-    const { onSubmit, serverError, clearServerError } = useAuthSubmit(false) // false для авторизации
+    const { onSubmit, serverError, clearServerError } = useAuthSubmit(false)
 
     const handleInputChange = () => {
         clearServerError()
@@ -53,7 +52,6 @@ export const Authorization = () => {
         onSubmit(data, reset)
     }
 
-    // редирект на главную при авторизации
     if (roleId !== ROLE.GUEST) {
         return <Navigate to={ROUTES.MAIN_PAGE} />
     }
