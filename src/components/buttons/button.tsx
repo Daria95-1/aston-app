@@ -6,9 +6,10 @@ type ButtonProps = {
   className?: string;
   onMouseEnter?: () => void; 
   onMouseLeave?: () => void;
-};
+  dataFilter?: string;
+} 
 
-export const Button = ({ variant = 'check', isActive = false, children, onClick, className = '', onMouseEnter, onMouseLeave }: ButtonProps) => {
+export const Button = ({ variant = 'check', isActive = false, children, onClick, className = '', dataFilter, onMouseEnter, onMouseLeave }: ButtonProps) => {
   const baseClasses = ' hover:text-[#2B8AFF]  rounded-lg border border-transparent transition-colors hover:border-[#646cff] focus:outline-none focus-visible:outline-[4px] focus-visible:outline-[#646cff]';
   const variantClasses = {
       check: 'bg-[#2B8AFF] text-white hover:bg-white hover:text-[#2B8AFF] border px-15 py-2 transition-colors focus:outline-none focus-visible:outline-[4px]',
@@ -25,6 +26,7 @@ export const Button = ({ variant = 'check', isActive = false, children, onClick,
       onMouseEnter={onMouseEnter} 
       onMouseLeave={onMouseLeave}
       className={`${baseClasses} ${variantClasses} ${className}`}
+          data-filter={dataFilter}
     >
       {children}
     </button>

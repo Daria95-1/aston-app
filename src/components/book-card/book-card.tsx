@@ -1,5 +1,6 @@
 import { Button, FavoriteButton } from '@components'
 import { ROUTES } from '@constants'
+import imageNotFound from '../../image/image_not_found.png';
 import { useNavigate } from 'react-router-dom';
 
 type Book = {
@@ -37,7 +38,7 @@ export const BookCard: React.FC<Book> = ({ title, author_name, cover_edition_key
         <div className="border border-gray-300 rounded p-2 text-center">
             <div className="relative">
                 <img
-                    src={`${ROUTES.LIBRARY_COVERS}${cover_edition_key}-M.jpg`}
+                    src={image}
                     alt={title}
                     className="w-full h-120 object-cover mb-2"
                 />

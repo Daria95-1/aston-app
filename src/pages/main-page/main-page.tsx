@@ -16,16 +16,30 @@ export const MainPage: React.FC = () => {
     const currentPage = useAppSelector(selectPage)
     const isLoading = useAppSelector(isBooksLoadingSelector)
     const [value, setValue] = useState<string>('')
+    const [activeFilter, setActiveFilter] = useState<'popular' | 'date' | 'random'>('popular');
+    const [dateDirection, setDateDirection] = useState<'new' | 'old'>('new');
     const dispatch = useAppDispatch()
 
     useEffect(() => {
+        
+        let sort = '';
+        if (activeFilter === 'popular') {
+            sort = 'currently_reading';
+        } else if (activeFilter === 'date') {
+            sort = dateDirection === 'new' ? 'new' : 'old';
+        } else if (activeFilter === 'random') {
+            sort = 'random_1&desc';
+        }
+
+        
         dispatch(
             fetchBooks({
                 page: currentPage,
                 request: value || 'the+lord+of+the+rings',
-            })
+           , sort })
         )
-    }, [dispatch, currentPage, value])
+    }, [dispatch, currentPage, value, activeFilter, dateDirection, numberPages])
+
 
     const handleChangePage = (
         event: React.ChangeEvent<unknown>,
@@ -38,11 +52,26 @@ export const MainPage: React.FC = () => {
         setValue(event.target.value)
     }
 
+    const handleFilterChange = (filter: 'popular' | 'date' | 'random') => {
+        setActiveFilter(filter);
+        if (filter === 'date') {
+            setDateDirection('new');
+        }
+    };
+
+    const handleDateDirection = () => {
+        setDateDirection((date) => (date === 'new' ? 'old' : 'new'));
+    };
+
     return (
         <div className="min-h-screen flex flex-col">
             <div className="p-4 flex-1">
                 <Search handleChangeInput={handleChangeInput} />
-                <Filters />
+                <Filters 
+                    activeFilter={activeFilter}
+                    dateDirection={dateDirection}
+                    onFilterChange={handleFilterChange}
+                    onDateDirection={handleDateDirection}/>
                 <BookCardList />
                 {!isLoading && (
                     <div className="flex justify-center mt-10">

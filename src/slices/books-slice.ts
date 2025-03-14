@@ -39,6 +39,7 @@ type MyKnownError = {
 type UserAttributes = {
     request: string;
     page: number;
+    sort: string;
 };
 
 const STATUS_LOADING: Status = {
@@ -54,9 +55,9 @@ export const fetchBooks = createAsyncThunk<
         rejectValue: MyKnownError;
     }
 >("@books/fetchBooks", async function (attributes, thunkApi) {
-    const { request, page } = attributes;
+    const { request, page, sort } = attributes;
 
-    const response = await fetch(`${ROUTES.LIBRARY}/search.json?q=${request}&page=${page}&limit=${BOOKS_LIMIT}`);
+    const response = await fetch(`${ROUTES.LIBRARY}/search.json?q=${request}&page=${page}&sort=${sort}&limit=${BOOKS_LIMIT}`);
 
     if (!response.ok) {
         return thunkApi.rejectWithValue((await response.json()) as MyKnownError);
