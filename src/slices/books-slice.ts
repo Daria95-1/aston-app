@@ -80,6 +80,9 @@ export const booksSlice = createSlice({
         changePage: (state, action) => {
             state.currentPage = action.payload;
         },
+        resetPage: (state) => {
+            state.currentPage = 1;
+        }
     },
     extraReducers: (builder) => {
         builder.addCase(fetchBooks.pending, (state) => {
@@ -102,7 +105,7 @@ export const booksSlice = createSlice({
 
 export const booksReducer = booksSlice.reducer;
 
-export const { changePage } = booksSlice.actions;
+export const { changePage, resetPage } = booksSlice.actions;
 
 export const selectAllBooks = (state: RootState): Book[] => {
     return (state as { books: State }).books.bookList;
