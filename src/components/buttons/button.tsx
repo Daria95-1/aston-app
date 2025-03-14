@@ -10,7 +10,7 @@ type ButtonProps = {
 } 
 
 export const Button = ({ variant = 'check', isActive = false, children, onClick, className = '', dataFilter, onMouseEnter, onMouseLeave }: ButtonProps) => {
-  const baseClasses = ' hover:text-[#2B8AFF]  rounded-lg border border-transparent transition-colors hover:border-[#2B8AFF] focus:outline-none focus-visible:outline-[4px] focus-visible:outline-[#2B8AFF]';
+  const baseClasses = ' hover:text-[#2B8AFF]  rounded-lg border border-transparent transition-colors hover:border-[#2B8AFF] focus:outline-none focus-visible:outline-[4px] focus-visible:outline-[#2B8AFF] cursor-pointer';
   const variantClasses = {
       check: 'bg-[#2B8AFF] text-white hover:bg-white hover:text-[#2B8AFF] border px-15 py-2 transition-colors focus:outline-none focus-visible:outline-[4px]',
       like: 'text-[#2B8AFF] hover:text-[#2B8AFF] px-4 py-2 bg-white absolute top-1 right-1 text-xl hover:text-2xl border-none',
