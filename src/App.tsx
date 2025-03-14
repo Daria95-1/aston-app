@@ -66,6 +66,10 @@ function App() {
                                 path={ROUTES.MAIN_PAGE}
                                 element={<MainPage />}
                             />
+                            <Route 
+                                path={ROUTES.ITEM_PAGE}
+                                element={<ItemPage />}
+                            />
                             <Route
                                 path={ROUTES.FAVORITES}
                                 element={<Favorites />}
