@@ -12,7 +12,7 @@ import { favoriteTransform } from '@bff/transformers'
 import { getUpdateFavorites, getUserData } from '@bff/api'
 
 export const favoritesMiddleware: Middleware =
-    (store) => (next) => (action) => {
+    (store) => (next) => async (action) => {
         const state = store.getState() as RootState
         const user = state.user as User
         const userId = user.id
@@ -24,52 +24,69 @@ export const favoritesMiddleware: Middleware =
         const userIdString = userId.toString()
 
         if (addToFavorites.match(action)) {
-            const newFavorite = action.payload
-            let filteredFavorites: FavoriteItem[] = []
+            try {
+                // Преобразуем новую книгу в избранное
+                const newFavorite = favoriteTransform(action.payload)
 
-            getUserData(userIdString)
-                .then((userData) => {
-                    filteredFavorites = removeDuplicates([
-                        ...userData.favorites,
-                        favoriteTransform(newFavorite),
-                    ])
-                    return getUpdateFavorites(userIdString, filteredFavorites)
-                })
-                .then(() => {
-                    store.dispatch(setFavorites(filteredFavorites))
-                    return next(action)
-                })
-                .catch((error) => {
-                    console.error('Error adding favorite:', error)
-                })
+                // Получаем данные пользователя с сервера
+                const userData = await getUserData(userIdString)
 
-            return
+                // Проверяем, есть ли уже книга в избранном
+                const exists = userData.favorites.some(
+                    (book: FavoriteItem) =>
+                        book.key.trim().toLowerCase() ===
+                        newFavorite.key.trim().toLowerCase()
+                )
+
+                if (exists) {
+                    console.warn('Книга уже в избранном, не добавляем')
+                    return next(action) // Выходим, если книга уже есть в избранном
+                }
+
+                // Обновляем список избранных книг, удаляя дубликаты
+                const updatedFavorites = removeDuplicates([
+                    ...userData.favorites,
+                    newFavorite,
+                ])
+
+                // Отправляем обновленные данные на сервер
+                await getUpdateFavorites(userIdString, updatedFavorites)
+
+                // Обновляем состояние в Redux
+                store.dispatch(setFavorites(updatedFavorites))
+
+            } catch (error) {
+                console.error('Ошибка при добавлении в избранное:', error)
+            }
+
+            return next(action)
         }
 
         if (deleteFromFavorites.match(action)) {
-            const bookKey = action.payload
-            let updatedFavorites: FavoriteItem[] = []
+            try {
+                const bookKey = action.payload
+                const userData = await getUserData(userIdString)
 
-            getUserData(userIdString)
-                .then((userData) => {
-                    updatedFavorites = removeDuplicates(
-                        userData.favorites
-                            .filter(
-                                (book: FavoriteItem) => book.key !== bookKey
-                            )
-                            .map(favoriteTransform)
-                    )
-                    return getUpdateFavorites(userIdString, updatedFavorites)
-                })
-                .then(() => {
-                    store.dispatch(setFavorites(updatedFavorites))
-                    return next(action)
-                })
-                .catch((error) => {
-                    console.error('Error removing favorite:', error)
-                })
+                // Обновляем список избранных, удаляя книгу
+                const updatedFavorites = userData.favorites.filter(
+                    (book: FavoriteItem) => book.key !== bookKey
+                )
 
-            return
+                await getUpdateFavorites(userIdString, updatedFavorites)
+
+                // Обновляем состояние в Redux
+                store.dispatch(setFavorites(updatedFavorites))
+
+                // Сохраняем обновленный список избранных в sessionStorage
+                sessionStorage.setItem(
+                    'favorites', // или используйте какой-то ключ, если нужно
+                    JSON.stringify(updatedFavorites)
+                )
+            } catch (error) {
+                console.error('Ошибка при удалении из избранного:', error)
+            }
+
+            return next(action)
         }
 
         return next(action)

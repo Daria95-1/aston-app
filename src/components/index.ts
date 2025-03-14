@@ -20,7 +20,5 @@ export * from "./item-content/components/description/description";
 export * from "./item-content/components/tags/tags";
 export * from "./item-content/components/characteristic/characteristic";
 export * from "./modal/modal";
-
-
 export * from './form-container/form-container'
 export * from './error-boundary-wrapper/error-boundary-wrapper'

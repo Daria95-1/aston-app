@@ -5,36 +5,7 @@
       "login": "ivan",
       "password": "qwe123",
       "role_id": 1,
-      "favorites": [
-        {
-          "key": "/works/OL1939708W",
-          "title": "Bored of the Rings",
-          "author_name": [
-            "Henry Beard",
-            "Harvard Lampoon",
-            "Douglas C. Kenney",
-            "Jean Little",
-            "Jim Meskimen"
-          ],
-          "cover_edition_key": "OL7878776M"
-        },
-        {
-          "key": "/works/OL14933438W",
-          "title": "The Lord of the Rings",
-          "author_name": [
-            "Patrick Gardner"
-          ],
-          "cover_edition_key": "OL8821524M"
-        },
-        {
-          "key": "/works/OL27482W",
-          "title": "The Hobbit",
-          "author_name": [
-            "J.R.R. Tolkien"
-          ],
-          "cover_edition_key": "OL51711263M"
-        }
-      ]
+      "favorites": []
     }
   ],
   "roles": [
@@ -49,8 +20,8 @@
   ],
   "sessions": [
     {
-      "id": "268b",
-      "hash": "0.61803736287126964654703442647587507963180541992188",
+      "id": "536a",
+      "hash": "0.93420889612984847616417027893476188182830810546875",
       "user": {
         "id": "111",
         "login": "ivan",

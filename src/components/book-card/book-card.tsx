@@ -1,8 +1,5 @@
 import { Button, FavoriteButton } from '@components'
 import { ROUTES } from '@constants'
-
-
-
 import { useNavigate } from 'react-router-dom';
 
 type Book = {
@@ -14,7 +11,6 @@ type Book = {
     itemKey: string;
     bookId: string
 };
-
 
 export const BookCard: React.FC<Book> = ({ title, author_name, cover_edition_key, itemKey, first_publish_year,  bookId }) => {
     const navigate = useNavigate();

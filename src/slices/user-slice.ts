@@ -1,6 +1,6 @@
 import { RootState } from '../store'
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { ROLE } from '@constants'
+import { ROLE, STORAGE_KEYS } from '@constants'
 
 export type FavoriteItem = {
     key: string
@@ -62,23 +62,37 @@ const userSlice = createSlice({
         },
         addToFavorites: (state, action: PayloadAction<FavoriteItem>) => {
             state.favorites.push(action.payload)
+            sessionStorage.setItem(STORAGE_KEYS.FAVORITES_DATA, JSON.stringify(state.favorites))
         },
         deleteFromFavorites: (state, action: PayloadAction<string>) => {
             state.favorites = state.favorites.filter(
                 (book) => book.key !== action.payload
             )
+            sessionStorage.setItem(
+                STORAGE_KEYS.FAVORITES_DATA,
+                JSON.stringify(state.favorites)
+            )
         },
 
         setFavorites: (state, action: PayloadAction<FavoriteItem[]>) => {
             state.favorites = action.payload
+            sessionStorage.setItem(
+                STORAGE_KEYS.FAVORITES_DATA,
+                JSON.stringify(state.favorites)
+            )
         },
-        
+
         addToHistory: (state, action: PayloadAction<HistoryItem>) => {
-            const existingIndex = state.history.findIndex((item) => item.key === action.payload.key);
+            const existingIndex = state.history.findIndex(
+                (item) => item.key === action.payload.key
+            )
             if (existingIndex === -1) {
-              state.history.unshift(action.payload);
+                state.history.unshift(action.payload)
             }
-          },
+        },
+        setHistory: (state, action: PayloadAction<HistoryItem[]>) => {
+            state.history = action.payload
+        },
     },
 })
 
@@ -89,6 +103,7 @@ export const {
     deleteFromFavorites,
     addToHistory,
     setFavorites,
+    setHistory,
 } = userSlice.actions
 
 export const userReducer = userSlice.reducer
@@ -111,8 +126,13 @@ export const selectUserHistory = (state: RootState): HistoryItem[] => {
     return (state as { user: User }).user.history
 }
 
-
-
-export const isBookFavorite = (bookId: string) => (state: RootState): boolean => {
-    return (state as { user: User }).user.favorites.some((fav: FavoriteItem) => fav.key === bookId);
-};
+export const isBookFavorite =
+    (bookId: string) =>
+    (state: RootState): boolean => {
+        const favorites = (state as { user: User }).user.favorites
+        // Проверяем, что favorites - это массив
+        return (
+            Array.isArray(favorites) &&
+            favorites.some((fav: FavoriteItem) => fav.key === bookId)
+        )
+    }

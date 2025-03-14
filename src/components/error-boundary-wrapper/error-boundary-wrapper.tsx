@@ -1,7 +1,11 @@
 import { ErrorBoundary } from 'react-error-boundary'
 
 const ErrorFallback = () => {
-    return <h2>Произошла ошибка, пожалуйста, попробуйте позже.</h2>
+    return (
+        <div className="absolute inset-0 flex flex-col items-center justify-center">
+            <h2>Произошла ошибка, пожалуйста, попробуйте позже...</h2>
+        </div>
+    )
 }
 
 type ErrorBoundaryWrapperProps = {

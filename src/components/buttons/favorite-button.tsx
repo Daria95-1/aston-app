@@ -1,17 +1,10 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useAppDispatch } from '../../hooks/hooks';
-import { RootState } from '../../store';
 import { Button, Icon, Modal } from '@components';
-import { ROLE } from '@constants';
-import { selectUserRole, isBookFavorite } from '@slices/user-slice'
+import { ROLE, STORAGE_KEYS } from '@constants';
+import { selectUserRole, isBookFavorite, deleteFromFavorites, addToFavorites, selectUserFavorites } from '@slices/user-slice'
 import { Book } from '@slices/books-slice';
-import {
-    selectUserFavorites,
-    deleteFromFavorites,
-    addToFavorites,
-} from '@slices/user-slice'
-
 
 type FavoriteButtonProps = {
     book: Book;
@@ -26,19 +19,28 @@ export const FavoriteButton: React.FC<FavoriteButtonProps> = ({
     const userRole = useSelector(selectUserRole) as ROLE;
     const isUserAuthorized = userRole !== ROLE.GUEST;
     const isFavorite = useSelector(isBookFavorite(book.key));
+    const favorites = useSelector(selectUserFavorites)
+    
     const [isModalOpen, setIsModalOpen] = useState(false);
     const changeIcon = isFavorite ? 'bi-heart-fill' : 'bi-heart';
     const hoverIcon = 'bi-heart-fill';
     const [isHovered, setIsHovered] = useState(false);
+
     const addFavoriteButtonText = isFavorite ? 'Убрать из избранного' : 'Добавить в избранное'
-    
-    
+
+    useEffect(() => {
+        sessionStorage.setItem(
+            STORAGE_KEYS.FAVORITES_DATA,
+            JSON.stringify(favorites)
+        )
+    }, [favorites])
+   
     const addFavorite = async (bookId: string, isFavorite: boolean) => {
         if (isFavorite) {
             dispatch(deleteFromFavorites(bookId))
         } else {
             if (book) {
-                dispatch(addToFavorites(book))
+              dispatch(addToFavorites(book))
             }
         }
     }

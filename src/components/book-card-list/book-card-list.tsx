@@ -1,7 +1,5 @@
-import { useAppDispatch, useAppSelector } from '../../hooks/hooks'
+import { useAppSelector } from '../../hooks/hooks'
 import { selectAllBooks, isBooksLoadingSelector } from '@slices/books-slice'
-import { useEffect } from "react";
-import { fetchBooks } from "@slices/books-slice";
 import { BookCard } from "@components";
 
 
@@ -13,8 +11,7 @@ export const BookCardList: React.FC = () => {
         return <div className="loader"></div>
     }
 
-    return (
-            
+    return (  
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 md:grid-cols-5 gap-4 my-4 mx-auto max-w-[1536px]">
             {booksList.map((book) => {
                 return (

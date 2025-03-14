@@ -1,12 +1,15 @@
 import { EmptyFavorites } from '@pages'
 import { useEffect, useState } from 'react'
 import { BookCard } from '@components'
-import { selectUserFavorites, selectUserRole, setFavorites } from '@slices/user-slice'
+import {
+    selectUserFavorites,
+    selectUserRole,
+    deleteFromFavorites,
+} from '@slices/user-slice'
 import { useSelector, useDispatch } from 'react-redux'
-import { removeBookFromFavorites } from '@bff/operation'
 import { AppDispatch } from '../../store'
 import { useNavigate } from 'react-router-dom'
-import { ROUTES, ROLE, STORAGE_KEYS } from '@constants'
+import { ROUTES, ROLE } from '@constants'
 
 export const Favorites = () => {
     const navigate = useNavigate()
@@ -17,15 +20,6 @@ export const Favorites = () => {
     const [isCheckingAuth, setIsCheckingAuth] = useState(true)
 
     useEffect(() => {
-        const savedFavorites = sessionStorage.getItem(
-            STORAGE_KEYS.FAVOTITES_DATA
-        )
-        if (savedFavorites) {
-            dispatch(setFavorites(JSON.parse(savedFavorites)))
-        }
-    }, [dispatch])
-
-    useEffect(() => {
         if (roleId === ROLE.GUEST) {
             navigate(ROUTES.LOGIN)
         } else {
@@ -34,24 +28,12 @@ export const Favorites = () => {
     }, [roleId, navigate])
 
     const handleDeleteFavoriteClick = (bookId: string): void => {
-        removeBookFromFavorites(dispatch, bookId)
+        dispatch(deleteFromFavorites(bookId))
     }
 
     const getFavoriteClickHandler = (bookId: string) => () => {
         handleDeleteFavoriteClick(bookId)
     }
-
-    // Сохраняем избранное при изменении списка favorites
-    useEffect(() => {
-        if (favorites.length > 0) {
-            sessionStorage.setItem(
-                STORAGE_KEYS.FAVOTITES_DATA,
-                JSON.stringify(favorites)
-            )
-        } else {
-            sessionStorage.removeItem(STORAGE_KEYS.FAVOTITES_DATA) // Убираем, если избранное пустое
-        }
-    }, [favorites])
 
     // Пока не проверили роль — ничего не рендерим
     if (isCheckingAuth) {
