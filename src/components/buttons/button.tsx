@@ -26,7 +26,7 @@ export const Button = ({ variant = 'check', isActive = false, children, onClick,
       onMouseEnter={onMouseEnter} 
       onMouseLeave={onMouseLeave}
       className={`${baseClasses} ${variantClasses} ${className}`}
-          data-filter={dataFilter}
+      data-filter={dataFilter}
     >
       {children}
     </button>

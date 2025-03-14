@@ -36,7 +36,7 @@ export const MainPage: React.FC = () => {
             fetchBooks({
                 page: currentPage,
                 request: value || 'the+lord+of+the+rings',
-           , sort })
+                sort })
         )
     }, [dispatch, currentPage, value, activeFilter, dateDirection, numberPages])
 

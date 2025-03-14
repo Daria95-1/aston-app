@@ -15,6 +15,9 @@ type Book = {
 
 export const BookCard: React.FC<Book> = ({ title, author_name, cover_edition_key, itemKey, first_publish_year,  bookId }) => {
     const navigate = useNavigate();
+    const image = cover_edition_key
+    ? `${ROUTES.LIBRARY_COVERS}${cover_edition_key}-M.jpg`
+    : imageNotFound;
     const bookData = {
         key: bookId,
         title: title,
