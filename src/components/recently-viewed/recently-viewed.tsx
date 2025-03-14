@@ -1,7 +1,6 @@
 import { BookCard } from '@components';
 import { useSelector } from 'react-redux';
 import { selectUserHistory } from '@slices/user-slice'
-// import noItemsImage from "../../image/noItemsImage.png";
 import { Link } from 'react-router-dom'
 import { ROUTES, STORAGE_KEYS } from '@constants'
 import { getFilteredHistory } from './recently-viewed-utils';

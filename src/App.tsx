@@ -13,7 +13,7 @@ import {
     ErrorPage,
     ItemPage,
     History
-} from '@routes/lazy-routes' // lazy + Suspense
+} from '@routes/lazy-routes'
 
 function App() {
     const dispatch = useDispatch()

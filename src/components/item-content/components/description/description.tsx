@@ -22,7 +22,6 @@ export const Description: React.FC<DescriptionProps> = ({ description, maxLength
         
     );
   }
-
   
   const displayText = isAll ? description : `${description.slice(0, maxLength)}...`;
 

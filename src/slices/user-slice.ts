@@ -17,7 +17,6 @@ export type HistoryItem = {
 
 }
 
-// Определяем тип состояния для пользователя
 export type User = {
     id: number | null
     login: string | null
@@ -33,7 +32,6 @@ export type Session = {
     user: User
 }
 
-// Начальное состояние
 const initialState: User = {
     id: null,
     login: null,
@@ -43,7 +41,6 @@ const initialState: User = {
     history: []
 }
 
-// Создание слайса
 const userSlice = createSlice({
     name: 'user',
     initialState,
@@ -59,6 +56,8 @@ const userSlice = createSlice({
             state.login = null
             state.roleId = ROLE.GUEST
             state.session = null
+
+            sessionStorage.removeItem(STORAGE_KEYS.FAVORITES_DATA)
         },
         addToFavorites: (state, action: PayloadAction<FavoriteItem>) => {
             state.favorites.push(action.payload)
@@ -130,7 +129,6 @@ export const isBookFavorite =
     (bookId: string) =>
     (state: RootState): boolean => {
         const favorites = (state as { user: User }).user.favorites
-        // Проверяем, что favorites - это массив
         return (
             Array.isArray(favorites) &&
             favorites.some((fav: FavoriteItem) => fav.key === bookId)
