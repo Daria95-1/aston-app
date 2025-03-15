@@ -28,11 +28,12 @@ export const Description: React.FC<DescriptionProps> = ({ description, maxLength
   return (
       <div>
         <h2 className="text-2xl font-bold mb-2">Описание</h2>
-        <span className="text-14 leading-[1.5]">{displayText}</span>
+        <span className="text-14 leading-[1.5] ">{displayText}</span>
         <Button 
+          key={isAll ? 'hide' : 'show'}
           variant="displayText" 
           onClick={handleAllDescription}
-          className="w-fit"
+          className="w-fit !mt-2"
         >
           {isAll ? 'Скрыть' : 'Показать полностью'}
         </Button>

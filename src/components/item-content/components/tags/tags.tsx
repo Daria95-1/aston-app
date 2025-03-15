@@ -38,6 +38,7 @@ export const Tags: React.FC<TagsProps> = ({ tags = [], maxTags = 5 }) => {
       </div>
       {showButton && (
         <Button
+          key={isAll ? 'hide' : 'show'}
           variant="displayText"
           onClick={handleAllTags}
           className="w-fit mt-2"

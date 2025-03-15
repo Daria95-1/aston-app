@@ -1,7 +1,6 @@
 import  { useEffect } from 'react';
 import { Icon, ItemContent, RecentlyViewed, FavoriteButton } from '@components';
 import { useLocation } from 'react-router-dom';
-import { ROUTES } from '@constants'
 import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
 import { selectBook, fetchOneBook } from "@slices/oneBook-slice";
 import { addBookToHistory } from '@bff/operation'
@@ -16,8 +15,9 @@ export const ItemPage: React.FC = () => {
     key: books.key,
     title: books.title,
     author_name: books.author,
-    cover_edition_key: books.image,
-    first_publish_year: books.year
+    cover_edition_key: books.cover_edition_key,
+    first_publish_year: books.year,
+    image: books.image
   }
 
   const descriptionText =
@@ -38,7 +38,7 @@ export const ItemPage: React.FC = () => {
     <div>
       <div className=" flex flex-col md:flex-row gap-8 mb-16 mt-16 mx-auto max-w-[1536px]">
         <img
-          src={`${ROUTES.LIBRARY_COVERS}${books.image}-M.jpg`}
+          src={books.image}
           alt={book.title}
           className="w-[350px] h-[500px] object-cover object-center"
         />
