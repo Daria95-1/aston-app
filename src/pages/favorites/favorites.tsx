@@ -15,7 +15,6 @@ export const Favorites = () => {
     const navigate = useNavigate()
     const roleId = useSelector(selectUserRole)
     const favorites = useSelector(selectUserFavorites)
-    console.log(favorites)
     const dispatch = useDispatch<AppDispatch>()
     const [isCheckingAuth, setIsCheckingAuth] = useState(true)
 

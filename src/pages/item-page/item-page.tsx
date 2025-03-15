@@ -1,7 +1,6 @@
 import  { useEffect } from 'react';
 import { Icon, ItemContent, RecentlyViewed, FavoriteButton } from '@components';
 import { useLocation } from 'react-router-dom';
-import { ROUTES } from '@constants'
 import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
 import { selectBook, fetchOneBook } from "@slices/oneBook-slice";
 import { addBookToHistory } from '@bff/operation'
@@ -29,7 +28,6 @@ export const ItemPage: React.FC = () => {
 
   useEffect(() => {
     addBookToHistory(dispatch, Item);
-    console.log(Item)
   }, [ dispatch ]);
 
   useEffect(() => {
